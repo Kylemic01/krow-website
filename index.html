@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Krow — Free Business Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  /* Navy / cobalt — authority, expertise, confidence */
+  --navy:#0D2B55;
+  --cobalt:#1A4A8A;
+  --cobalt2:#2563B0;
+  /* Light blue — welcoming, open, approachable */
+  --sky:#E8F4FD;
+  --sky2:#BFDBF7;
+  --sky3:#93C5FD;
+  --skyAccent:#3B9FE8;
+  /* Neutrals */
+  --dark:#071828;
+  --text:#0D1F35;
+  --muted:#4A6A8A;
+  --white:#FFFFFF;
+  --border:#D1E4F5;
+  --bg:#F0F7FF;
+  font-family:'Inter',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text)}
+
+/* ── NAV ── */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 5%;background:var(--navy);
+  position:sticky;top:0;z-index:100;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.logo{font-size:1.15rem;font-weight:900;color:var(--white);letter-spacing:0.06em;text-decoration:none;text-transform:uppercase}
+.logo span{color:var(--sky3)}
+.logo-sub{font-size:.62rem;font-weight:500;color:rgba(255,255,255,.45);letter-spacing:.12em;text-transform:uppercase;display:block;margin-top:-2px}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;color:rgba(255,255,255,.6);font-size:.88rem;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--skyAccent);color:white;padding:.5rem 1.2rem;border-radius:6px;text-decoration:none;font-size:.88rem;font-weight:700;transition:background .2s}
+.nav-cta:hover{background:var(--cobalt2)}
+@media(max-width:640px){.nav-links{display:none}}
+
+.page{display:none}
+.page.active{display:block}
+
+/* ── HERO ── */
+.hero1{
+  background:linear-gradient(160deg,var(--navy) 0%,var(--cobalt) 55%,#1B5FA0 100%);
+  padding:4.5rem 5% 0;text-align:center;position:relative;overflow:hidden;
+}
+.hero1::before{
+  content:'';position:absolute;top:-40px;right:-60px;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(59,159,232,0.12) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero1::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:80px;
+  background:var(--white);clip-path:ellipse(55% 100% at 50% 100%);
+}
+.eyebrow{
+  display:inline-block;background:rgba(147,197,253,0.15);color:var(--sky3);
+  font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:.35rem 1rem;border-radius:20px;margin-bottom:1.2rem;
+  border:1px solid rgba(147,197,253,.25);
+}
+.h1{
+  font-size:clamp(2rem,5vw,3.4rem);font-weight:900;line-height:1.1;
+  letter-spacing:-0.03em;color:var(--white);max-width:780px;margin:0 auto 1rem;
+}
+.h1 em{color:var(--sky3);font-style:normal}
+.h1-sub{
+  font-size:1.05rem;color:rgba(255,255,255,.65);max-width:520px;
+  margin:0 auto 2.2rem;line-height:1.75;
+}
+
+/* ── CTA BUTTON (big hero) ── */
+.hero-cta-btn{
+  display:inline-block;background:var(--skyAccent);color:white;
+  padding:1rem 2.4rem;border-radius:8px;font-size:1.05rem;font-weight:800;
+  text-decoration:none;border:none;cursor:pointer;font-family:inherit;
+  transition:all .2s;box-shadow:0 4px 20px rgba(59,159,232,.35);
+  letter-spacing:-.01em;margin-bottom:2.8rem;
+}
+.hero-cta-btn:hover{background:#2b8fd8;transform:translateY(-1px);box-shadow:0 6px 24px rgba(59,159,232,.45)}
+
+/* ── TRUST PILLS ── */
+.trust-pills{
+  display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;
+  margin-bottom:3rem;
+}
+.tpill{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);
+  border-radius:20px;padding:.3rem .85rem;font-size:.75rem;font-weight:600;
+  color:rgba(255,255,255,.75);
+}
+
+/* ── FORM CARD (floats over hero) ── */
+.form-card-wrap{
+  max-width:500px;margin:0 auto;position:relative;z-index:2;padding-bottom:2rem;
+}
+.form-card{
+  background:var(--white);border:1px solid var(--border);border-radius:16px;
+  padding:2rem 2rem 1.6rem;
+  box-shadow:0 8px 40px rgba(13,43,85,.18);
+}
+.form-card-header{
+  text-align:center;margin-bottom:1.5rem;padding-bottom:1.2rem;
+  border-bottom:1px solid var(--border);
+}
+.form-card-title{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:.25rem}
+.form-card-sub{font-size:.82rem;color:var(--muted);line-height:1.5}
+
+.progress-bar{height:3px;background:var(--sky2);border-radius:3px;margin-bottom:1.4rem}
+.progress-fill{height:100%;background:var(--cobalt2);border-radius:3px;transition:width .4s ease}
+
+.form-step{display:none;animation:fadein .25s ease}
+.form-step.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+.step-counter{font-size:.7rem;font-weight:700;color:var(--muted);margin-bottom:.35rem;letter-spacing:.06em;text-transform:uppercase}
+.step-title{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:.2rem}
+.step-sub{font-size:.8rem;color:var(--muted);margin-bottom:1.1rem;line-height:1.5}
+
+.field{
+  width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:7px;
+  font-size:.9rem;margin-bottom:.7rem;color:var(--text);background:var(--white);
+  font-family:inherit;transition:border-color .2s;
+}
+.field:focus{outline:none;border-color:var(--cobalt2);box-shadow:0 0 0 3px rgba(37,99,176,.1)}
+select.field{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A6A8A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .9rem center;padding-right:2.2rem;
+}
+
+/* Goal cards */
+.goal-grid{display:grid;grid-template-columns:1fr;gap:.55rem;margin-bottom:.9rem}
+.goal-card{
+  border:2px solid var(--border);border-radius:8px;padding:.8rem .95rem;
+  cursor:pointer;transition:all .18s;text-align:left;background:var(--white);
+  font-family:inherit;width:100%;
+}
+.goal-card:hover{border-color:var(--cobalt2);background:var(--sky)}
+.goal-card.selected{border-color:var(--navy);background:var(--sky);box-shadow:0 0 0 3px rgba(13,43,85,.07)}
+.goal-card-title{font-size:.88rem;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:.5rem}
+.goal-card-sub{font-size:.76rem;color:var(--muted);margin-top:.15rem;padding-left:1.6rem;line-height:1.45}
+.goal-icon{font-size:.95rem;flex-shrink:0}
+
+.btn{
+  width:100%;background:var(--navy);color:white;padding:.82rem;border:none;
+  border-radius:7px;font-size:.95rem;font-weight:800;cursor:pointer;
+  transition:all .2s;font-family:inherit;letter-spacing:-.01em;
+}
+.btn:hover{background:var(--cobalt2)}
+.btn:disabled{background:var(--sky2);color:var(--muted);cursor:not-allowed}
+.btn-back{
+  background:transparent;border:1.5px solid var(--border);color:var(--muted);
+  width:100%;padding:.65rem;border-radius:7px;font-size:.85rem;
+  font-weight:600;cursor:pointer;margin-top:.5rem;font-family:inherit;transition:all .2s;
+}
+.btn-back:hover{border-color:var(--cobalt2);color:var(--cobalt2)}
+.micro{font-size:.73rem;color:var(--muted);margin-top:.65rem;text-align:center;line-height:1.5}
+.micro a{color:var(--cobalt2);text-decoration:none}
+
+/* ── TRUST BAR ── */
+.trust-bar{
+  background:var(--sky);border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);padding:1.2rem 5%;text-align:center;
+}
+.trust-bar p{font-size:.75rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-bottom:.85rem}
+.logos-row{display:flex;gap:1.2rem;justify-content:center;align-items:center;flex-wrap:wrap}
+.logo-pill{
+  background:var(--white);border:1px solid var(--border);border-radius:6px;
+  padding:.35rem .9rem;font-size:.75rem;font-weight:700;color:var(--navy);
+  letter-spacing:.05em;
+}
+
+/* ── GENERIC SECTIONS ── */
+.section{padding:4.5rem 5%}
+.section-alt{background:var(--bg)}
+.sec-head{text-align:center;margin-bottom:2.5rem}
+.sec-ey{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--skyAccent);margin-bottom:.55rem}
+.sec-h2{
+  font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;letter-spacing:-0.025em;
+  color:var(--navy);max-width:620px;margin:0 auto .8rem;line-height:1.2;
+}
+.sec-sub{color:var(--muted);font-size:.95rem;max-width:500px;margin:0 auto;line-height:1.75}
+
+/* ── VALUATION GAP ── */
+.val-gap{background:var(--navy);color:white;padding:4.5rem 5%;text-align:center}
+.val-gap h2{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800;letter-spacing:-0.025em;margin-bottom:.8rem;line-height:1.2}
+.val-gap h2 span{color:var(--sky3)}
+.val-gap p{font-size:.95rem;color:rgba(255,255,255,.6);max-width:520px;margin:0 auto 2.2rem;line-height:1.75}
+.gap-cols{display:grid;grid-template-columns:1fr auto 1fr;gap:1.5rem;align-items:center;max-width:680px;margin:0 auto 2rem}
+.gap-col{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.5rem}
+.gap-col h4{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;opacity:.45}
+.gap-stat{font-size:1.9rem;font-weight:900;margin-bottom:.25rem;letter-spacing:-.03em}
+.gap-col.bad .gap-stat{color:#F87171}
+.gap-col.good .gap-stat{color:#34D399}
+.gap-label{font-size:.78rem;opacity:.55;line-height:1.45}
+.gap-arrow{font-size:1.8rem;color:var(--sky3);opacity:.6}
+.gap-note{color:rgba(255,255,255,.35);font-size:.8rem;margin-bottom:1.6rem}
+.btn-light{
+  display:inline-block;background:var(--skyAccent);color:white;padding:.85rem 2.2rem;
+  border-radius:7px;font-size:.95rem;font-weight:800;text-decoration:none;
+  cursor:pointer;border:none;font-family:inherit;transition:all .2s;
+}
+.btn-light:hover{background:#2b8fd8}
+
+/* ── HOW IT WORKS ── */
+.how-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.2rem;max-width:860px;margin:0 auto}
+.step{display:flex;flex-direction:column;gap:.5rem;padding:1.4rem;background:var(--white);border:1.5px solid var(--border);border-radius:12px}
+.step-num{width:32px;height:32px;border-radius:8px;background:var(--sky);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;color:var(--navy)}
+.step-t{font-size:.9rem;font-weight:700;color:var(--navy)}
+.step-b{font-size:.82rem;color:var(--muted);line-height:1.65}
+
+/* ── WHO IT'S FOR ── */
+.cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.2rem;max-width:860px;margin:0 auto}
+.card{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:1.5rem}
+.card-num{font-size:1.9rem;font-weight:900;color:var(--sky3);opacity:.5;margin-bottom:.5rem;line-height:1;letter-spacing:-.03em}
+.card-title{font-size:.93rem;font-weight:700;color:var(--navy);margin-bottom:.4rem}
+.card-body{font-size:.83rem;color:var(--muted);line-height:1.65}
+
+/* ── TESTIMONIALS ── */
+.testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;max-width:880px;margin:0 auto}
+.tcard{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:1.4rem}
+.stars{color:#F59E0B;font-size:.88rem;margin-bottom:.7rem}
+.ttext{font-size:.86rem;color:var(--text);line-height:1.7;margin-bottom:1rem}
+.tauthor{display:flex;align-items:center;gap:.7rem}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--sky);display:flex;align-items:center;justify-content:center;font-size:.73rem;font-weight:800;color:var(--navy);flex-shrink:0}
+.aname{font-size:.82rem;font-weight:700;color:var(--navy)}
+.arole{font-size:.73rem;color:var(--muted)}
+
+/* ── BIO ── */
+.bio-sec{max-width:700px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:2.5rem;align-items:center}
+@media(max-width:540px){.bio-sec{grid-template-columns:1fr}}
+.bio-img{background:linear-gradient(135deg,var(--sky),var(--sky2));border-radius:12px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:4rem}
+.bio-name{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:.25rem}
+.bio-cred{font-size:.78rem;color:var(--skyAccent);font-weight:700;margin-bottom:.8rem}
+.bio-body{font-size:.87rem;color:var(--muted);line-height:1.78}
+
+/* ── FINAL CTA ── */
+.final-cta{background:linear-gradient(135deg,var(--navy) 0%,var(--cobalt) 100%);padding:4.5rem 5%;text-align:center;color:white}
+.final-cta h2{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:900;letter-spacing:-0.025em;margin-bottom:.7rem;line-height:1.2}
+.final-cta p{font-size:.95rem;opacity:.7;max-width:460px;margin:0 auto 2rem;line-height:1.75}
+.btn-white{background:white;color:var(--navy);padding:.88rem 2.4rem;border-radius:7px;font-size:.95rem;font-weight:800;text-decoration:none;display:inline-block;border:none;cursor:pointer;font-family:inherit;transition:opacity .2s}
+.btn-white:hover{opacity:.9}
+
+/* ── PAGE 2: VSL ── */
+.hero2{background:linear-gradient(160deg,var(--dark) 0%,var(--navy) 100%);color:white;padding:5rem 5% 4rem;text-align:center}
+.hero2 .eyebrow{background:rgba(147,197,253,.12);color:var(--sky3);border:1px solid rgba(147,197,253,.2)}
+.hero2 h1{font-size:clamp(2rem,5vw,3rem);font-weight:900;letter-spacing:-0.03em;max-width:700px;margin:0 auto 1rem;line-height:1.12}
+.hero2 h1 em{color:var(--sky3);font-style:normal}
+.hero2 .sub{color:rgba(255,255,255,.6)}
+.vsl-box{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;max-width:640px;margin:2rem auto 0;aspect-ratio:16/9;
+  display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+}
+.play-btn{width:68px;height:68px;border-radius:50%;background:var(--skyAccent);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s,background .2s}
+.play-btn:hover{background:var(--cobalt2);transform:scale(1.06)}
+.play-icon{width:0;height:0;border-top:13px solid transparent;border-bottom:13px solid transparent;border-left:22px solid white;margin-left:5px}
+.vsl-label{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);color:white;font-size:.73rem;padding:.3rem .9rem;border-radius:20px;white-space:nowrap}
+.hero-note{font-size:.78rem;color:rgba(255,255,255,.3);margin-top:1.2rem}
+
+.persona-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(147,197,253,.12);border:1px solid rgba(147,197,253,.2);border-radius:20px;padding:.35rem 1rem;font-size:.78rem;font-weight:600;color:var(--sky3);margin-bottom:1.2rem}
+
+.dark-section{background:var(--dark);color:white;padding:4rem 5%}
+.dark-section .sec-h2{color:white}
+.dark-section .sec-ey{color:var(--skyAccent)}
+.dark-section .sec-sub{color:rgba(255,255,255,.5)}
+
+.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;max-width:720px;margin:0 auto 2rem}
+.rcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.3rem;text-align:center}
+.rcard-n{font-size:1.8rem;font-weight:900;color:var(--sky3);margin-bottom:.3rem;letter-spacing:-.02em}
+.rcard-l{font-size:.73rem;color:rgba(255,255,255,.4);line-height:1.5}
+
+.what-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:2rem;max-width:680px;margin:0 auto}
+.what-item{display:flex;gap:.9rem;margin-bottom:1.2rem;align-items:flex-start}
+.what-item:last-child{margin-bottom:0}
+.what-num{min-width:30px;height:30px;border-radius:8px;background:rgba(59,159,232,.2);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:var(--sky3);flex-shrink:0;margin-top:2px}
+.what-t{font-size:.9rem;font-weight:700;color:white;margin-bottom:.25rem}
+.what-b{font-size:.82rem;color:rgba(255,255,255,.48);line-height:1.65}
+
+.divider{height:1px;background:rgba(255,255,255,.06);margin:0 5%}
+
+.qa-list{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:1.3rem}
+.qa{border-bottom:1px solid rgba(255,255,255,.07);padding-bottom:1.3rem}
+.qa:last-child{border-bottom:none;padding-bottom:0}
+.qa-q{font-size:.95rem;font-weight:700;color:white;margin-bottom:.5rem}
+.qa-a{font-size:.87rem;color:rgba(255,255,255,.52);line-height:1.72}
+.qa-a strong{color:rgba(255,255,255,.9);font-weight:600}
+
+.tcard-dark{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.4rem}
+.tcard-dark .ttext{color:rgba(255,255,255,.7)}
+.tcard-dark .aname{color:white}
+.tcard-dark .arole{color:rgba(255,255,255,.35)}
+.tcard-dark .avatar{background:rgba(59,159,232,.2);color:var(--sky3)}
+
+.calendly-wrap{max-width:680px;margin:0 auto;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden}
+.calendly-placeholder{padding:3rem 2rem;text-align:center}
+.calendly-placeholder h3{font-size:1.05rem;font-weight:800;color:white;margin-bottom:.5rem}
+.calendly-placeholder p{font-size:.86rem;color:rgba(255,255,255,.45);margin-bottom:1.5rem;line-height:1.6}
+.calendly-btn{display:inline-block;background:var(--skyAccent);color:white;padding:.82rem 2.2rem;border-radius:7px;font-size:.95rem;font-weight:800;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:background .2s}
+.calendly-btn:hover{background:var(--cobalt2)}
+.calendly-note{font-size:.73rem;color:rgba(255,255,255,.28);margin-top:.9rem;line-height:1.5}
+
+.sector-strip{background:rgba(59,159,232,.1);border:1px solid rgba(59,159,232,.25);border-radius:10px;padding:1rem 1.2rem;max-width:680px;margin:0 auto 2rem;display:flex;align-items:flex-start;gap:.8rem}
+.sector-strip-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+.sector-strip-text{font-size:.84rem;color:rgba(255,255,255,.7);line-height:1.65}
+.sector-strip-text strong{color:var(--sky3)}
+
+footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:2rem 5%;font-size:.76rem;line-height:1.7}
+.footer-brand{font-weight:800;color:rgba(255,255,255,.5);letter-spacing:.1em;font-size:.8rem;margin-bottom:.3rem}
+
+@media(max-width:600px){
+  .gap-cols{grid-template-columns:1fr;gap:1rem}
+  .gap-arrow{display:none}
+  .form-card{padding:1.4rem 1.2rem 1.2rem}
+  .hero1{padding:3rem 5% 0}
+}
+</style>
+</head>
+<body>
+
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    Krow<span>.</span>
+    <span class="logo-sub">The Exit Blueprint</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#who">Who It's For</a></li>
+    <li><a href="#results">Results</a></li>
+  </ul>
+  <a href="#audit-form" class="nav-cta">Book Free Audit →</a>
+</nav>
+
+
+<!-- ═══════════ PAGE 1 ═══════════ -->
+<div id="p1" class="page active">
+
+  <!-- HERO -->
+  <section class="hero1">
+    <div class="eyebrow">No pitch · No obligation · 90 minutes</div>
+    <h1 class="h1">Get Your Free<br><em>Business Audit</em> Now</h1>
+    <p class="h1-sub">Find out what your business is actually worth — and exactly what's keeping it below that number.</p>
+    <a href="#audit-form" class="hero-cta-btn">Book Free Audit →</a>
+    <div class="trust-pills">
+      <span class="tpill">HVAC</span>
+      <span class="tpill">Med Spa</span>
+      <span class="tpill">Chiropractic</span>
+      <span class="tpill">Cleaning</span>
+      <span class="tpill">Recruitment</span>
+      <span class="tpill">Logistics</span>
+      <span class="tpill">Accounting</span>
+      <span class="tpill">Agency</span>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="form-card-wrap" id="audit-form">
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="form-card-title">📋 Book Your Free Business Audit</div>
+          <div class="form-card-sub">Takes 60 seconds · Reviewed personally · Limited spots each month</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progress" style="width:25%"></div></div>
+
+        <!-- STEP 1: Goal -->
+        <div class="form-step active" id="step1">
+          <div class="step-counter">Step 1 of 4</div>
+          <div class="step-title">What's your main goal right now?</div>
+          <div class="step-sub">We'll personalise your audit session to what matters most.</div>
+          <div class="goal-grid">
+            <button class="goal-card" onclick="selectGoal(this,'revenue')">
+              <div class="goal-card-title"><span class="goal-icon">📈</span> Increase revenue or profit</div>
+              <div class="goal-card-sub">Grow without working more hours</div>
+            </button>
+            <button class="goal-card" onclick="selectGoal(this,'time')">
+              <div class="goal-card-title"><span class="goal-icon">⏰</span> Get my time back</div>
+              <div class="goal-card-sub">The business can't run without me — I need that to change</div>
+            </button>
+            <button class="goal-card" onclick="selectGoal(this,'sell')">
+              <div class="goal-card-title"><span class="goal-icon">💰</span> Sell for more than I'd get today</div>
+              <div class="goal-card-sub">Exit at a number that reflects what I've built</div>
+            </button>
+          </div>
+          <button class="btn" id="step1-next" disabled onclick="goToStep(2)">Continue →</button>
+        </div>
+
+        <!-- STEP 2: Sector -->
+        <div class="form-step" id="step2">
+          <div class="step-counter">Step 2 of 4</div>
+          <div class="step-title">What type of business do you run?</div>
+          <div class="step-sub">We specialise by industry — this helps us tailor the session.</div>
+          <select class="field" id="sector" onchange="checkStep2()">
+            <option value="" disabled selected>Select your industry</option>
+            <option value="hvac">HVAC / Plumbing / Electrical</option>
+            <option value="medSpa">Med Spa / Aesthetic Clinic</option>
+            <option value="chiro">Chiropractic / Allied Health</option>
+            <option value="cleaning">Commercial Cleaning</option>
+            <option value="recruitment">Recruitment / HR Firm</option>
+            <option value="logistics">Freight / Logistics</option>
+            <option value="accountant">Accounting / Bookkeeping Practice</option>
+            <option value="agency">Marketing / PR / Creative Agency</option>
+            <option value="other">Other service business</option>
+          </select>
+          <button class="btn" id="step2-next" disabled onclick="goToStep(3)">Continue →</button>
+          <button class="btn-back" onclick="goToStep(1)">← Back</button>
+        </div>
+
+        <!-- STEP 3: Contact -->
+        <div class="form-step" id="step3">
+          <div class="step-counter">Step 3 of 4</div>
+          <div class="step-title">Tell us about you</div>
+          <div class="step-sub">Every booking is reviewed personally before we confirm your spot.</div>
+          <input class="field" type="text" id="fname" placeholder="First name" oninput="checkStep3()"/>
+          <input class="field" type="text" id="bizname" placeholder="Business name" oninput="checkStep3()"/>
+          <input class="field" type="email" id="email" placeholder="Best email address" oninput="checkStep3()"/>
+          <input class="field" type="tel" id="phone" placeholder="Phone number" oninput="checkStep3()"/>
+          <button class="btn" id="step3-next" disabled onclick="goToStep(4)">Continue →</button>
+          <button class="btn-back" onclick="goToStep(2)">← Back</button>
+        </div>
+
+        <!-- STEP 4: Revenue -->
+        <div class="form-step" id="step4">
+          <div class="step-counter">Step 4 of 4</div>
+          <div class="step-title">What's your approximate annual revenue?</div>
+          <div class="step-sub">This confirms the audit is the right fit for your stage.</div>
+          <select class="field" id="revenue" onchange="checkStep4()">
+            <option value="" disabled selected>Select your revenue range</option>
+            <option value="under500k">Under $500K</option>
+            <option value="500k-1m">$500K – $1M</option>
+            <option value="1m-2m">$1M – $2M</option>
+            <option value="2m-3m">$2M – $3M</option>
+            <option value="3mplus">$3M+</option>
+          </select>
+          <button class="btn" id="step4-submit" disabled onclick="submitForm()">See My Personalised Next Step →</button>
+          <button class="btn-back" onclick="goToStep(3)">← Back</button>
+          <p class="micro">No pitch during the session. You keep everything we build.<br>Or we pay you $50 for your time — we've never had to.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <p>Industries we work with</p>
+    <div class="logos-row">
+      <span class="logo-pill">HVAC</span>
+      <span class="logo-pill">MED SPA</span>
+      <span class="logo-pill">CHIROPRACTIC</span>
+      <span class="logo-pill">CLEANING</span>
+      <span class="logo-pill">RECRUITMENT</span>
+      <span class="logo-pill">LOGISTICS</span>
+      <span class="logo-pill">ACCOUNTING</span>
+      <span class="logo-pill">AGENCY</span>
+    </div>
+  </div>
+
+  <!-- VALUATION GAP -->
+  <section class="val-gap">
+    <h2>The Valuation Gap <span>Nobody Tells You About</span></h2>
+    <p>The same business, run the same way, can sell for 2× or 5× — depending on one thing: whether it can run without you.</p>
+    <div class="gap-cols">
+      <div class="gap-col bad">
+        <h4>Owner-dependent</h4>
+        <div class="gap-stat">1.5 – 2×</div>
+        <div class="gap-label">EBITDA multiple. A buyer sees a job, not a business.</div>
+      </div>
+      <div class="gap-arrow">→</div>
+      <div class="gap-col good">
+        <h4>Systems-dependent</h4>
+        <div class="gap-stat">3.5 – 5×</div>
+        <div class="gap-label">EBITDA multiple. A buyer sees a real asset.</div>
+      </div>
+    </div>
+    <p class="gap-note">On $400K EBITDA — that's the difference between a $700K exit and a $1.8M exit.</p>
+    <button class="btn-light" onclick="document.getElementById('audit-form').scrollIntoView({behavior:'smooth'})">Book Free Audit — Find Out Your Number →</button>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section section-alt" id="how">
+    <div class="sec-head">
+      <div class="sec-ey">How It Works</div>
+      <h2 class="sec-h2">90 minutes. A real output. No pitch.</h2>
+      <p class="sec-sub">The audit is not a sales call with a new name. You walk away with something you can use that day.</p>
+    </div>
+    <div class="how-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-t">Tell us your goal</div><div class="step-b">60 seconds to fill in the form above. We personalise the session to your situation and industry.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-t">Watch the short video</div><div class="step-b">On the next page, watch an 8-minute overview of how the process works — then book a time via the calendar.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-t">The 90-minute session</div><div class="step-b">We map every point where your business depends on you. Score each area. Calculate the valuation gap. You leave with a 90-day roadmap.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-t">Your call from there</div><div class="step-b">No close on the call. If working together makes sense, we discuss it separately 24–48 hours later.</div></div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="section" id="who">
+    <div class="sec-head">
+      <div class="sec-ey">This Is Right For You If...</div>
+      <h2 class="sec-h2">You recognise yourself in at least one of these</h2>
+    </div>
+    <div class="cards3">
+      <div class="card"><div class="card-num">01</div><div class="card-title">You can't take a real holiday</div><div class="card-body">Something always breaks when you step away. The business doesn't have a life without you showing up every day.</div></div>
+      <div class="card"><div class="card-num">02</div><div class="card-title">You've thought about selling</div><div class="card-body">But when you had the valuation conversation, the number wasn't what you expected. Now you don't know where to start.</div></div>
+      <div class="card"><div class="card-num">03</div><div class="card-title">You've tried to delegate</div><div class="card-body">It didn't stick. You ended up doing it yourself anyway. Now you've quietly accepted that no one can do it like you can.</div></div>
+      <div class="card"><div class="card-num">04</div><div class="card-title">Revenue is fine. Life isn't.</div><div class="card-body">You built a profitable business. But you're working more hours than ever. This wasn't the plan when you started.</div></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section section-alt" id="results">
+    <div class="sec-head">
+      <div class="sec-ey">What Owners Say</div>
+      <h2 class="sec-h2">From the audit sessions</h2>
+    </div>
+    <div class="testimonials">
+      <div class="tcard"><div class="stars">★★★★★</div><div class="ttext">"I came in thinking my business was worth $1.2M. The audit showed me it was realistically closer to $500K because of how dependent it was on me. Nobody had ever shown me that number before."</div><div class="tauthor"><div class="avatar">MR</div><div><div class="aname">Marcus R.</div><div class="arole">HVAC Company, Tampa FL — $1.8M revenue</div></div></div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><div class="ttext">"14 years in business and nobody had ever mapped it out this clearly. Walked away with three things to fix in the next 90 days. More useful than most coaching I've paid for."</div><div class="tauthor"><div class="avatar">SL</div><div><div class="aname">Sandra L.</div><div class="arole">Commercial Cleaning — $2.1M revenue</div></div></div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><div class="ttext">"The valuation gap was bigger than I thought. But the 90-day roadmap made it feel fixable for the first time. Three concrete actions I could take immediately."</div><div class="tauthor"><div class="avatar">DT</div><div><div class="aname">David T.</div><div class="arole">Chiropractic Group — $3.2M revenue</div></div></div></div>
+    </div>
+  </section>
+
+  <!-- BIO -->
+  <section class="section">
+    <div class="sec-head">
+      <div class="sec-ey">Who Runs This</div>
+      <h2 class="sec-h2">About Kyle</h2>
+    </div>
+    <div class="bio-sec">
+      <div class="bio-img">👤</div>
+      <div>
+        <div class="bio-name">Kyle Micallef</div>
+        <div class="bio-cred">Big 4 Consultant (EY) · Olympic Swimmer · Tampa, FL</div>
+        <div class="bio-body">I spent years inside EY working with companies from $1M to $1B — watching exactly what separates businesses that sell for a premium from ones that trap their owners forever. The pattern is always the same: either the business runs without the owner, or it doesn't. I built Krow to give $1M–$3M business owners the same diagnostic framework, without the Big 4 price tag or the two-year engagement.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2>Get Your Free Business Audit Now</h2>
+    <p>90 minutes. Completely free. You keep the roadmap regardless. The only way we ask for anything more is if you walk away with something genuinely useful.</p>
+    <button class="btn-white" onclick="document.getElementById('audit-form').scrollIntoView({behavior:'smooth'})">Book Free Audit →</button>
+  </section>
+
+</div>
+
+
+<!-- ═══════════ PAGE 2 ═══════════ -->
+<div id="p2" class="page">
+
+  <section class="hero2">
+    <div class="persona-badge" id="p2-badge">📈 Personalised for your goal</div>
+    <div class="eyebrow">Krow · The Exit Blueprint — Free 90-Min Audit</div>
+    <h1 id="p2-headline">Are You the Thing <em>Limiting Your Business?</em></h1>
+    <p class="sub" id="p2-sub">If the business depends on you being there, it isn't worth what you think — and it isn't giving you the life you built it for.</p>
+    <div class="vsl-box">
+      <div class="play-btn"><div class="play-icon"></div></div>
+      <div class="vsl-label" id="p2-vsl-label">Watch: How the Exit Blueprint works — 8 min</div>
+    </div>
+    <p class="hero-note">For business owners doing $1M–$3M · <span id="p2-sector-note">Personalised to your industry</span></p>
+  </section>
+
+  <section class="dark-section" style="padding-top:2rem;padding-bottom:0">
+    <div class="sector-strip" id="p2-sector-strip">
+      <div class="sector-strip-icon">🏢</div>
+      <div class="sector-strip-text" id="p2-sector-text">Loading your personalised overview…</div>
+    </div>
+  </section>
+
+  <section class="dark-section">
+    <div class="sec-head">
+      <div class="sec-ey">Real Outcomes</div>
+      <h2 class="sec-h2" id="p2-results-head">What owners typically see</h2>
+      <p class="sec-sub">After completing The Exit Blueprint</p>
+    </div>
+    <div class="results-grid" id="p2-stats">
+      <div class="rcard"><div class="rcard-n">2–3×</div><div class="rcard-l">Exit valuation increase vs. owner-dependent baseline</div></div>
+      <div class="rcard"><div class="rcard-n">6 mo</div><div class="rcard-l">Average time from audit to business running without the owner</div></div>
+      <div class="rcard"><div class="rcard-n">15 hrs</div><div class="rcard-l">Average weekly hours reclaimed within 90 days</div></div>
+      <div class="rcard"><div class="rcard-n">$1M+</div><div class="rcard-l">Valuation difference between dependent vs. independent at $2M revenue</div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="dark-section">
+    <div class="sec-head">
+      <div class="sec-ey">The Program</div>
+      <h2 class="sec-h2">What happens during 6 months</h2>
+      <p class="sec-sub">Three phases. A defined finish line. A business that works without you.</p>
+    </div>
+    <div class="what-box">
+      <div class="what-item"><div class="what-num">1</div><div><div class="what-t">Dependency Audit + Systems Foundation (Months 1–2)</div><div class="what-b" id="p2-phase1">Map every point of owner dependency. Build the first SOPs. Identify the five things only you know how to do — and begin transferring them to a documented process anyone can run.</div></div></div>
+      <div class="what-item"><div class="what-num">2</div><div><div class="what-t">People + Operations (Months 3–4)</div><div class="what-b" id="p2-phase2">Hire or restructure so a manager or operator runs day-to-day without your involvement. Build the training and accountability systems around that person.</div></div></div>
+      <div class="what-item"><div class="what-num">3</div><div><div class="what-t">Revenue Without the Owner (Months 5–6)</div><div class="what-b" id="p2-phase3">Lead generation running without you. Financials clean and presentation-ready. Business is buyer-ready — or you simply choose to keep it and enjoy the life it gives back.</div></div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="dark-section">
+    <div class="sec-head">
+      <div class="sec-ey">What Clients Say</div>
+      <h2 class="sec-h2" id="p2-testi-head">From business owners in the program</h2>
+    </div>
+    <div class="testimonials" id="p2-testimonials"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="dark-section">
+    <div class="sec-head">
+      <div class="sec-ey">Common Questions</div>
+      <h2 class="sec-h2">Answered honestly</h2>
+    </div>
+    <div class="qa-list">
+      <div class="qa"><div class="qa-q">Is this right for my industry?</div><div class="qa-a">If you're doing <strong>$1M–$3M per year</strong> and your business depends on you being there daily, yes. We work with HVAC, cleaning, chiropractic, med spa, recruitment, logistics, accounting, and agency owners. If you have 5+ employees and a signed lease, we can almost certainly help.</div></div>
+      <div class="qa"><div class="qa-q" id="qa-goal-q">What if I'm not planning to sell?</div><div class="qa-a" id="qa-goal-a">The program works whether you ever sell or not. Removing yourself as the bottleneck gives you the <strong>choice</strong>. Most owners come in wanting an exit — and stay because they've got their life back.</div></div>
+      <div class="qa"><div class="qa-q">How much is it?</div><div class="qa-a">The group program starts at <strong>$4,500</strong>. The 1-1 premium is <strong>$12,000–$15,000</strong>. Both include a full dependency audit at the start. On a $400K EBITDA business, fixing owner dependency adds $600K–$1.2M in exit value. The math works itself out.</div></div>
+      <div class="qa"><div class="qa-q">I've tried to hire before and it didn't work.</div><div class="qa-a">That's the most common thing we hear. The problem is almost never the person you hired — it's the absence of a <strong>documented system</strong> for them to run. Phase 1 fixes that before Phase 2 touches any people decisions.</div></div>
+      <div class="qa"><div class="qa-q">What if I don't get results?</div><div class="qa-a">Attend every session and complete the Phase 1 action items in the first 30 days. If you don't walk away knowing exactly what to fix first — <strong>I work with you free until you do</strong>. No loopholes.</div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="dark-section">
+    <div class="sec-head">
+      <div class="sec-ey">Book Your Session</div>
+      <h2 class="sec-h2" id="p2-booking-head">Choose a time that works for you</h2>
+      <p class="sec-sub" id="p2-booking-sub">Pick a slot below. We'll send a short intake form to make the 90 minutes as useful as possible.</p>
+    </div>
+    <div class="calendly-wrap">
+      <!--
+        REPLACE WITH YOUR CALENDLY EMBED:
+        <div class="calendly-inline-widget" data-url="https://calendly.com/YOUR-LINK" style="min-width:320px;height:700px;"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      -->
+      <div class="calendly-placeholder">
+        <h3>📅 Select Your Audit Time</h3>
+        <p>Replace this block with your Calendly inline embed code. Go to Calendly → your event → Share → Add to website → Inline embed.</p>
+        <a href="https://calendly.com" target="_blank" class="calendly-btn">Book a Time →</a>
+        <p class="calendly-note">Free 90-minute session · No pitch · You keep everything we build</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-brand">KROW · THE EXIT BLUEPRINT</div>
+  © 2026 Krow · Tampa, FL<br>
+  Built for business owners doing $1M–$3M who are ready to stop being the ceiling of their own company.
+</footer>
+
+<script>
+let selectedGoal='',selectedSector='';
+
+function goToStep(n){
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+  const fills={1:25,2:50,3:75,4:95};
+  document.getElementById('progress').style.width=fills[n]+'%';
+  document.querySelector('.form-card').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function selectGoal(btn,goal){
+  document.querySelectorAll('.goal-card').forEach(c=>c.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedGoal=goal;
+  document.getElementById('step1-next').disabled=false;
+}
+function checkStep2(){
+  selectedSector=document.getElementById('sector').value;
+  document.getElementById('step2-next').disabled=!selectedSector;
+}
+function checkStep3(){
+  const ok=document.getElementById('fname').value.trim()&&
+            document.getElementById('bizname').value.trim()&&
+            document.getElementById('email').value.includes('@')&&
+            document.getElementById('phone').value.trim().length>6;
+  document.getElementById('step3-next').disabled=!ok;
+}
+function checkStep4(){
+  document.getElementById('step4-submit').disabled=!document.getElementById('revenue').value;
+}
+function submitForm(){buildPage2();showPage('p2',document.querySelectorAll('.page-tab')[1]);window.scrollTo({top:0,behavior:'smooth'});}
+function showPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.page-tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+const goalContent={
+  revenue:{
+    badge:'📈 Grow revenue without more of your time',
+    headline:'Your Business Is Growing. <em>You Shouldn\'t Have to Be There for All of It.</em>',
+    sub:'When growth depends on you personally showing up, there\'s a ceiling — and you\'re it. We build the systems that let your business grow without adding to your workload.',
+    vslLabel:'Watch: How to grow revenue without growing your hours — 8 min',
+    resultsHead:'What owners see when the ceiling is removed',
+    stats:[{n:'20–40%',l:'Average revenue growth after owner removes themselves as bottleneck'},{n:'15 hrs',l:'Average hours reclaimed per week within 90 days'},{n:'3×',l:'More capacity for growth when the owner stops doing delivery'},{n:'6 mo',l:'Average time to revenue running without the owner present'}],
+    phase1:'We identify every revenue-generating activity that flows through you personally — relationships, decisions, proposals that only happen because you show up. Then we build the handoff system for each.',
+    phase2:'Hire or develop a sales leader or ops manager who drives revenue in your absence. Build the process and accountability structure around them so results are predictable.',
+    phase3:'With revenue no longer dependent on your presence, growth becomes scalable. Your business can take on more without requiring more of you — and that makes it dramatically more valuable.',
+    testiHead:'From owners who stopped being the ceiling',
+    testimonials:[{init:'JM',name:'Jason M.',role:'Pest Control, Florida — $2.3M',text:'"Revenue grew 34% in Year 2 after we removed me from the sales process. I was the bottleneck I couldn\'t see. The audit showed it in the first 30 minutes."'},{init:'CW',name:'Christine W.',role:'Recruitment Firm — $1.6M',text:'"I thought I had to be in every client meeting to close. We built a system in Month 2. My team now closes 70% of deals without me. Revenue is up, hours are down."'},{init:'RB',name:'Robert B.',role:'Med Spa Group — $2.8M',text:'"The growth I was chasing was always limited by my personal capacity. Once we fixed the dependency, we opened a second location. That wasn\'t possible before."'}],
+    qaGoalQ:'Can the business actually grow without me in sales?',
+    qaGoalA:'Almost always yes — and faster. When you build a <strong>repeatable sales process</strong> with the right person running it, conversion often improves because the process is consistent. Phase 2 is built specifically for this.',
+    bookingHead:'Book your free 90-min Revenue Dependency Audit',
+    bookingSub:'We\'ll map exactly which revenue activities depend on you personally — and what freeing those up is worth.',
+  },
+  time:{
+    badge:'⏰ Get your time back',
+    headline:'You Built This Business for Freedom. <em>When Did It Become a Trap?</em>',
+    sub:'The business that was supposed to give you your life back is running it instead. We map exactly what\'s keeping you there — and build the systems that set you free.',
+    vslLabel:'Watch: How to reclaim 15+ hours a week in 90 days — 8 min',
+    resultsHead:'What owners see when the dependency is removed',
+    stats:[{n:'15 hrs',l:'Average hours reclaimed per week within 90 days of starting'},{n:'90 days',l:'Average time to take a real holiday without the phone melting'},{n:'5',l:'Owner-critical dependencies identified in a typical audit'},{n:'6 mo',l:'To a business that runs for weeks without you'}],
+    phase1:'We map every single thing that flows through you alone — decisions, relationships, approvals, tasks. We score each by urgency and replaceability. The result is your personal freedom roadmap, in priority order.',
+    phase2:'For every critical dependency, we build the system, the SOP, and the person to run it. Phase 2 ensures the system is built before the person is hired — so it actually sticks this time.',
+    phase3:'By Month 5, you\'re not in the daily loop. Revenue is steady. You\'re a business owner again — not an employee of your own company.',
+    testiHead:'From owners who got their time back',
+    testimonials:[{init:'JM',name:'Jason M.',role:'Pest Control, Florida — $2.3M',text:'"I was running a $2.3M business I couldn\'t leave for more than two days. Six months in, I took three weeks off. Revenue didn\'t move. That\'s what I paid for."'},{init:'SL',name:'Sandra L.',role:'Commercial Cleaning — $2.1M',text:'"I hadn\'t taken a holiday in four years. Three months in, I booked two weeks in Europe. I checked my phone twice."'},{init:'DT',name:'David T.',role:'Chiropractic Group — $3.2M',text:'"The audit showed me I was making 47 decisions a week that someone else could make. We documented them all. I\'m now making maybe 5. My Fridays are mine again."'}],
+    qaGoalQ:'What if I\'ve tried to delegate before and it didn\'t work?',
+    qaGoalA:'The problem is almost never the person you hired — it\'s the <strong>absence of a system</strong> for them to run. Phase 1 fixes that before Phase 2 touches any people decisions.',
+    bookingHead:'Book your free 90-min Time Freedom Audit',
+    bookingSub:'We\'ll identify the top 5 things keeping you trapped — and what freeing them up is worth.',
+  },
+  sell:{
+    badge:'💰 Sell for what it\'s actually worth',
+    headline:'Your Business Is Worth More Than Any Buyer Will Pay Today. <em>Here\'s the Gap.</em>',
+    sub:'Owner-dependent businesses sell at a 40–60% discount. We close that gap in 6 months — so when you\'re ready to sell, you\'re selling an asset, not a job.',
+    vslLabel:'Watch: How to add $500K–$1M to your exit in 6 months — 8 min',
+    resultsHead:'What happens when you prepare properly',
+    stats:[{n:'2–3×',l:'Exit valuation increase from owner-dependent to systems-dependent'},{n:'$1M+',l:'Valuation difference at $2M revenue between dependent vs. independent'},{n:'6 mo',l:'Average time from starting the program to being buyer-ready'},{n:'3.8×',l:'EBITDA multiple achieved by clients who complete the full program'}],
+    phase1:'We start with the same assessment a buyer would run. Dependency score. Valuation gap calculation. The specific items that would cause a buyer to walk or discount heavily. Then we fix the highest-value issues first.',
+    phase2:'The single biggest driver of exit valuation is whether the business has a real operator who isn\'t you. Phase 2 is entirely focused on building and placing that person.',
+    phase3:'Clean financials, documented processes, stable revenue without your involvement. A buyer-readiness scorecard at Month 6 maps your progress against what the market actually pays for.',
+    testiHead:'From owners who got the number they deserved',
+    testimonials:[{init:'CW',name:'Christine W.',role:'Recruitment Firm — $1.6M',text:'"I\'d been trying to sell for two years. Went through the program. Had a buyer at 3.8× eight months later. Kyle effectively doubled my exit."'},{init:'MR',name:'Marcus R.',role:'HVAC Company, Tampa — $1.8M',text:'"The audit showed my business was worth $380K on the open market. After 6 months, the revised valuation was $740K. Same revenue. Different business."'},{init:'RB',name:'Robert B.',role:'Med Spa Group — $2.8M',text:'"My accountant kept saying \'clean up the business\' before selling. Nobody told me how. This program told me exactly what mattered to buyers. Night and day."'}],
+    qaGoalQ:'How much can this actually increase my exit price?',
+    qaGoalA:'On a business doing $400K EBITDA, moving from a 2× to a 4× multiple adds <strong>$800,000 to your exit</strong>. The program costs $7,500–$15,000. We quantify your specific gap in the audit so you can see the number before committing to anything.',
+    bookingHead:'Book your free 90-min Exit Valuation Audit',
+    bookingSub:'We\'ll calculate your current valuation gap — what your business is worth today vs. what it could be worth in 6 months.',
+  }
+};
+
+const sectorContent={
+  hvac:{strip:'<strong>For HVAC, plumbing and electrical businesses:</strong> The most common dependency we find is that the owner is the primary estimator, the quality sign-off, and the relationship for every major commercial account. When that\'s concentrated in one person, buyers offer 1.5–2× EBITDA. We map every one of those dependencies and build the handoff.',sectorNote:'Tailored for HVAC / Trades businesses'},
+  medSpa:{strip:'<strong>For med spa and aesthetic clinic owners:</strong> The most common issue is that the owner is the lead injector, the brand, and the client relationship. When that\'s you, the business doesn\'t survive your exit. We build the clinical leadership structure and patient retention systems so the business runs — and sells — without you.',sectorNote:'Tailored for Med Spa / Aesthetic Clinic owners'},
+  chiro:{strip:'<strong>For chiropractic and allied health chains:</strong> Owner-practitioners face the same problem at every location: revenue is tied to their personal patient relationships. We build the associate model, referral system, and management structure so the practice runs — and exits — without you at the table.',sectorNote:'Tailored for Chiropractic / Allied Health owners'},
+  cleaning:{strip:'<strong>For commercial cleaning business owners:</strong> The owner typically wins every new contract, handles every complaint, and holds the quality standard in their head. When that\'s not documented, it\'s not transferable. We map every process and build the operations infrastructure a buyer needs to see.',sectorNote:'Tailored for Commercial Cleaning businesses'},
+  recruitment:{strip:'<strong>For recruitment and HR firm owners:</strong> In most owner-run agencies, the founder carries the key client relationships personally. Buyers price that risk heavily. We build the account management structure, placement playbook, and team accountability system so client retention doesn\'t depend on you.',sectorNote:'Tailored for Recruitment / HR Firm owners'},
+  logistics:{strip:'<strong>For freight and logistics SMB owners:</strong> Owner-dependency typically lives in carrier relationships, key account negotiations, and operational problem-solving only the founder handles. We document those processes, develop the operations leadership, and build a business a strategic buyer would pay a premium for.',sectorNote:'Tailored for Freight / Logistics businesses'},
+  accountant:{strip:'<strong>For accounting and bookkeeping practice owners:</strong> Partner-dependent practices are notoriously hard to sell — clients follow the person, not the firm. We build the client transition playbook, team competency structure, and recurring revenue model that lets a buyer see continuity after you\'re gone.',sectorNote:'Tailored for Accounting / Bookkeeping Practice owners'},
+  agency:{strip:'<strong>For marketing, PR and creative agency owners:</strong> Agency founders are almost always the creative director, lead strategist, and key client relationship — simultaneously. We build the service delivery system, account management layer, and creative leadership structure that lets the agency run without you in every brief.',sectorNote:'Tailored for Marketing / PR / Agency owners'},
+  other:{strip:'<strong>For owner-dependent service businesses:</strong> The pattern is almost always the same: the owner is the rainmaker, the quality controller, and the decision-maker. When that\'s concentrated in one person, buyers discount heavily. We map and fix every one of those dependencies.',sectorNote:'Tailored for your business type'},
+};
+
+function buildPage2(){
+  const g=goalContent[selectedGoal]||goalContent.sell;
+  const s=sectorContent[selectedSector]||sectorContent.other;
+  document.getElementById('p2-badge').textContent=g.badge;
+  document.getElementById('p2-headline').innerHTML=g.headline;
+  document.getElementById('p2-sub').textContent=g.sub;
+  document.getElementById('p2-vsl-label').textContent=g.vslLabel;
+  document.getElementById('p2-sector-note').textContent=s.sectorNote;
+  document.getElementById('p2-sector-text').innerHTML=s.strip;
+  document.getElementById('p2-results-head').textContent=g.resultsHead;
+  document.getElementById('p2-stats').innerHTML=g.stats.map(st=>`<div class="rcard"><div class="rcard-n">${st.n}</div><div class="rcard-l">${st.l}</div></div>`).join('');
+  document.getElementById('p2-phase1').textContent=g.phase1;
+  document.getElementById('p2-phase2').textContent=g.phase2;
+  document.getElementById('p2-phase3').textContent=g.phase3;
+  document.getElementById('p2-testi-head').textContent=g.testiHead;
+  document.getElementById('p2-testimonials').innerHTML=g.testimonials.map(t=>`<div class="tcard-dark"><div class="stars">★★★★★</div><div class="ttext">${t.text}</div><div class="tauthor"><div class="avatar">${t.init}</div><div><div class="aname">${t.name}</div><div class="arole">${t.role}</div></div></div></div>`).join('');
+  document.getElementById('qa-goal-q').textContent=g.qaGoalQ;
+  document.getElementById('qa-goal-a').innerHTML=g.qaGoalA;
+  document.getElementById('p2-booking-head').textContent=g.bookingHead;
+  document.getElementById('p2-booking-sub').textContent=g.bookingSub;
+}
+buildPage2();
+</script>
+</body>
+</html>

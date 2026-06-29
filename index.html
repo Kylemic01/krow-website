@@ -280,13 +280,23 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
 .chip.selected{border-color:var(--navy);background:var(--navy);color:white}
 
 /* RESULTS — findings */
-.findings-wrap{max-width:680px;margin:0 auto}
-.finding-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-left:3px solid var(--skyAccent);border-radius:10px;padding:1.3rem 1.4rem;margin-bottom:.9rem;text-align:left}
-.finding-card.positive{border-left-color:#34D399}
-.finding-tag{display:inline-block;font-size:.64rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sky3);margin-bottom:.45rem}
-.finding-card.positive .finding-tag{color:#34D399}
-.finding-h{font-size:.95rem;font-weight:800;color:white;margin-bottom:.4rem;line-height:1.35}
-.finding-b{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.65}
+.results-card{background:#FAFCFE;border:1px solid rgba(13,43,85,.08);border-top:5px solid var(--cobalt2);border-radius:20px;padding:2.8rem 2.2rem;max-width:760px;margin:0 auto;box-shadow:0 25px 60px rgba(0,0,0,.3);text-align:center}
+.results-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(37,99,176,.1);border:1px solid rgba(37,99,176,.25);border-radius:20px;padding:.4rem 1.1rem;font-size:.76rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--cobalt2);margin-bottom:1.2rem}
+.results-h2{font-size:1.7rem;font-weight:900;color:var(--navy);margin-bottom:.5rem;letter-spacing:-.01em;line-height:1.2}
+.results-sub{color:var(--muted);font-size:.92rem;margin-bottom:1.3rem}
+.findings-wrap{max-width:100%;margin:0 auto;text-align:left}
+.snapshot-chips{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.snapshot-chip{background:var(--sky);border:1px solid var(--border);border-radius:20px;padding:.4rem .95rem;font-size:.74rem;font-weight:700;color:var(--navy);letter-spacing:.02em}
+.finding-card{background:#F2F7FD;border:1px solid rgba(13,43,85,.07);border-left:4px solid var(--cobalt2);border-radius:10px;padding:1.3rem 1.4rem;margin-bottom:.9rem}
+.finding-card.positive{border-left-color:#1F9D6B}
+.finding-tag{display:inline-block;font-size:.64rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--cobalt2);margin-bottom:.45rem}
+.finding-card.positive .finding-tag{color:#1F9D6B}
+.finding-h{font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;line-height:1.35}
+.finding-b{font-size:.85rem;color:var(--muted);line-height:1.65}
+.tip-card{display:flex;gap:1rem;background:#F2F7FD;border:1px solid rgba(13,43,85,.07);border-radius:10px;padding:1.3rem 1.4rem;margin-bottom:.9rem}
+.tip-num{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--navy);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem}
+.tip-h{font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;line-height:1.35}
+.tip-b{font-size:.85rem;color:var(--muted);line-height:1.65}
 </style>
 </head>
 <body>
@@ -895,8 +905,8 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
     <p style="font-size:.78rem;color:rgba(255,255,255,.3);margin-top:1.2rem">For business owners doing $1M–$4M · <span id="p2-sector-note">Personalised to your industry</span></p>
   </section>
 
-  <section class="dark-section" style="padding-top:2rem;padding-bottom:0">
-    <div class="sector-strip" id="p2-sector-strip">
+  <section class="dark-section" style="padding-top:2rem;padding-bottom:0.5rem">
+    <div class="sector-strip" id="p2-sector-strip" style="margin-bottom:0">
       <div class="sector-strip-icon">🏢</div>
       <div class="sector-strip-text" id="p2-sector-text">Loading your personalised overview…</div>
     </div>
@@ -911,16 +921,16 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
     <div class="results-grid" id="p2-stats"></div>
   </section>
 
-  <section class="dark-section" style="padding-top:0">
-    <div class="sec-head">
-      <div class="sec-ey">Your Diagnosis</div>
-      <h2 class="sec-h2" id="p2-findings-head" style="color:white">Based on what you told us</h2>
-      <p class="sec-sub" style="color:rgba(255,255,255,.5)" id="p2-findings-sub">Here's what we found.</p>
+  <section class="dark-section" style="padding-top:3rem;padding-bottom:3.5rem">
+    <div class="results-card">
+      <div class="results-badge">🎯 Your Personalised Results</div>
+      <h2 class="results-h2" id="p2-findings-head">Based on what you told us</h2>
+      <p class="results-sub" id="p2-findings-sub">Here's what we found.</p>
+      <div class="snapshot-chips" id="p2-snapshot"></div>
+      <div class="findings-wrap" id="p2-findings"></div>
     </div>
-    <div class="findings-wrap" id="p2-findings"></div>
   </section>
 
-  <div class="divider"></div>
 
   <section class="dark-section">
     <div class="sec-head">
@@ -935,7 +945,6 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
     </div>
   </section>
 
-  <div class="divider"></div>
 
   <section class="dark-section">
     <div class="sec-head">
@@ -951,7 +960,6 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
     </div>
   </section>
 
-  <div class="divider"></div>
 
   <section class="dark-section">
     <div class="sec-head">
@@ -1292,10 +1300,30 @@ function computeFindings(a){
 }
 
 const basicAuditContent={
-  revenue:["Is there one thing — a guarantee, a bonus, a faster result — that would make your offer genuinely hard to say no to, that isn't there yet?","Could you charge more if this were packaged as a named tier or outcome instead of a generic service?","Are you doing more of whatever's already working, or chasing something new instead?"],
-  time:["Name the specific task stopping you from being gone 30 days — not \"more staff,\" the actual task.","If it's training time: could that be documented or AI-assisted before you hire?","Which decisions does your team wait on you for that could be a fixed rule instead?"],
-  sell:["What % of revenue is recurring? Buyers pay more for the same total revenue if it's predictable.","Could the business run 30 days with zero contact from you? That gap is most of what suppresses your number.","Get one real number from someone who actually buys businesses like yours — most owners are guessing."],
-  health:["Is there one thing that would make your offer genuinely hard to say no to, that isn't there yet?","Could the business run 30 days with zero contact from you? That gap usually predicts the most.","Do you know what % of revenue is recurring vs. one-off? That number alone predicts a lot about cash flow and what the business is worth."]
+  revenue:[
+    {headline:"Install a Recurring Offer",body:"The fastest way to add revenue without finding a single new customer is converting one-time buyers into a standing relationship. Package what you already deliver into a recurring add-on — a maintenance plan, a membership, a scheduled check-in — and price the one-off version slightly higher so the recurring option reads as the smart choice, not a discount. Offer it at the point of sale, not as a separate campaign later. Businesses that do this commonly move recurring revenue from near-zero to 20%+ of total revenue within six months."},
+    {headline:"Test a Price Increase on New Customers Only",body:"If price hasn't moved in over a year, you're almost certainly leaving margin on the table. The lowest-risk way to find out what the market will bear is a 10–15% increase applied only to new customers, while existing customers stay at their current rate. Watch close rate for 60 days before deciding whether to roll it out further — a price increase that doesn't dent close rate is proof it was overdue, not a risk that paid off."},
+    {headline:"Fix Speed-to-Lead Before Anything Else",body:"Contacting a new lead within 5 minutes instead of same-day or next-day is one of the most common — and most fixable — causes of a soft close rate, and it's a process fix, not a sales-skill fix. Route every inquiry to an instant text or call rather than letting it sit in an inbox. This alone commonly recovers 10–20 points of close rate with zero change to your actual pitch."},
+    {headline:"Anchor With a Premium Option First",body:"A flat discount rarely moves the needle the way people expect. Presenting a premium, fully-done-for-you tier first — even one most people won't buy — makes your standard offer look like the obvious, reasonable middle choice by comparison. Add a downsell for genuine price objections instead of discounting outright, and you capture revenue that's currently just walking away."}
+  ],
+  time:[
+    {headline:"Document the One Task Only You Can Do",body:"List everything that currently requires you personally — sales calls, quality sign-off, vendor relationships, pricing decisions — and pick the single task that would do the most damage if you disappeared for a month. Write down exactly how you do it: the steps, the judgment calls, the phrases you use. That document is the entire difference between hiring someone and hiring someone into chaos."},
+    {headline:"Shadow Before You Hand Off",body:"Delegation usually fails not because the wrong person was hired, but because no one watched the process closely enough to copy it first. Before anyone runs a task solo, have them shadow you on 8–10 real instances, then run a few themselves with you watching. That one extra step is usually the difference between a hire that sticks and one that gets the task handed back to you within a month."},
+    {headline:"Replace Yourself in the Sales Conversation First",body:"If you're the only one who closes deals, that's the highest-leverage place to start — it's the task most owners assume can't be trained, but it's one of the most systemizable. Record your own sales calls, turn the structure into a script and checklist, then test someone else running it on your lowest-stakes accounts first before rolling it out everywhere."},
+    {headline:"Replace Daily Check-Ins With a Weekly Number",body:"If you're touching the business every day to confirm it's fine, it doesn't actually run without you — it runs with you checking constantly. Pick the 3–5 numbers that actually tell you something's wrong (margin, close rate, complaints, capacity) and build a 15-minute weekly review around just those instead. It feels uncomfortable at first. It's also the actual mechanism by which owners go from daily involvement to a weekly check-in."}
+  ],
+  sell:[
+    {headline:"Calculate Your Real Valuation Gap",body:"Buyers pay multiples on adjusted earnings, not revenue — and that multiple moves a lot based on how dependent the business is on you personally. The same business can be worth roughly 2x adjusted earnings if it's entirely owner-run, or 4x if it demonstrably runs without you. On a $400K–$600K earnings business, that gap alone is commonly $800K–$1.2M. Get a real number on where you currently sit before doing anything else on this list."},
+    {headline:"Convert One-Off Revenue Into Contracts",body:"Recurring revenue is priced higher by buyers than one-off revenue at the exact same dollar amount, because it's predictable. If most of your revenue resets to zero every month, packaging it into standing contracts or a maintenance plan is usually the single highest-leverage change available before talking to a buyer — it can move the valuation multiple itself, not just monthly cash flow."},
+    {headline:"Prove the Business Runs Without You, in Writing",body:"It's not enough to say the business doesn't need you — a buyer needs to see it. Pick your most owner-dependent process or location and run a real test: someone other than you runs it for 60–90 days, with results tracked against your own benchmark. That data point, not a claim, is what supports your asking price in a negotiation."},
+    {headline:"Get a Real Number From Someone Who Buys Businesses Like Yours",body:"Most owners are guessing at what their business is worth, usually from a revenue multiple they heard secondhand. A broker or buyer who actually transacts in your industry will give you a far more specific number — and tell you which gap above is actually costing you the most. That conversation costs nothing and changes how you prioritize everything else."}
+  ],
+  health:[
+    {headline:"Fix Speed-to-Lead Before Anything Else",body:"Contacting a new lead within 5 minutes instead of same-day or next-day is one of the most common, most fixable causes of a soft close rate. Route every inquiry to an instant text or call rather than letting it sit in an inbox — this alone commonly recovers 10–20 points of close rate."},
+    {headline:"Document the One Task Only You Can Do",body:"List everything that currently requires you personally, and pick the single task that would do the most damage if you disappeared for a month. Writing down exactly how you do it — steps, judgment calls, the phrases you use — is the entire difference between hiring someone and hiring someone into chaos."},
+    {headline:"Calculate Your Real Valuation Gap",body:"The same business can be worth roughly 2x adjusted earnings if it's entirely owner-run, or 4x if it demonstrably runs without you. On a $400K–$600K earnings business, that gap is commonly $800K–$1.2M — worth knowing even if selling isn't on your mind right now."},
+    {headline:"Know What % of Revenue Is Recurring",body:"This single number predicts more about cash flow stability and what your business is worth than almost anything else. If you don't know it offhand, that's the first thing worth finding out."}
+  ]
 };
 
 const goalContent={
@@ -1317,7 +1345,18 @@ const sectorContent={
   other:{strip:'<strong>For owner-dependent service businesses:</strong> The pattern is always the same: the owner is the rainmaker, quality controller, and decision-maker. When that\'s concentrated in one person, buyers discount heavily. We map and fix every dependency.',sectorNote:'Tailored for your business type'}
 };
 
+const revenueLabelMap={under500k:'Under $500K','500k-1m':'$500K–$1M','1m-2m':'$1M–$2M','2m-3m':'$2M–$3M','3m-4m':'$3M–$4M','4mplus':'$4M+'};
+const marginLabelMap={under5:'Margin: Under 5%','5-10':'Margin: 5–10%','10-15':'Margin: 10–15%','15-20':'Margin: 15–20%','20-25':'Margin: 20–25%','25-30':'Margin: 25–30%','30-40':'Margin: 30–40%','40plus':'Margin: 40%+',notsure:'Margin: not sure'};
+const sectorNameMap={hvac:'HVAC / Trades',medSpa:'Med Spa',chiro:'Chiropractic',cleaning:'Commercial Cleaning',recruitment:'Recruitment',logistics:'Logistics',accountant:'Accounting',agency:'Agency',other:'Service Business'};
+const goalNameMap={revenue:'Goal: Increase Revenue',time:'Goal: Get Time Back',sell:'Goal: Sell the Business',health:'Goal: Health Check'};
+
+function renderSnapshotChips(){
+  const chips=[sectorNameMap[answers.sector],revenueLabelMap[answers.revenue],marginLabelMap[answers.margin],goalNameMap[answers.goal]].filter(Boolean);
+  document.getElementById('p2-snapshot').innerHTML=chips.map(c=>`<span class="snapshot-chip">${c}</span>`).join('');
+}
+
 function buildPage2(){
+  renderSnapshotChips();
   const g=goalContent[answers.goal]||goalContent.health;
   const s=sectorContent[answers.sector]||sectorContent.other;
   document.getElementById('p2-badge').textContent=g.badge;
@@ -1350,8 +1389,11 @@ function buildPage2(){
   }else{
     document.getElementById('p2-findings-head').textContent='Where to start';
     document.getElementById('p2-findings-sub').textContent='General guidance based on your goal — go deeper with the full diagnosis any time.';
-    findingsContainer.innerHTML=(basicAuditContent[answers.goal]||basicAuditContent.health).map(b=>`
-      <div class="finding-card"><div class="finding-b">${b}</div></div>`).join('');
+    findingsContainer.innerHTML=(basicAuditContent[answers.goal]||basicAuditContent.health).map((t,i)=>`
+      <div class="tip-card">
+        <div class="tip-num">${i+1}</div>
+        <div><div class="tip-h">${t.headline}</div><div class="tip-b">${t.body}</div></div>
+      </div>`).join('');
   }
 }
 

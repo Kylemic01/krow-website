@@ -189,19 +189,19 @@
     </div>
     <div class="explain-box" id="val-explain"></div>
     <p class="disclaimer">This is a directional estimate based on typical industry multiples, not a formal valuation. Actual value depends on add-backs, local market conditions, assets, and buyer-specific factors. For a precise number, work with a business appraiser or broker.</p>
-    <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="mini-cta">Get Your Free Audit →</a>
+    <a href="/vsl" class="mini-cta">Get Your Free Audit →</a>
   </div>
 
   <div class="cta-banner" id="cta-banner-mid">
     <h4>Want a plan to move this number higher?</h4>
     <p>We'll show you exactly what would push your multiple up — before you sell, or just to grow.</p>
-    <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="mini-cta">Get Your Free Audit →</a>
+    <a href="/vsl" class="mini-cta">Get Your Free Audit →</a>
   </div>
 
   <div class="booking-cta" id="booking-cta">
     <h3>Want help increasing this number?</h3>
     <p>Whether you're planning to sell or just want to grow, book a free strategy session and we'll map exactly what would move your number — and how fast.</p>
-    <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="booking-btn">Get Your Free Audit →</a>
+    <a href="/vsl" class="booking-btn">Get Your Free Audit →</a>
     <div class="booking-note">Free 30–45 minute call · No pressure · You keep the roadmap either way</div>
   </div>
 
@@ -234,6 +234,7 @@
 const WEB3FORMS_ACCESS_KEY = "3f46aea5-82f3-4c90-b64c-dc6e244bb85f";
 
 let calcResult = null;
+let hasSubmittedLead = false; // once true, input changes recalculate live — no second gate, no second submission
 
 function checkForm(){
   const revenue = document.getElementById('revenue').value;
@@ -243,9 +244,20 @@ function checkForm(){
   const involvement = document.getElementById('involvement').value;
   const ok = revenue !== '' && sde !== '' && years !== '' && recurring !== '' && involvement !== '';
   document.getElementById('calc-btn').disabled = !ok;
+
+  // Already have their contact info — just live-update the valuation as they adjust inputs.
+  if(hasSubmittedLead && ok){
+    calculate();
+  }
 }
 
 function goToContactGate(){
+  // Already submitted once — no need to ask again, just recalculate and jump to the result.
+  if(hasSubmittedLead){
+    calculate();
+    document.getElementById('results-card').scrollIntoView({behavior:'smooth', block:'start'});
+    return;
+  }
   const gate = document.getElementById('gate-card');
   gate.classList.add('show');
   gate.scrollIntoView({behavior:'smooth', block:'start'});
@@ -349,7 +361,6 @@ function renderResults(){
   document.getElementById('cta-banner-mid').classList.add('show');
   document.getElementById('booking-cta').classList.add('show');
   document.getElementById('gate-card').classList.remove('show');
-  document.getElementById('results-card').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 /* Contact gate — required before the valuation is revealed */
@@ -424,20 +435,25 @@ function revealValuation(){
   };
 
   calculate(); // computes calcResult and renders the results card
+  document.getElementById('results-card').scrollIntoView({behavior:'smooth', block:'start'});
 
-  sendLeadNotification({
-    name: lead.name,
-    email: lead.email,
-    phone: lead.phone,
-    annual_revenue: fmt(calcResult.revenue),
-    annual_sde: fmt(calcResult.sde),
-    years_in_business: calcResult.years,
-    recurring_revenue_pct: calcResult.recurring + '%',
-    owner_involvement: calcResult.involvement,
-    crews: calcResult.crews || 'not provided',
-    estimated_valuation: fmt(calcResult.valLow) + ' - ' + fmt(calcResult.valHigh),
-    multiple_used: calcResult.finalLow.toFixed(1) + 'x - ' + calcResult.finalHigh.toFixed(1) + 'x'
-  });
+  // Only ever send the notification once per visit — recalculations after this don't re-submit.
+  if(!hasSubmittedLead){
+    hasSubmittedLead = true;
+    sendLeadNotification({
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone,
+      annual_revenue: fmt(calcResult.revenue),
+      annual_sde: fmt(calcResult.sde),
+      years_in_business: calcResult.years,
+      recurring_revenue_pct: calcResult.recurring + '%',
+      owner_involvement: calcResult.involvement,
+      crews: calcResult.crews || 'not provided',
+      estimated_valuation: fmt(calcResult.valLow) + ' - ' + fmt(calcResult.valHigh),
+      multiple_used: calcResult.finalLow.toFixed(1) + 'x - ' + calcResult.finalHigh.toFixed(1) + 'x'
+    });
+  }
 }
 </script>
 

@@ -218,11 +218,8 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .hero2 h1{font-size:clamp(2rem,5vw,3rem);font-weight:900;letter-spacing:-0.03em;max-width:700px;margin:0 auto 1rem;line-height:1.12}
 .hero2 h1 em{color:var(--sky3);font-style:normal}
 .hero2 .sub{color:rgba(255,255,255,.6);max-width:520px;margin:0 auto;font-size:1rem;line-height:1.7}
-.vsl-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;max-width:640px;margin:2rem auto 0;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.play-btn{width:68px;height:68px;border-radius:50%;background:var(--skyAccent);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s,background .2s}
-.play-btn:hover{background:var(--cobalt2);transform:scale(1.06)}
-.play-icon{width:0;height:0;border-top:13px solid transparent;border-bottom:13px solid transparent;border-left:22px solid white;margin-left:5px}
-.vsl-label{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);color:white;font-size:.73rem;padding:.3rem .9rem;border-radius:20px;white-space:nowrap}
+.vid-wrap{width:100%;max-width:660px;margin:2rem auto 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.45)}
+.vid-wrap iframe,.vid-wrap video{display:block;width:100%;height:100%;}
 .persona-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(147,197,253,.12);border:1px solid rgba(147,197,253,.2);border-radius:20px;padding:.35rem 1rem;font-size:.78rem;font-weight:600;color:var(--sky3);margin-bottom:1.2rem}
 .dark-section{background:var(--dark);color:white;padding:4rem 5%}
 .dark-section .sec-h2{color:white}
@@ -908,18 +905,9 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
     <div class="persona-badge" id="p2-badge">🛠️ Want Help Implementing This?</div>
     <h1 id="p2-headline">Watch How We'd Help You <em>Put This Into Action.</em></h1>
     <p class="sub" id="p2-sub">This quick walkthrough shows how the program works — or skip straight to a free call below and we'll talk it through directly.</p>
-    <div id="vidalytics_embed_u8IvGVOH3wFJKqgX" style="width:100%;max-width:640px;margin:2rem auto 0;position:relative;padding-top:56.25%;"></div>
-    <script type="text/javascript">
-    (function (v, i, d, a, l, y, t, c, s) {
-        y='_'+d.toLowerCase();c=d+'L';if(!v[d]){v[d]={};}if(!v[c]){v[c]={};}if(!v[y]){v[y]={};}var vl='Loader',vli=v[y][vl],vsl=v[c][vl + 'Script'],vlf=v[c][vl + 'Loaded'],ve='Embed';
-        if (!vsl){vsl=function(u,cb){
-            if(t){cb();return;}s=i.createElement("script");s.type="text/javascript";s.async=1;s.src=u;
-            if(s.readyState){s.onreadystatechange=function(){if(s.readyState==="loaded"||s.readyState=="complete"){s.onreadystatechange=null;vlf=1;cb();}};}else{s.onload=function(){vlf=1;cb();};}
-            i.getElementsByTagName("head")[0].appendChild(s);
-        };}
-        vsl(l+'loader.min.js',function(){if(!vli){var vlc=v[c][vl];vli=new vlc();}vli.loadScript(l+'player.min.js',function(){var vec=v[d][ve];t=new vec();t.run(a);});});
-    })(window, document, 'Vidalytics', 'vidalytics_embed_u8IvGVOH3wFJKqgX', 'https://fast.vidalytics.com/embeds/ivM5E6gg/u8IvGVOH3wFJKqgX/');
-    </script>
+    <div class="vid-wrap">
+      <div id="vidalytics_embed_u8IvGVOH3wFJKqgX" style="width:100%;position:relative;padding-top:56.25%;"></div>
+    </div>
     <p style="font-size:.78rem;color:rgba(255,255,255,.3);margin-top:1.2rem">For business owners doing $1M–$4M · <span id="p2-sector-note">Personalised to your industry</span></p>
   </section>
 
@@ -1473,6 +1461,22 @@ function submitForm(){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('p2').classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
+  initVidalytics();
+}
+
+let vidalyticsLoaded = false;
+function initVidalytics(){
+  if(vidalyticsLoaded) return;
+  vidalyticsLoaded = true;
+  (function (v, i, d, a, l, y, t, c, s) {
+    y='_'+d.toLowerCase();c=d+'L';if(!v[d]){v[d]={};}if(!v[c]){v[c]={};}if(!v[y]){v[y]={};}var vl='Loader',vli=v[y][vl],vsl=v[c][vl + 'Script'],vlf=v[c][vl + 'Loaded'],ve='Embed';
+    if (!vsl){vsl=function(u,cb){
+        if(t){cb();return;}s=i.createElement("script");s.type="text/javascript";s.async=1;s.src=u;
+        if(s.readyState){s.onreadystatechange=function(){if(s.readyState==="loaded"||s.readyState=="complete"){s.onreadystatechange=null;vlf=1;cb();}};}else{s.onload=function(){vlf=1;cb();};}
+        i.getElementsByTagName("head")[0].appendChild(s);
+    };}
+    vsl(l+'loader.min.js',function(){if(!vli){var vlc=v[c][vl];vli=new vlc();}vli.loadScript(l+'player.min.js',function(){var vec=v[d][ve];t=new vec();t.run(a);});});
+  })(window, document, 'Vidalytics', 'vidalytics_embed_u8IvGVOH3wFJKqgX', 'https://fast.vidalytics.com/embeds/ivM5E6gg/u8IvGVOH3wFJKqgX/');
 }
 
 </script>

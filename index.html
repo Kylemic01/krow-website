@@ -908,10 +908,18 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
     <div class="persona-badge" id="p2-badge">🛠️ Want Help Implementing This?</div>
     <h1 id="p2-headline">Watch How We'd Help You <em>Put This Into Action.</em></h1>
     <p class="sub" id="p2-sub">This quick walkthrough shows how the program works — or skip straight to a free call below and we'll talk it through directly.</p>
-    <div class="vsl-box">
-      <div class="play-btn"><div class="play-icon"></div></div>
-      <div class="vsl-label" id="p2-vsl-label">Watch: How We'd Help You Implement This — 8 min</div>
-    </div>
+    <div id="vidalytics_embed_u8IvGVOH3wFJKqgX" style="width:100%;max-width:640px;margin:2rem auto 0;position:relative;padding-top:56.25%;"></div>
+    <script type="text/javascript">
+    (function (v, i, d, a, l, y, t, c, s) {
+        y='_'+d.toLowerCase();c=d+'L';if(!v[d]){v[d]={};}if(!v[c]){v[c]={};}if(!v[y]){v[y]={};}var vl='Loader',vli=v[y][vl],vsl=v[c][vl + 'Script'],vlf=v[c][vl + 'Loaded'],ve='Embed';
+        if (!vsl){vsl=function(u,cb){
+            if(t){cb();return;}s=i.createElement("script");s.type="text/javascript";s.async=1;s.src=u;
+            if(s.readyState){s.onreadystatechange=function(){if(s.readyState==="loaded"||s.readyState=="complete"){s.onreadystatechange=null;vlf=1;cb();}};}else{s.onload=function(){vlf=1;cb();};}
+            i.getElementsByTagName("head")[0].appendChild(s);
+        };}
+        vsl(l+'loader.min.js',function(){if(!vli){var vlc=v[c][vl];vli=new vlc();}vli.loadScript(l+'player.min.js',function(){var vec=v[d][ve];t=new vec();t.run(a);});});
+    })(window, document, 'Vidalytics', 'vidalytics_embed_u8IvGVOH3wFJKqgX', 'https://fast.vidalytics.com/embeds/ivM5E6gg/u8IvGVOH3wFJKqgX/');
+    </script>
     <p style="font-size:.78rem;color:rgba(255,255,255,.3);margin-top:1.2rem">For business owners doing $1M–$4M · <span id="p2-sector-note">Personalised to your industry</span></p>
   </section>
 
@@ -1362,7 +1370,7 @@ function buildPage2(){
   document.getElementById('p2-badge').textContent=g.badge;
   document.getElementById('p2-headline').innerHTML=g.headline;
   document.getElementById('p2-sub').textContent=g.sub;
-  document.getElementById('p2-vsl-label').textContent=g.vslLabel;
+  // p2-vsl-label removed — Vidalytics embed has no label element to update
   document.getElementById('p2-sector-note').textContent=s.sectorNote;
   document.getElementById('p2-sector-text').innerHTML=s.strip;
   document.getElementById('p2-results-head').textContent=g.resultsHead;

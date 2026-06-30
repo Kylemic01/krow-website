@@ -1,1422 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Krow: Free Business Quiz</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landscaping Business Valuation Calculator — Free Instant Estimate</title>
+<meta name="description" content="Free landscaping business valuation calculator. Get an instant estimated value range based on your SDE, recurring revenue, and owner involvement — grounded in real industry multiples.">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --navy:#0D2B55;--cobalt:#1A4A8A;--cobalt2:#2563B0;
-  --sky:#E8F4FD;--sky2:#BFDBF7;--sky3:#93C5FD;--skyAccent:#3B9FE8;
-  --dark:#071828;--text:#0D1F35;--muted:#4A6A8A;
-  --white:#FFFFFF;--border:#D1E4F5;--bg:#F0F7FF;
-  font-family:'Inter',system-ui,sans-serif;
-}
-html{scroll-behavior:smooth}
-body{background:var(--white);color:var(--text)}
+  :root{
+    --green:#1F7A4D;--green2:#2C9A63;--greenLight:#E8F5EE;
+    --ink:#15291F;--muted:#5A7268;--border:#DCE8E1;--bg:#FAFCFB;--white:#FFFFFF;
+    --warn:#B5651D;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  .wrap{max-width:760px;margin:0 auto;padding:0 1.2rem}
 
-/* NAV */
-nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;background:var(--navy);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.08)}
-.logo{font-size:1.15rem;font-weight:900;color:var(--white);letter-spacing:0.06em;text-decoration:none;text-transform:uppercase;line-height:1.1}
-.logo span{color:var(--sky3)}
-.logo-sub{font-size:.6rem;font-weight:500;color:rgba(255,255,255,.4);letter-spacing:.12em;text-transform:uppercase;display:block}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{text-decoration:none;color:rgba(255,255,255,.6);font-size:.88rem;transition:color .2s}
-.nav-links a:hover{color:var(--white)}
-.nav-cta{background:var(--skyAccent);color:white;padding:.5rem 1.3rem;border-radius:6px;text-decoration:none;font-size:.88rem;font-weight:700;transition:background .2s;white-space:nowrap}
-.nav-cta:hover{background:var(--cobalt2)}
-@media(max-width:640px){.nav-links{display:none}}
+  .utility-bar{background:var(--greenLight);border-bottom:1px solid var(--border);padding:.6rem 0;text-align:center;font-size:.78rem;color:var(--green);font-weight:700;letter-spacing:.02em}
 
-/* PAGES */
-.page{display:none}.page.active{display:block}
+  header{padding:3rem 0 1.5rem;text-align:center}
+  .tool-tag{display:inline-flex;align-items:center;gap:.4rem;background:var(--greenLight);color:var(--green);border:1px solid #C9E6D6;border-radius:20px;padding:.35rem 1rem;font-size:.76rem;font-weight:700;margin-bottom:1.1rem}
+  h1{font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1.18;margin-bottom:.8rem;color:var(--ink)}
+  header .sub{font-size:1rem;color:var(--muted);max-width:520px;margin:0 auto}
+  .trust-line{margin-top:1.1rem;font-size:.78rem;color:var(--muted)}
 
-/* HERO */
-.hero1{background:linear-gradient(160deg,var(--navy) 0%,var(--cobalt) 55%,#1B5FA0 100%);padding:5rem 5% 0;text-align:center;position:relative;overflow:hidden}
-.hero1::before{content:'';position:absolute;top:-40px;right:-60px;width:500px;height:500px;background:radial-gradient(circle,rgba(59,159,232,0.12) 0%,transparent 65%);pointer-events:none}
-.hero1::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:var(--white);clip-path:ellipse(55% 100% at 50% 100%)}
-.eyebrow{display:inline-block;background:rgba(147,197,253,0.15);color:var(--sky3);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem 1rem;border-radius:20px;margin-bottom:1.2rem;border:1px solid rgba(147,197,253,.25)}
-.h1{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:900;line-height:1.08;letter-spacing:-0.035em;color:var(--white);max-width:820px;margin:0 auto 1rem}
-.h1 em{color:var(--sky3);font-style:normal}
-.h1-sub{font-size:1.08rem;color:rgba(255,255,255,.7);max-width:580px;margin:0 auto 2.2rem;line-height:1.75}
-.hero-cta-btn{display:inline-block;background:var(--skyAccent);color:white;padding:1rem 2.6rem;border-radius:8px;font-size:1.05rem;font-weight:800;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 20px rgba(59,159,232,.35);margin-bottom:2.8rem}
-.hero-cta-btn:hover{background:#2b8fd8;transform:translateY(-1px)}
-.trust-pills{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
-.tpill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:.3rem .85rem;font-size:.75rem;font-weight:600;color:rgba(255,255,255,.75)}
+  .card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2rem 1.8rem;box-shadow:0 4px 24px rgba(21,41,31,.05);margin-bottom:1.6rem}
 
-/* FORM CARD */
-.form-card-wrap{max-width:500px;margin:0 auto;position:relative;z-index:2;padding-bottom:2rem}
-.form-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2rem 2rem 1.6rem;box-shadow:0 8px 40px rgba(13,43,85,.18)}
-.form-card-header{text-align:center;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid var(--border)}
-.form-card-title{font-size:1.05rem;font-weight:800;color:var(--navy);margin-bottom:.25rem}
-.form-card-sub{font-size:.8rem;color:var(--muted);line-height:1.5}
-.progress-bar{height:3px;background:var(--sky2);border-radius:3px;margin-bottom:1.4rem}
-.progress-fill{height:100%;background:var(--cobalt2);border-radius:3px;transition:width .4s ease}
-.form-step{display:none;animation:fadein .25s ease}.form-step.active{display:block}
-@keyframes fadein{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-.step-counter{font-size:.7rem;font-weight:700;color:var(--muted);margin-bottom:.35rem;letter-spacing:.06em;text-transform:uppercase}
-.step-title{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:.2rem}
-.step-sub{font-size:.8rem;color:var(--muted);margin-bottom:1.1rem;line-height:1.5}
-.field{width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:7px;font-size:.9rem;margin-bottom:.7rem;color:var(--text);background:var(--white);font-family:inherit;transition:border-color .2s}
-.field.invalid{border-color:#C0392B}
-.field.invalid:focus{border-color:#C0392B;box-shadow:0 0 0 3px rgba(192,57,43,.12)}
-.field-error{display:none;color:#C0392B;font-size:.78rem;margin:-.45rem 0 .75rem 2px;font-weight:600}
-.field-error.show{display:block}
-.field:focus{outline:none;border-color:var(--cobalt2);box-shadow:0 0 0 3px rgba(37,99,176,.1)}
-select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A6A8A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center;padding-right:2.2rem}
-.goal-grid{display:grid;grid-template-columns:1fr;gap:.55rem;margin-bottom:.9rem}
-.goal-card{border:2px solid var(--border);border-radius:8px;padding:.8rem .95rem;cursor:pointer;transition:all .18s;text-align:left;background:var(--white);font-family:inherit;width:100%}
-.goal-card:hover{border-color:var(--cobalt2);background:var(--sky)}
-.goal-card.selected{border-color:var(--navy);background:var(--sky);box-shadow:0 0 0 3px rgba(13,43,85,.07)}
-.goal-card-title{font-size:.88rem;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:.5rem}
-.goal-card-sub{font-size:.76rem;color:var(--muted);margin-top:.15rem;padding-left:1.6rem;line-height:1.45}
-.btn{width:100%;background:var(--navy);color:white;padding:.82rem;border:none;border-radius:7px;font-size:.95rem;font-weight:800;cursor:pointer;transition:all .2s;font-family:inherit}
-.btn:hover{background:var(--cobalt2)}
-.btn:disabled{background:var(--sky2);color:var(--muted);cursor:not-allowed}
-.btn-back{background:transparent;border:1.5px solid var(--border);color:var(--muted);width:100%;padding:.65rem;border-radius:7px;font-size:.85rem;font-weight:600;cursor:pointer;margin-top:.5rem;font-family:inherit;transition:all .2s}
-.btn-back:hover{border-color:var(--cobalt2);color:var(--cobalt2)}
-.micro{font-size:.73rem;color:var(--muted);margin-top:.65rem;text-align:center;line-height:1.5}
+  label{display:block;font-size:.84rem;font-weight:700;color:var(--ink);margin-bottom:.4rem}
+  .hint{font-size:.74rem;color:var(--muted);margin-top:-.25rem;margin-bottom:.5rem}
+  .field-row{margin-bottom:1.3rem}
+  input[type=number],select{width:100%;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.95rem;color:var(--ink);background:var(--white);font-family:inherit;transition:border-color .15s}
+  input[type=number]:focus,select:focus{outline:none;border-color:var(--green2);box-shadow:0 0 0 3px rgba(44,154,99,.12)}
+  .input-prefix{position:relative}
+  .input-prefix span{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.95rem;pointer-events:none}
+  .input-prefix input{padding-left:1.7rem}
+  .input-suffix{position:relative}
+  .input-suffix span{position:absolute;right:.9rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none}
+  .input-suffix input{padding-right:2.2rem}
 
-/* TRUST BAR */
-.trust-bar{background:var(--sky);border-bottom:1px solid var(--border);padding:2.4rem 5% 1.8rem;text-align:center}
-.trust-bar p{font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-bottom:.8rem}
-.logos-row{display:flex;gap:1rem;justify-content:center;align-items:center;flex-wrap:wrap}
-.logo-pill{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:.32rem .85rem;font-size:.73rem;font-weight:700;color:var(--navy);letter-spacing:.04em}
+  .calc-btn{width:100%;background:var(--green);color:white;border:none;padding:.95rem;border-radius:9px;font-size:1rem;font-weight:800;cursor:pointer;font-family:inherit;transition:background .18s}
+  .calc-btn:hover:not(:disabled){background:#185F3C}
+  .calc-btn:disabled{background:#B9C9C0;cursor:not-allowed}
 
-/* STATS BAR */
-.stats-bar{background:var(--navy);padding:3rem 5%}
-.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0}
-.stat-item{text-align:center;padding:1rem;border-right:1px solid rgba(255,255,255,.08)}
-.stat-item:last-child{border-right:none}
-.stat-n{font-size:2.6rem;font-weight:900;color:var(--sky3);letter-spacing:-0.04em;line-height:1;margin-bottom:.35rem}
-.stat-label{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.25rem}
-.stat-desc{font-size:.75rem;color:rgba(255,255,255,.3);line-height:1.5}
-@media(max-width:600px){.stats-inner{grid-template-columns:1fr 1fr}.stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}.stat-item:nth-child(odd){border-right:1px solid rgba(255,255,255,.08)}}
+  /* RESULTS */
+  .results-card{display:none}
+  .results-card.show{display:block}
+  .valuation-range{text-align:center;padding:1.6rem 0 1.2rem}
+  .valuation-label{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:.6rem}
+  .valuation-num{font-size:2.5rem;font-weight:900;color:var(--ink);letter-spacing:-.02em}
+  .valuation-multiple{font-size:.84rem;color:var(--muted);margin-top:.4rem}
+  .explain-box{background:var(--greenLight);border-left:4px solid var(--green2);border-radius:8px;padding:1.1rem 1.3rem;margin:1.2rem 0;font-size:.9rem;color:#1F3A2C;line-height:1.65}
+  .disclaimer{font-size:.74rem;color:var(--muted);text-align:center;margin-top:.6rem;line-height:1.5}
 
-/* GENERIC SECTION */
-.section{padding:5rem 5%}
-.section-alt{background:var(--bg)}
-.section-dark{background:var(--dark)}
-.sec-head{text-align:center;margin-bottom:3rem}
-.sec-ey{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--skyAccent);margin-bottom:.55rem}
-.sec-ey-light{color:rgba(147,197,253,.7)}
-.sec-h2{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;letter-spacing:-0.03em;color:var(--navy);max-width:660px;margin:0 auto .8rem;line-height:1.15}
-.sec-h2-light{color:white}
-.sec-sub{color:var(--muted);font-size:.95rem;max-width:520px;margin:0 auto;line-height:1.75}
-.sec-sub-light{color:rgba(255,255,255,.5)}
+  .lead-gate{border-top:1px solid var(--border);margin-top:1.6rem;padding-top:1.6rem}
+  .lead-gate h3{font-size:1.05rem;font-weight:800;margin-bottom:.3rem}
+  .lead-gate p{font-size:.85rem;color:var(--muted);margin-bottom:1.1rem}
+  .field-error{display:none;color:#B5392E;font-size:.76rem;margin:-.5rem 0 .7rem 2px;font-weight:600}
+  .field-error.show{display:block}
+  .field.invalid{border-color:#B5392E}
 
-/* TRANSFORMATION (before/after) */
-.transform-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:860px;margin:0 auto 2.5rem}
-@media(max-width:600px){.transform-grid{grid-template-columns:1fr}}
-.transform-col{border-radius:14px;padding:2rem}
-.transform-col.before{background:#FFF1F1;border:1.5px solid #FECACA}
-.transform-col.after{background:#F0FDF4;border:1.5px solid #BBF7D0}
-.transform-label{font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.4rem}
-.transform-col.before .transform-label{color:#DC2626}
-.transform-col.after .transform-label{color:#16A34A}
-.transform-dot{width:8px;height:8px;border-radius:50%}
-.transform-col.before .transform-dot{background:#DC2626}
-.transform-col.after .transform-dot{background:#16A34A}
-.transform-item{display:flex;align-items:flex-start;gap:.7rem;margin-bottom:.9rem;font-size:.87rem;line-height:1.6}
-.transform-item:last-child{margin-bottom:0}
-.transform-col.before .transform-item{color:#7F1D1D}
-.transform-col.after .transform-item{color:#14532D}
-.ti-icon{flex-shrink:0;margin-top:2px;font-size:.85rem}
+  .gate-card{display:none}
+  .gate-card.show{display:block}
+  .gate-card h3{font-size:1.2rem;font-weight:800;margin-bottom:.4rem}
+  .gate-card p{font-size:.87rem;color:var(--muted);margin-bottom:1.3rem;line-height:1.6}
+  .gate-card input{width:100%;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.9rem;margin-bottom:.7rem;font-family:inherit}
+  .gate-card input:focus{outline:none;border-color:var(--green2);box-shadow:0 0 0 3px rgba(44,154,99,.12)}
+  .gate-card input.invalid{border-color:#B5392E}
 
-/* CASE STUDIES CAROUSEL */
-.cases-section{background:var(--dark);padding:5rem 5%}
-.cases-scroll-wrap{position:relative;margin-top:2rem}
-.cases-scroll{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:1rem;scrollbar-width:none}
-.cases-scroll::-webkit-scrollbar{display:none}
-.case-card{
-  min-width:340px;max-width:340px;border-radius:14px;padding:0;
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
-  scroll-snap-align:start;overflow:hidden;flex-shrink:0;
-  transition:border-color .2s,transform .2s;cursor:default;
-}
-.case-card:hover{border-color:rgba(59,159,232,.4);transform:translateY(-3px)}
-.case-card-top{padding:1.8rem 1.8rem 1.4rem}
-.case-tag{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sky3);margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem}
-.case-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--sky3);flex-shrink:0}
-.case-h{font-size:1.1rem;font-weight:800;color:white;line-height:1.3;margin-bottom:.7rem;letter-spacing:-0.02em}
-.case-body{font-size:.84rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:1.2rem}
-.case-results{display:flex;gap:1rem;flex-wrap:wrap}
-.case-result{background:rgba(59,159,232,.12);border:1px solid rgba(59,159,232,.2);border-radius:8px;padding:.5rem .8rem;text-align:center}
-.case-result-n{font-size:1.2rem;font-weight:900;color:var(--sky3);letter-spacing:-0.02em;line-height:1}
-.case-result-l{font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.2rem;line-height:1.3}
-.case-card-bottom{background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.07);padding:1.1rem 1.8rem;display:flex;align-items:center;justify-content:space-between}
-.case-industry{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.05em;text-transform:uppercase}
-.case-arrow{font-size:.9rem;color:var(--sky3);opacity:.6}
-.cases-nav{display:flex;gap:.7rem;margin-top:1.5rem;justify-content:flex-end}
-.cases-btn{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:white;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.cases-btn:hover{background:var(--skyAccent);border-color:var(--skyAccent)}
+  .mini-cta{display:block;width:100%;text-align:center;background:var(--green);color:white;padding:.85rem 1.5rem;border-radius:8px;font-weight:800;font-size:.92rem;text-decoration:none;margin-top:1.3rem;transition:background .18s}
+  .mini-cta:hover{background:#185F3C}
 
-/* HOW IT WORKS */
-.how-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;max-width:900px;margin:0 auto}
-.step{padding:1.6rem;background:var(--white);border:1.5px solid var(--border);border-radius:14px;position:relative}
-.step-num{width:36px;height:36px;border-radius:9px;background:var(--sky);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:900;color:var(--navy);margin-bottom:.9rem}
-.step-t{font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:.4rem}
-.step-b{font-size:.82rem;color:var(--muted);line-height:1.65}
+  .cta-banner{display:none;background:var(--greenLight);border:1px solid #C9E6D6;border-radius:14px;padding:1.7rem 1.6rem;text-align:center;margin-bottom:1.6rem}
+  .cta-banner.show{display:block}
+  .cta-banner h4{font-size:1.08rem;font-weight:800;margin-bottom:.4rem;color:var(--ink)}
+  .cta-banner p{font-size:.85rem;color:var(--muted);margin-bottom:1.1rem}
+  .cta-banner .mini-cta{display:inline-block;width:auto;padding:.8rem 1.8rem;margin-top:0}
 
-/* WHO ITS FOR */
-.symptoms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:900px;margin:0 auto 2.5rem}
-.symptom{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:1.4rem;display:flex;gap:.9rem;align-items:flex-start}
-.symptom-icon{font-size:1.3rem;flex-shrink:0;margin-top:1px}
-.symptom-t{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.3rem}
-.symptom-b{font-size:.8rem;color:var(--muted);line-height:1.6}
+  .booking-cta{display:none;text-align:center;background:linear-gradient(135deg,#15291F,#1F3A2C);border-radius:14px;padding:2.2rem 1.8rem;color:white}
+  .booking-cta.show{display:block}
+  .booking-cta h3{font-size:1.3rem;font-weight:800;margin-bottom:.5rem}
+  .booking-cta p{font-size:.88rem;color:rgba(255,255,255,.65);max-width:440px;margin:0 auto 1.4rem;line-height:1.6}
+  .booking-btn{display:inline-block;background:var(--green2);color:white;padding:.85rem 2.2rem;border-radius:8px;font-weight:800;font-size:.95rem;text-decoration:none;transition:background .18s}
+  .booking-btn:hover{background:#36AF73}
+  .booking-note{font-size:.74rem;color:rgba(255,255,255,.4);margin-top:1rem}
 
-/* TESTIMONIALS */
-.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;max-width:920px;margin:0 auto}
-.tcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.6rem;transition:border-color .2s}
-.tcard:hover{border-color:rgba(59,159,232,.3)}
-.stars{color:#F59E0B;font-size:.88rem;margin-bottom:.8rem}
-.ttext{font-size:.87rem;color:rgba(255,255,255,.72);line-height:1.72;margin-bottom:1.2rem}
-.tauthor{display:flex;align-items:center;gap:.75rem}
-.avatar{width:38px;height:38px;border-radius:50%;background:rgba(59,159,232,.2);display:flex;align-items:center;justify-content:center;font-size:.73rem;font-weight:800;color:var(--sky3);flex-shrink:0}
-.aname{font-size:.83rem;font-weight:700;color:white}
-.arole{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:1px}
-.result-badge{display:inline-block;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.25);border-radius:6px;padding:.2rem .55rem;font-size:.68rem;font-weight:700;color:#34D399;margin-top:.4rem}
+  /* METHODOLOGY */
+  .method-section{margin-top:2.5rem}
+  .method-section h2{font-size:1.25rem;font-weight:800;margin-bottom:.9rem}
+  .method-section p{font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem}
+  .method-table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.84rem}
+  .method-table th{text-align:left;padding:.6rem .5rem;border-bottom:2px solid var(--border);color:var(--muted);font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.03em}
+  .method-table td{padding:.7rem .5rem;border-bottom:1px solid var(--border)}
+  .method-table td.mult{font-weight:800;color:var(--green)}
 
-/* VAL GAP */
-.val-gap{background:var(--navy);padding:5rem 5%;text-align:center}
-.val-gap h2{font-size:clamp(1.7rem,4vw,2.4rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:.8rem;color:white;line-height:1.15}
-.val-gap h2 span{color:var(--sky3)}
-.val-gap p{font-size:.95rem;color:rgba(255,255,255,.6);max-width:520px;margin:0 auto 2.5rem;line-height:1.75}
-.gap-cols{display:grid;grid-template-columns:1fr auto 1fr;gap:1.5rem;align-items:center;max-width:680px;margin:0 auto 1.5rem}
-@media(max-width:600px){.gap-cols{grid-template-columns:1fr}.gap-arrow{display:none}}
-.gap-col{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:1.6rem}
-.gap-col h4{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.9rem;color:rgba(255,255,255,.45)}
-.gap-stat{font-size:2rem;font-weight:900;margin-bottom:.25rem;letter-spacing:-.03em}
-.gap-col.bad .gap-stat{color:#F87171}
-.gap-col.good .gap-stat{color:#34D399}
-.gap-label{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.45}
-.gap-arrow{font-size:1.8rem;color:rgba(255,255,255,.4)}
-.gap-note{color:rgba(255,255,255,.55);font-size:.85rem;margin-bottom:2rem}
+  footer{text-align:center;padding:2.5rem 1rem 3rem;font-size:.76rem;color:var(--muted)}
+  footer a{color:var(--green);text-decoration:none;font-weight:600}
 
-/* CTA SECTION */
-.cta-section{background:linear-gradient(135deg,var(--navy) 0%,var(--cobalt) 100%);padding:5.5rem 5%;text-align:center}
-.cta-section h2{font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:900;letter-spacing:-0.03em;color:white;margin-bottom:.8rem;line-height:1.12}
-.cta-section h2 em{color:var(--sky3);font-style:normal}
-.cta-section p{font-size:1rem;color:rgba(255,255,255,.65);max-width:480px;margin:0 auto 2rem;line-height:1.75}
-.btn-cta-big{display:inline-block;background:var(--skyAccent);color:white;padding:1.1rem 3rem;border-radius:8px;font-size:1.05rem;font-weight:800;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 24px rgba(59,159,232,.35)}
-.btn-cta-big:hover{background:#2b8fd8;transform:translateY(-1px)}
-.cta-micro{font-size:.78rem;color:rgba(255,255,255,.3);margin-top:1rem}
-
-/* INLINE CTA STRIP */
-.cta-strip{background:var(--sky);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem 5%;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
-.cta-strip-text h4{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:.2rem}
-.cta-strip-text p{font-size:.85rem;color:var(--muted)}
-.btn-strip{background:var(--navy);color:white;padding:.7rem 1.6rem;border-radius:7px;font-size:.9rem;font-weight:800;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:background .2s;white-space:nowrap}
-.btn-strip:hover{background:var(--cobalt2)}
-
-/* PAGE 2 */
-.hero2{background:linear-gradient(160deg,var(--dark) 0%,var(--navy) 100%);color:white;padding:5rem 5% 4rem;text-align:center}
-.hero2 .eyebrow{background:rgba(147,197,253,.12);color:var(--sky3);border:1px solid rgba(147,197,253,.2)}
-.hero2 h1{font-size:clamp(2rem,5vw,3rem);font-weight:900;letter-spacing:-0.03em;max-width:700px;margin:0 auto 1rem;line-height:1.12}
-.hero2 h1 em{color:var(--sky3);font-style:normal}
-.hero2 .sub{color:rgba(255,255,255,.6);max-width:520px;margin:0 auto;font-size:1rem;line-height:1.7}
-.vsl-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;max-width:640px;margin:2rem auto 0;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.play-btn{width:68px;height:68px;border-radius:50%;background:var(--skyAccent);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s,background .2s}
-.play-btn:hover{background:var(--cobalt2);transform:scale(1.06)}
-.play-icon{width:0;height:0;border-top:13px solid transparent;border-bottom:13px solid transparent;border-left:22px solid white;margin-left:5px}
-.vsl-label{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);color:white;font-size:.73rem;padding:.3rem .9rem;border-radius:20px;white-space:nowrap}
-.persona-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(147,197,253,.12);border:1px solid rgba(147,197,253,.2);border-radius:20px;padding:.35rem 1rem;font-size:.78rem;font-weight:600;color:var(--sky3);margin-bottom:1.2rem}
-.dark-section{background:var(--dark);color:white;padding:4rem 5%}
-.dark-section .sec-h2{color:white}
-.dark-section .sec-ey{color:var(--skyAccent)}
-.dark-section .sec-sub{color:rgba(255,255,255,.5)}
-.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;max-width:720px;margin:0 auto 2rem}
-.rcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.3rem;text-align:center}
-.rcard-n{font-size:1.8rem;font-weight:900;color:var(--sky3);margin-bottom:.3rem;letter-spacing:-.02em}
-.rcard-l{font-size:.73rem;color:rgba(255,255,255,.4);line-height:1.5}
-.what-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:2rem;max-width:680px;margin:0 auto}
-.what-item{display:flex;gap:.9rem;margin-bottom:1.2rem;align-items:flex-start}
-.what-item:last-child{margin-bottom:0}
-.what-num{min-width:30px;height:30px;border-radius:8px;background:rgba(59,159,232,.2);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:var(--sky3);flex-shrink:0;margin-top:2px}
-.what-t{font-size:.9rem;font-weight:700;color:white;margin-bottom:.25rem}
-.what-b{font-size:.82rem;color:rgba(255,255,255,.48);line-height:1.65}
-.divider{height:1px;background:rgba(255,255,255,.06);margin:0 5%}
-.qa-list{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:1.3rem}
-.qa{border-bottom:1px solid rgba(255,255,255,.07);padding-bottom:1.3rem}
-.qa:last-child{border-bottom:none;padding-bottom:0}
-.qa-q{font-size:.95rem;font-weight:700;color:white;margin-bottom:.5rem}
-.qa-a{font-size:.87rem;color:rgba(255,255,255,.52);line-height:1.72}
-.qa-a strong{color:rgba(255,255,255,.9);font-weight:600}
-.tcard-dark{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.4rem}
-.tcard-dark .ttext{color:rgba(255,255,255,.7)}
-.tcard-dark .aname{color:white}
-.tcard-dark .arole{color:rgba(255,255,255,.35)}
-.tcard-dark .avatar{background:rgba(59,159,232,.2);color:var(--sky3)}
-.calendly-wrap{max-width:680px;margin:0 auto;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden}
-.calendly-placeholder{padding:3rem 2rem;text-align:center}
-.calendly-placeholder h3{font-size:1.05rem;font-weight:800;color:white;margin-bottom:.5rem}
-.calendly-placeholder p{font-size:.86rem;color:rgba(255,255,255,.45);margin-bottom:1.5rem;line-height:1.6}
-.calendly-btn{display:inline-block;background:var(--skyAccent);color:white;padding:.82rem 2.2rem;border-radius:7px;font-size:.95rem;font-weight:800;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:background .2s}
-.calendly-btn:hover{background:var(--cobalt2)}
-.calendly-note{font-size:.73rem;color:rgba(255,255,255,.28);margin-top:.9rem;line-height:1.5}
-.sector-strip{background:rgba(59,159,232,.1);border:1px solid rgba(59,159,232,.25);border-radius:10px;padding:1rem 1.2rem;max-width:680px;margin:0 auto 2rem;display:flex;align-items:flex-start;gap:.8rem}
-.sector-strip-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
-.sector-strip-text{font-size:.84rem;color:rgba(255,255,255,.7);line-height:1.65}
-.sector-strip-text strong{color:var(--sky3)}
-
-footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:2rem 5%;font-size:.76rem;line-height:1.7}
-.footer-brand{font-weight:800;color:rgba(255,255,255,.5);letter-spacing:.1em;font-size:.8rem;margin-bottom:.3rem}
-
-/* QUIZ — new question types */
-.yn-row{display:flex;gap:.6rem;margin-bottom:.9rem}
-.yn-btn{flex:1;border:2px solid var(--border);border-radius:8px;padding:.75rem;text-align:center;font-weight:700;font-size:.86rem;color:var(--navy);background:white;cursor:pointer;font-family:inherit;transition:all .18s}
-.yn-btn:hover{border-color:var(--cobalt2);background:var(--sky)}
-.yn-btn.selected{border-color:var(--navy);background:var(--sky);box-shadow:0 0 0 3px rgba(13,43,85,.07)}
-.slider-wrap{margin-bottom:1.1rem}
-.slider-val{text-align:center;font-size:1.7rem;font-weight:900;color:var(--navy);margin-bottom:.3rem}
-.slider-wrap input[type=range]{width:100%;accent-color:var(--cobalt2)}
-.slider-labels{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:.3rem}
-.chip-grid{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1rem}
-.chip{border:2px solid var(--border);border-radius:20px;padding:.55rem 1.1rem;font-size:.82rem;font-weight:600;color:var(--navy);background:white;cursor:pointer;font-family:inherit;transition:all .18s}
-.chip:hover{border-color:var(--cobalt2)}
-.chip.selected{border-color:var(--navy);background:var(--navy);color:white}
-
-/* RESULTS — findings */
-.results-card{background:#FAFCFE;border:1px solid rgba(13,43,85,.08);border-top:5px solid var(--cobalt2);border-radius:20px;padding:2.8rem 2.2rem;max-width:760px;margin:0 auto;box-shadow:0 25px 60px rgba(0,0,0,.3);text-align:center}
-.results-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(37,99,176,.1);border:1px solid rgba(37,99,176,.25);border-radius:20px;padding:.4rem 1.1rem;font-size:.76rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--cobalt2);margin-bottom:1.2rem}
-.results-h2{font-size:1.7rem;font-weight:900;color:var(--navy);margin-bottom:.5rem;letter-spacing:-.01em;line-height:1.2}
-.results-sub{color:var(--muted);font-size:.92rem;margin-bottom:1.3rem}
-.findings-wrap{max-width:100%;margin:0 auto;text-align:left}
-.snapshot-chips{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
-.snapshot-chip{background:var(--sky);border:1px solid var(--border);border-radius:20px;padding:.4rem .95rem;font-size:.74rem;font-weight:700;color:var(--navy);letter-spacing:.02em}
-.finding-card{background:#F2F7FD;border:1px solid rgba(13,43,85,.07);border-left:4px solid var(--cobalt2);border-radius:10px;padding:1.3rem 1.4rem;margin-bottom:.9rem}
-.finding-card.positive{border-left-color:#1F9D6B}
-.finding-tag{display:inline-block;font-size:.64rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--cobalt2);margin-bottom:.45rem}
-.finding-card.positive .finding-tag{color:#1F9D6B}
-.finding-h{font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;line-height:1.35}
-.finding-b{font-size:.85rem;color:var(--muted);line-height:1.65}
-.tip-card{display:flex;gap:1rem;background:#F2F7FD;border:1px solid rgba(13,43,85,.07);border-radius:10px;padding:1.3rem 1.4rem;margin-bottom:.9rem}
-.tip-num{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--navy);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem}
-.tip-h{font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;line-height:1.35}
-.tip-b{font-size:.85rem;color:var(--muted);line-height:1.65}
+  @media(max-width:560px){
+    h1{font-size:1.6rem}
+    .valuation-num{font-size:2rem}
+    .card{padding:1.5rem 1.2rem}
+  }
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="#" class="logo">Krow<span>.</span><span class="logo-sub">The Exit Blueprint</span></a>
-  <ul class="nav-links">
-    <li><a href="#how">How It Works</a></li>
-    <li><a href="#transformations">Results</a></li>
-    <li><a href="#testimonials">Clients</a></li>
-  </ul>
-  <a href="#audit-form" class="nav-cta">Take the Free Quiz →</a>
-</nav>
+<div class="utility-bar">🌿 Free Tool · Takes about 90 seconds</div>
 
-<!-- ═══ PAGE 1 ═══ -->
-<div id="p1" class="page active">
+<header class="wrap">
+  <div class="tool-tag">📊 2-Minute Estimate</div>
+  <h1>What's Your Landscaping Business Actually Worth?</h1>
+  <p class="sub">Answer six quick questions and get an instant, real-world estimate — grounded in actual landscaping industry sale data, not a guess.</p>
+  <p class="trust-line">Based on real SDE multiples from landscaping business sales · Takes about 90 seconds</p>
+</header>
 
-  <!-- HERO -->
-  <section class="hero1">
-    <div class="eyebrow">For Business Owners Doing $1M – $4M</div>
-    <h1 class="h1">Take the Free Quiz.<br><em>Find Out What's Actually Holding You Back.</em></h1>
-    <p class="h1-sub">You built a profitable business. But you're still making every decision, handling every problem, and can't step away for a week without it breaking. Take our free quiz and we'll show you exactly what's keeping you stuck — and what to fix first.</p>
-    <a href="#audit-form" class="hero-cta-btn">Take the Free Quiz →</a>
-    <div class="trust-pills">
-      <span class="tpill">HVAC</span><span class="tpill">Med Spa</span><span class="tpill">Chiropractic</span>
-      <span class="tpill">Cleaning</span><span class="tpill">Recruitment</span><span class="tpill">Logistics</span>
-      <span class="tpill">Accounting</span><span class="tpill">Agency</span>
+<div class="wrap">
+
+  <div class="card" id="calc-card">
+    <div class="field-row">
+      <label for="revenue">Annual revenue</label>
+      <div class="input-prefix"><span>$</span><input type="number" id="revenue" min="0" placeholder="850,000" oninput="checkForm()"></div>
     </div>
-    <div class="form-card-wrap" id="audit-form">
-      <div class="form-card">
-        <div class="form-card-header">
-          <div class="form-card-title">🔍 Free Quiz: Find Your Biggest Opportunity</div>
-          <div class="form-card-sub">Takes 5–10 minutes · Get your results instantly · Completely free</div>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" id="progress" style="width:25%"></div></div>
-        <div class="form-step active" id="step1">
-          <div class="step-counter">Quick context</div>
-          <div class="step-title">What's your main goal right now?</div>
-          <div class="step-sub">We'll personalise your results to what matters most.</div>
-          <div class="goal-grid">
-            <button class="goal-card" onclick="selectGoal(this,'revenue')">
-              <div class="goal-card-title"><span>📈</span> Increase revenue or profit</div>
-              <div class="goal-card-sub">Grow without working more hours</div>
-            </button>
-            <button class="goal-card" onclick="selectGoal(this,'time')">
-              <div class="goal-card-title"><span>⏰</span> Get my time back</div>
-              <div class="goal-card-sub">The business can't run without me. I need that to change</div>
-            </button>
-            <button class="goal-card" onclick="selectGoal(this,'sell')">
-              <div class="goal-card-title"><span>💰</span> Sell for more than I'd get today</div>
-              <div class="goal-card-sub">Exit at a number that reflects what I've built</div>
-            </button>
-            <button class="goal-card" onclick="selectGoal(this,'health')">
-              <div class="goal-card-title"><span>🩺</span> Just want a health check</div>
-              <div class="goal-card-sub">See where things stand, no specific agenda yet</div>
-            </button>
-          </div>
-          <button class="btn" id="step1-next" disabled onclick="showStep('step2')">Continue →</button>
-        </div>
-        <div class="form-step" id="step2">
-          <div class="step-counter">Quick context</div>
-          <div class="step-title">What type of business do you run?</div>
-          <div class="step-sub">We specialise by industry. This helps us tailor your results.</div>
-          <select class="field" id="sector" onchange="checkStep2()">
-            <option value="" disabled selected>Select your industry</option>
-            <option value="hvac">HVAC / Plumbing / Electrical</option>
-            <option value="medSpa">Med Spa / Aesthetic Clinic</option>
-            <option value="chiro">Chiropractic / Allied Health</option>
-            <option value="cleaning">Commercial Cleaning</option>
-            <option value="recruitment">Recruitment / HR Firm</option>
-            <option value="logistics">Freight / Logistics</option>
-            <option value="accountant">Accounting / Bookkeeping Practice</option>
-            <option value="agency">Marketing / PR / Creative Agency</option>
-            <option value="other">Other service business</option>
-          </select>
-          <button class="btn" id="step2-next" disabled onclick="showStep('stepRevenue')">Continue →</button>
-          <button class="btn-back" onclick="showStep('step1')">← Back</button>
-        </div>
-        <div class="form-step" id="stepRevenue">
-          <div class="step-counter">Quick context</div>
-          <div class="step-title">What's your approximate annual revenue?</div>
-          <div class="step-sub">This helps us calibrate the quiz to your stage.</div>
-          <select class="field" id="revenue" onchange="checkRevenue()">
-            <option value="" disabled selected>Select your revenue range</option>
-            <option value="under500k">Under $500K</option>
-            <option value="500k-1m">$500K – $1M</option>
-            <option value="1m-2m">$1M – $2M</option>
-            <option value="2m-3m">$2M – $3M</option>
-            <option value="3m-4m">$3M – $4M</option>
-            <option value="4mplus">$4M+</option>
-          </select>
-          <button class="btn" id="revenue-next" disabled onclick="showStep('stepMargin')">Continue →</button>
-          <button class="btn-back" onclick="showStep('step2')">← Back</button>
-        </div>
-        <div class="form-step" id="stepMargin">
-          <div class="step-counter">Quick context</div>
-          <div class="step-title">What's your net profit margin?</div>
-          <div class="step-sub">Roughly is fine — this just helps us calibrate the advice.</div>
-          <select class="field" id="margin" onchange="checkMargin()">
-            <option value="" disabled selected>Select your margin</option>
-            <option value="under5">Under 5%</option>
-            <option value="5-10">5% – 10%</option>
-            <option value="10-15">10% – 15%</option>
-            <option value="15-20">15% – 20%</option>
-            <option value="20-25">20% – 25%</option>
-            <option value="25-30">25% – 30%</option>
-            <option value="30-40">30% – 40%</option>
-            <option value="40plus">40%+</option>
-            <option value="notsure">Not sure</option>
-          </select>
-          <button class="btn" id="margin-next" disabled onclick="showStep('stepFork')">Continue →</button>
-          <button class="btn-back" onclick="showStep('stepRevenue')">← Back</button>
-        </div>
-        <div class="form-step" id="stepFork">
-          <div class="step-counter">You're set up</div>
-          <div class="step-title">Want the full picture?</div>
-          <div class="step-sub">Keep going for your personalised diagnosis — about 2 more minutes, and we'll tell you exactly which 1–4 things to fix first.</div>
-          <div class="goal-grid">
-            <button class="goal-card" onclick="chooseFull()">
-              <div class="goal-card-title"><span>🔍</span> Continue to my Full Diagnosis</div>
-              <div class="goal-card-sub">Recommended — specific findings, not general advice</div>
-            </button>
-            <button class="goal-card" onclick="chooseBasic()">
-              <div class="goal-card-title"><span>⚡</span> Get my Basic Business Audit</div>
-              <div class="goal-card-sub">Quicker — general guidance based on what you've told us so far</div>
-            </button>
-          </div>
-          <button class="btn-back" onclick="showStep('stepMargin')">← Back</button>
-        </div>
 
-        <!-- OFFER & PRICING -->
-        <div class="form-step" id="stepOfferA">
-          <div class="step-counter">Offer & pricing</div>
-          <div class="step-title">Ticket price & close rate</div>
-          <div class="step-sub">Two quick numbers.</div>
-          <input class="field" type="number" min="0" id="ticket" placeholder="Average ticket price ($)" oninput="checkOfferA()"/>
-          <input class="field" type="number" min="0" max="100" id="closeRate" placeholder="Close rate on sales conversations (%)" oninput="checkOfferA()"/>
-          <button class="btn" id="offerA-next" disabled onclick="showStep('stepOfferB')">Continue →</button>
-          <button class="btn-back" onclick="showStep('stepFork')">← Back</button>
-        </div>
-        <div class="form-step" id="stepOfferB">
-          <div class="step-counter">Offer & pricing</div>
-          <div class="step-title">Pricing & speed to lead</div>
-          <select class="field" id="priceChange" onchange="checkOfferB()">
-            <option value="" disabled selected>How long since you last raised prices?</option>
-            <option value="lt1">Less than 1 month</option>
-            <option value="1to3">1–3 months</option>
-            <option value="3to12">3–12 months</option>
-            <option value="1to2y">1–2 years</option>
-            <option value="2yplus">2+ years</option>
-            <option value="never">Never</option>
-          </select>
-          <select class="field" id="contactSpeed" onchange="checkOfferB()">
-            <option value="" disabled selected>Average time to first contact a new lead</option>
-            <option value="instant">Instant / within 5 min</option>
-            <option value="1hr">Within 1 hour</option>
-            <option value="sameday">Same day</option>
-            <option value="nextday">Next day or later</option>
-          </select>
-          <button class="btn" id="offerB-next" disabled onclick="goOfferC()">Continue →</button>
-          <button class="btn-back" onclick="showStep('stepOfferA')">← Back</button>
-        </div>
-        <div class="form-step" id="stepOfferC">
-          <div class="step-counter">Offer & pricing</div>
-          <div class="step-title">Sales & systems</div>
-          <div class="step-sub">Does anyone besides you run sales conversations?</div>
-          <div class="yn-row">
-            <button class="yn-btn" onclick="setChoice('otherCloser',true,this);checkOfferC()">Yes</button>
-            <button class="yn-btn" onclick="setChoice('otherCloser',false,this);checkOfferC()">No</button>
-          </div>
-          <div id="vslQuestion" style="display:none">
-            <div class="step-sub">Do you have a VSL (video) prospects watch before talking to sales?</div>
-            <div class="yn-row">
-              <button class="yn-btn" onclick="setChoice('hasVSL',true,this);checkOfferC()">Yes</button>
-              <button class="yn-btn" onclick="setChoice('hasVSL',false,this);checkOfferC()">No</button>
-            </div>
-          </div>
-          <div class="step-sub">Which of these do you currently have? (Select all that apply)</div>
-          <div class="chip-grid">
-            <button class="chip" onclick="toggleChip('systems','upsell',this)">Upsell / bundle</button>
-            <button class="chip" onclick="toggleChip('systems','recurring',this)">Recurring package</button>
-            <button class="chip" onclick="toggleChip('systems','downsell',this)">Downsell</button>
-          </div>
-          <button class="btn" id="offerC-next" disabled onclick="showStep('stepGrowthA')">Continue →</button>
-          <button class="btn-back" onclick="showStep('stepOfferB')">← Back</button>
-        </div>
-
-        <!-- GROWTH ENGINE -->
-        <div class="form-step" id="stepGrowthA">
-          <div class="step-counter">Growth engine</div>
-          <div class="step-title">Leads & attribution</div>
-          <input class="field" type="number" min="0" id="leads" placeholder="New leads/inquiries in an average month" oninput="checkGrowthA()"/>
-          <div class="step-sub">How confident are you that you know where each new customer actually comes from?</div>
-          <div class="slider-wrap">
-            <div class="slider-val" id="attributionVal">5</div>
-            <input type="range" min="1" max="10" value="5" id="attribution" oninput="document.getElementById('attributionVal').textContent=this.value;checkGrowthA()"/>
-            <div class="slider-labels"><span>1 — guessing</span><span>10 — certain</span></div>
-          </div>
-          <button class="btn" id="growthA-next" disabled onclick="showStep('stepGrowthB')">Continue →</button>
-          <button class="btn-back" onclick="showStep('stepOfferC')">← Back</button>
-        </div>
-        <div class="form-step" id="stepGrowthB">
-          <div class="step-counter">Growth engine</div>
-          <div class="step-title">Which single channel brings you the most customers?</div>
-          <div class="goal-grid">
-            <button class="goal-card chan-card" onclick="selectChannel(this,'referral')"><div class="goal-card-title">Referral</div></button>
-            <button class="goal-card chan-card" onclick="selectChannel(this,'paid')"><div class="goal-card-title">Paid ads</div></button>
-            <button class="goal-card chan-card" onclick="selectChannel(this,'organic')"><div class="goal-card-title">Organic social</div></button>
-            <button class="goal-card chan-card" onclick="selectChannel(this,'seo')"><div class="goal-card-title">SEO</div></button>
-            <button class="goal-card chan-card" onclick="selectChannel(this,'partnerships')"><div class="goal-card-title">Partnerships</div></button>
-            <button class="goal-card chan-card" onclick="selectChannel(this,'other')"><div class="goal-card-title">Other</div></button>
-          </div>
-          <button class="btn" id="growthB-next" disabled onclick="goGrowthC()">Continue →</button>
-          <button class="btn-back" onclick="showStep('stepGrowthA')">← Back</button>
-        </div>
-        <div class="form-step" id="stepGrowthC">
-          <div class="step-counter">Growth engine</div>
-          <div class="step-title">Channel performance</div>
-          <div id="roiQuestion" style="display:none">
-            <div class="step-sub">What's your ROI on that channel?</div>
-            <select class="field" id="channelROI" onchange="checkGrowthC()">
-              <option value="" disabled selected>Select one</option>
-              <option value="losing">Losing money</option>
-              <option value="breakeven">Breakeven</option>
-              <option value="1-2x">1–2x</option>
-              <option value="3xplus">3x+</option>
-              <option value="notsure">Not sure</option>
-            </select>
-          </div>
-          <div id="referralQuestion" style="display:none">
-            <input class="field" type="number" min="0" max="100" id="referralPct" placeholder="Roughly what % of your business comes from referrals?" oninput="checkGrowthC()"/>
-          </div>
-          <div class="step-sub">Over the last 6 months, has lead volume from that channel been...</div>
-          <div class="yn-row">
-            <button class="yn-btn" onclick="setChoice('volumeTrend','up',this);checkGrowthC()">Up</button>
-            <button class="yn-btn" onclick="setChoice('volumeTrend','flat',this);checkGrowthC()">Flat</button>
-            <button class="yn-btn" onclick="setChoice('volumeTrend','down',this);checkGrowthC()">Down</button>
-          </div>
-          <button class="btn" id="growthC-next" disabled onclick="showStep('stepCapA')">Continue →</button>
-          <button class="btn-back" onclick="showStep('stepGrowthB')">← Back</button>
-        </div>
-
-        <!-- CAPACITY -->
-        <div class="form-step" id="stepCapA">
-          <div class="step-counter">Capacity</div>
-          <div class="step-title">Can you handle more?</div>
-          <div class="step-sub">If demand doubled tomorrow, could your team deliver it at the same quality?</div>
-          <div class="yn-row">
-            <button class="yn-btn" onclick="setChoice('canDouble',true,this);checkCapA()">Yes</button>
-            <button class="yn-btn" onclick="setChoice('canDouble',false,this);checkCapA()">No</button>
-          </div>
-          <div class="step-sub">Have you ever handed off a task to someone and had to take it back?</div>
-          <div class="yn-row">
-            <button class="yn-btn" onclick="setChoice('delegationFailed',true,this);checkCapA()">Yes</button>
-            <button class="yn-btn" onclick="setChoice('delegationFailed',false,this);checkCapA()">No</button>
-          </div>
-          <button class="btn" id="capA-next" disabled onclick="showStep('stepCapB')">Continue →</button>
-          <button class="btn-back" onclick="showStep('stepGrowthC')">← Back</button>
-        </div>
-        <div class="form-step" id="stepCapB">
-          <div class="step-counter">Capacity</div>
-          <div class="step-title">Documentation & hours</div>
-          <div class="step-sub">Is your delivery/fulfillment process written down anywhere a new hire could follow?</div>
-          <div class="yn-row">
-            <button class="yn-btn" onclick="setChoice('documented',true,this);checkCapB()">Yes</button>
-            <button class="yn-btn" onclick="setChoice('documented',false,this);checkCapB()">No</button>
-          </div>
-          <input class="field" type="number" min="0" max="100" id="pctHoursOnlyYou" placeholder="% of weekly hours that genuinely require only you" oninput="checkCapB()"/>
-          <button class="btn" id="capB-next" disabled onclick="showStep('stepRetA')">Continue →</button>
-          <button class="btn-back" onclick="showStep('stepCapA')">← Back</button>
-        </div>
-
-        <!-- RETENTION -->
-        <div class="form-step" id="stepRetA">
-          <div class="step-counter">Retention</div>
-          <div class="step-title">Repeat customers</div>
-          <div class="step-sub">Do you know your repeat-customer rate?</div>
-          <div class="yn-row">
-            <button class="yn-btn" onclick="setChoice('knowsRepeat',true,this);revealRepeatPct()">Yes</button>
-            <button class="yn-btn" onclick="setChoice('knowsRepeat',false,this);revealRepeatPct()">No</button>
-          </div>
-          <div id="repeatPctWrap" style="display:none">
-            <input class="field" type="number" min="0" max="100" id="repeatPct" placeholder="% of last year's customers who bought again" oninput="checkRetA()"/>
-          </div>
-          <button class="btn" id="retA-next" disabled onclick="showStep('stepRetB')">Continue →</button>
-          <button class="btn-back" onclick="showStep('stepCapB')">← Back</button>
-        </div>
-        <div class="form-step" id="stepRetB">
-          <div class="step-counter">Retention</div>
-          <div class="step-title">Recurring revenue</div>
-          <input class="field" type="number" min="0" max="100" id="recurringPct" placeholder="% of total revenue that's recurring/contracted vs. one-off" oninput="checkRetB()"/>
-          <button class="btn" id="retB-next" disabled onclick="showStep('stepContact')">Continue →</button>
-          <button class="btn-back" onclick="showStep('stepRetA')">← Back</button>
-        </div>
-
-        <!-- CONTACT GATE (both paths land here) -->
-        <div class="form-step" id="stepContact">
-          <div class="step-counter">Last step</div>
-          <div class="step-title">Where should we send this?</div>
-          <div class="step-sub">We'll email your full results, and someone will give you a quick call to walk through it.</div>
-          <input class="field" type="text" id="fullname" placeholder="Full name" oninput="checkContact()"/>
-          <div class="field-error" id="fullname-error">Please enter your first and last name</div>
-          <input class="field" type="text" id="bizname" placeholder="Business name" oninput="checkContact()"/>
-          <input class="field" type="email" id="email" placeholder="Business email address" oninput="checkContact()"/>
-          <div class="field-error" id="email-error">Please use your business email address, not a personal one</div>
-          <input class="field" type="tel" id="phone" placeholder="Phone number" oninput="checkContact()"/>
-          <div class="field-error" id="phone-error">Enter a valid phone number</div>
-          <button class="btn" id="contact-submit" disabled onclick="submitForm()">See My Results →</button>
-          <button class="btn-back" onclick="showStep(answers.path==='basic' ? 'stepFork' : 'stepRetB')">← Back</button>
-          <p class="micro">Free. You keep everything from the call. Limited spots each month.</p>
-        </div>
-      </div>
+    <div class="field-row">
+      <label for="sde">Annual net profit (owner's discretionary earnings)</label>
+      <div class="hint">What you personally take home before taxes — salary, draws, and profit combined.</div>
+      <div class="input-prefix"><span>$</span><input type="number" id="sde" min="0" placeholder="180,000" oninput="checkForm()"></div>
     </div>
-  </section>
 
-  <!-- TRUST BAR -->
-  <div class="trust-bar" style="margin-top:1.5rem">
-    <p>Industries we work with</p>
-    <div class="logos-row">
-      <span class="logo-pill">HVAC</span><span class="logo-pill">MED SPA</span><span class="logo-pill">CHIROPRACTIC</span>
-      <span class="logo-pill">CLEANING</span><span class="logo-pill">RECRUITMENT</span>
-      <span class="logo-pill">LOGISTICS</span><span class="logo-pill">ACCOUNTING</span><span class="logo-pill">AGENCY</span>
+    <div class="field-row">
+      <label for="years">Years in business</label>
+      <select id="years" onchange="checkForm()">
+        <option value="" disabled selected>Select one</option>
+        <option value="lt2">Less than 2 years</option>
+        <option value="2to5">2–5 years</option>
+        <option value="5to10">5–10 years</option>
+        <option value="10plus">10+ years</option>
+      </select>
     </div>
+
+    <div class="field-row">
+      <label for="recurring">Recurring revenue %</label>
+      <div class="hint">Maintenance contracts and standing agreements, vs. one-off jobs and projects.</div>
+      <div class="input-suffix"><input type="number" id="recurring" min="0" max="100" placeholder="40" oninput="checkForm()"><span>%</span></div>
+    </div>
+
+    <div class="field-row">
+      <label for="involvement">How much does the business depend on you personally?</label>
+      <select id="involvement" onchange="checkForm()">
+        <option value="" disabled selected>Select one</option>
+        <option value="full_independent">Runs fully without me — I could step away a month with no issue</option>
+        <option value="mostly_independent">Mostly runs without me — I check in occasionally</option>
+        <option value="regular_involvement">Needs me regularly — I'm involved most weeks</option>
+        <option value="fully_dependent">Depends entirely on me — nothing happens without me</option>
+      </select>
+    </div>
+
+    <div class="field-row">
+      <label for="crews">Number of employees / crews <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+      <select id="crews" onchange="checkForm()">
+        <option value="">Prefer not to say</option>
+        <option value="solo">Just me</option>
+        <option value="small">2–4</option>
+        <option value="mid">5–9</option>
+        <option value="large">10+</option>
+      </select>
+    </div>
+
+    <button class="calc-btn" id="calc-btn" disabled onclick="goToContactGate()">Continue →</button>
   </div>
 
-  <!-- STATS BAR -->
-  <div class="stats-bar">
-    <div class="stats-inner">
-      <div class="stat-item">
-        <div class="stat-n">2–3×</div>
-        <div class="stat-label">Valuation uplift</div>
-        <div class="stat-desc">Average exit multiple increase after completing the program</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-n">15 hrs</div>
-        <div class="stat-label">Time reclaimed</div>
-        <div class="stat-desc">Average weekly hours owners get back within 90 days</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-n">6 mo</div>
-        <div class="stat-label">To freedom</div>
-        <div class="stat-desc">Average time from audit to business running without you</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-n">$1M+</div>
-        <div class="stat-label">Value created</div>
-        <div class="stat-desc">Typical valuation gap closed at the $2M revenue mark</div>
-      </div>
-    </div>
+  <div class="card gate-card" id="gate-card">
+    <h3>One last step — enter your details to see your valuation</h3>
+    <p>We'll show you your number right after this, and email you a copy. No spam — just your result.</p>
+    <input type="text" id="fullname" placeholder="Full name" oninput="checkGate()">
+    <div class="field-error" id="fullname-error">Please enter your first and last name</div>
+    <input type="email" id="email" placeholder="Email address" oninput="checkGate()">
+    <div class="field-error" id="email-error">Enter a valid email address</div>
+    <input type="tel" id="phone" placeholder="Phone number" oninput="checkGate()">
+    <div class="field-error" id="phone-error">Enter a valid phone number</div>
+    <button class="calc-btn" id="gate-btn" disabled onclick="revealValuation()">Get My Valuation →</button>
   </div>
 
-  <!-- TRANSFORMATION BEFORE / AFTER -->
-  <section class="section section-alt" id="transformations">
-    <div class="sec-head">
-      <div class="sec-ey">Client Transformations</div>
-      <h2 class="sec-h2">Where you are now vs. where you'll be</h2>
-      <p class="sec-sub">In 6 months, owners who go through the Exit Blueprint don't just have a better business. They have a different life..</p>
+  <div class="card results-card" id="results-card">
+    <div class="valuation-range">
+      <div class="valuation-label">Estimated Business Value</div>
+      <div class="valuation-num" id="val-range">$0 – $0</div>
+      <div class="valuation-multiple" id="val-multiple"></div>
     </div>
-    <div class="transform-grid">
-      <div class="transform-col before">
-        <div class="transform-label"><div class="transform-dot"></div>Before Krow</div>
-        <div class="transform-item"><span class="ti-icon">✗</span> Can't take a week off without the business breaking</div>
-        <div class="transform-item"><span class="ti-icon">✗</span> Every major decision flows through you personally</div>
-        <div class="transform-item"><span class="ti-icon">✗</span> Tried to delegate. It failed. Stopped trying.</div>
-        <div class="transform-item"><span class="ti-icon">✗</span> A broker told you the business is worth far less than you expected</div>
-        <div class="transform-item"><span class="ti-icon">✗</span> Revenue is fine. Life isn't.</div>
-        <div class="transform-item"><span class="ti-icon">✗</span> No clear plan for getting out on your own terms</div>
-      </div>
-      <div class="transform-col after">
-        <div class="transform-label"><div class="transform-dot"></div>After Krow</div>
-        <div class="transform-item"><span class="ti-icon">✓</span> Business runs for weeks without a single call from you</div>
-        <div class="transform-item"><span class="ti-icon">✓</span> An operator makes day-to-day decisions without needing you</div>
-        <div class="transform-item"><span class="ti-icon">✓</span> Documented systems so anyone can step in and run it</div>
-        <div class="transform-item"><span class="ti-icon">✓</span> Buyer-readiness scorecard showing a 2–4× valuation improvement</div>
-        <div class="transform-item"><span class="ti-icon">✓</span> Revenue holds. You're not there. That's the point.</div>
-        <div class="transform-item"><span class="ti-icon">✓</span> Clear path: sell for what it's worth, or keep it and live freely</div>
-      </div>
-    </div>
-    <div style="text-align:center">
-      <a href="#audit-form" class="btn-cta-big" style="display:inline-block;background:var(--navy);color:white;padding:.9rem 2.4rem;border-radius:8px;font-size:.95rem;font-weight:800;text-decoration:none">Take the Free Quiz and See Your Results →</a>
-    </div>
-  </section>
-
-  <!-- CASE STUDIES -->
-  <section class="cases-section" id="cases">
-    <div class="sec-head">
-      <div class="sec-ey sec-ey-light">Real Transformations</div>
-      <h2 class="sec-h2 sec-h2-light">What owners achieved</h2>
-      <p class="sec-sub sec-sub-light">Every case study below started with our free business quiz. Zero pressure. These are the outcomes.</p>
-    </div>
-    <div class="cases-scroll-wrap">
-      <div class="cases-scroll" id="casesScroll">
-
-        <div class="case-card">
-          <div class="case-card-top">
-            <div class="case-tag"><div class="case-tag-dot"></div>HVAC Company · Tampa, FL</div>
-            <div class="case-h">From a $380K broker offer to $740K. Same revenue, different business.</div>
-            <div class="case-body">Marcus had been told by two brokers his HVAC business was worth $380K. He was the estimator, the key account relationship, and the quality sign-off on every job. We removed all three dependencies in 5 months. He re-engaged his broker. The offer came in at $740K.</div>
-            <div class="case-results">
-              <div class="case-result"><div class="case-result-n">$740K</div><div class="case-result-l">Exit offer received</div></div>
-              <div class="case-result"><div class="case-result-n">+95%</div><div class="case-result-l">Valuation increase</div></div>
-              <div class="case-result"><div class="case-result-n">5 mo</div><div class="case-result-l">To completion</div></div>
-            </div>
-          </div>
-          <div class="case-card-bottom">
-            <div class="case-industry">HVAC · $1.8M Revenue</div>
-            <div class="case-arrow">→</div>
-          </div>
-        </div>
-
-        <div class="case-card">
-          <div class="case-card-top">
-            <div class="case-tag"><div class="case-tag-dot"></div>Recruitment Firm · National</div>
-            <div class="case-h">Two years trying to sell. Sold at 3.8× eight months after the audit.</div>
-            <div class="case-body">Christine's recruitment firm was profitable but entirely relationship-dependent. Every key client knew her personally. No account handover existed. Two brokers had walked away. We built the client transition playbook and account management layer in Month 1–2. She had a buyer at 3.8× eight months later.</div>
-            <div class="case-results">
-              <div class="case-result"><div class="case-result-n">3.8×</div><div class="case-result-l">Final EBITDA multiple</div></div>
-              <div class="case-result"><div class="case-result-n">2 yrs</div><div class="case-result-l">Trying to sell before</div></div>
-              <div class="case-result"><div class="case-result-n">8 mo</div><div class="case-result-l">After starting with us</div></div>
-            </div>
-          </div>
-          <div class="case-card-bottom">
-            <div class="case-industry">Recruitment · $1.6M Revenue</div>
-            <div class="case-arrow">→</div>
-          </div>
-        </div>
-
-        <div class="case-card">
-          <div class="case-card-top">
-            <div class="case-tag"><div class="case-tag-dot"></div>Chiropractic Group · Multi-site</div>
-            <div class="case-h">"I was making 47 decisions a week that someone else should have been making."</div>
-            <div class="case-body">David ran a 3-location chiropractic group at $3.2M. Every hiring decision, every complaint, every scheduling crisis went through him. He hadn't taken a proper week off in six years. We mapped the 47 recurring decisions he was making weekly, documented them all, and built the associate leadership structure around them. He now makes five.</div>
-            <div class="case-results">
-              <div class="case-result"><div class="case-result-n">47 → 5</div><div class="case-result-l">Weekly decisions</div></div>
-              <div class="case-result"><div class="case-result-n">18 hrs</div><div class="case-result-l">Reclaimed per week</div></div>
-              <div class="case-result"><div class="case-result-n">6 mo</div><div class="case-result-l">To freedom</div></div>
-            </div>
-          </div>
-          <div class="case-card-bottom">
-            <div class="case-industry">Chiropractic · $3.2M Revenue</div>
-            <div class="case-arrow">→</div>
-          </div>
-        </div>
-
-        <div class="case-card">
-          <div class="case-card-top">
-            <div class="case-tag"><div class="case-tag-dot"></div>Commercial Cleaning · Florida</div>
-            <div class="case-h">First real holiday in 4 years. Business didn't notice.</div>
-            <div class="case-body">Sandra had 14 years and $2.1M in revenue but hadn't taken more than 3 days off without fielding 30+ calls. The audit found she was personally winning every new contract, resolving every client complaint, and holding the quality standard in her head with zero documentation. Three months into the program, she took two weeks in Europe. She checked her phone twice.</div>
-            <div class="case-results">
-              <div class="case-result"><div class="case-result-n">4 yrs</div><div class="case-result-l">Since last holiday</div></div>
-              <div class="case-result"><div class="case-result-n">2 wks</div><div class="case-result-l">Off. Zero interruptions.</div></div>
-              <div class="case-result"><div class="case-result-n">3 mo</div><div class="case-result-l">To get there</div></div>
-            </div>
-          </div>
-          <div class="case-card-bottom">
-            <div class="case-industry">Commercial Cleaning · $2.1M Revenue</div>
-            <div class="case-arrow">→</div>
-          </div>
-        </div>
-
-        <div class="case-card">
-          <div class="case-card-top">
-            <div class="case-tag"><div class="case-tag-dot"></div>Med Spa Group · Multi-site</div>
-            <div class="case-h">Revenue up 34%. Second location opened. Owner not required for either.</div>
-            <div class="case-body">Robert's med spa group was growing but he was the lead injector, the brand face, and the senior client relationship across all three sites. Growth was capped by his personal capacity. We built the clinical leadership model, the patient retention system, and the associate training framework. Revenue grew 34% in Year 2. He opened a fourth site he didn't need to be in.</div>
-            <div class="case-results">
-              <div class="case-result"><div class="case-result-n">+34%</div><div class="case-result-l">Revenue growth Yr 2</div></div>
-              <div class="case-result"><div class="case-result-n">+1 site</div><div class="case-result-l">New location opened</div></div>
-              <div class="case-result"><div class="case-result-n">0 calls</div><div class="case-result-l">Needed from owner</div></div>
-            </div>
-          </div>
-          <div class="case-card-bottom">
-            <div class="case-industry">Med Spa · $2.8M Revenue</div>
-            <div class="case-arrow">→</div>
-          </div>
-        </div>
-
-      </div>
-      <div class="cases-nav">
-        <button class="cases-btn" onclick="scrollCases(-1)">←</button>
-        <button class="cases-btn" onclick="scrollCases(1)">→</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA STRIP -->
-  <div class="cta-strip">
-    <div class="cta-strip-text">
-      <h4>Ready to find out where you stand?</h4>
-      <p>The quiz is free. Your results are instant — yours to keep either way.</p>
-    </div>
-    <a href="#audit-form" class="btn-strip">Take the Free Quiz →</a>
+    <div class="explain-box" id="val-explain"></div>
+    <p class="disclaimer">This is a directional estimate based on typical industry multiples, not a formal valuation. Actual value depends on add-backs, local market conditions, assets, and buyer-specific factors. For a precise number, work with a business appraiser or broker.</p>
+    <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="mini-cta">Get Your Free Audit →</a>
   </div>
 
-  <!-- HOW IT WORKS -->
-  <section class="section section-alt" id="how">
-    <div class="sec-head">
-      <div class="sec-ey">How It Works</div>
-      <h2 class="sec-h2">Simple. Focused. Built around you.</h2>
-      <p class="sec-sub">A free quiz that shows you exactly where your business is stuck — instantly. No call required to get your answers.</p>
-    </div>
-    <div class="how-steps">
-      <div class="step"><div class="step-num">1</div><div class="step-t">Take the free quiz</div><div class="step-b">About 5–10 minutes, tailored to your industry and your specific situation.</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-t">Get your results instantly</div><div class="step-b">See your personalised findings the moment you finish — the specific things worth fixing first, based on your actual answers.</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-t">Go deeper on a free call (optional)</div><div class="step-b">Want more? Book a free call and we'll map every point of dependency in detail and calculate your full valuation gap.</div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-t">You keep everything</div><div class="step-b">Your quiz results are yours to keep regardless of whether you ever book a call. Zero pressure, ever.</div></div>
-    </div>
-  </section>
+  <div class="cta-banner" id="cta-banner-mid">
+    <h4>Want a plan to move this number higher?</h4>
+    <p>We'll show you exactly what would push your multiple up — before you sell, or just to grow.</p>
+    <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="mini-cta">Get Your Free Audit →</a>
+  </div>
 
-  <!-- VALUATION GAP -->
-  <section class="val-gap">
-    <h2>The Gap Nobody <span>Shows You</span></h2>
-    <p>The same business, the same revenue, can sell for 2x or 5x, depending entirely on whether it can run without you. Most can't.</p>
-    <div class="gap-cols">
-      <div class="gap-col bad"><h4>Owner-dependent</h4><div class="gap-stat">1.5 – 2×</div><div class="gap-label">A buyer sees a job, not a business. They price your absence as their biggest risk.</div></div>
-      <div class="gap-arrow">→</div>
-      <div class="gap-col good"><h4>Systems-dependent</h4><div class="gap-stat">3.5 – 5×</div><div class="gap-label">A buyer sees a real asset. The business runs with or without its founder.</div></div>
-    </div>
-    <p class="gap-note">On $400K EBITDA that is the difference between a $700K exit and a $1.8M exit.</p>
-    <a href="#audit-form" class="btn-cta-big">Take the Free Quiz and Find Your Number →</a>
-  </section>
+  <div class="booking-cta" id="booking-cta">
+    <h3>Want help increasing this number?</h3>
+    <p>Whether you're planning to sell or just want to grow, book a free strategy session and we'll map exactly what would move your number — and how fast.</p>
+    <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="booking-btn">Get Your Free Audit →</a>
+    <div class="booking-note">Free 30–45 minute call · No pressure · You keep the roadmap either way</div>
+  </div>
 
-  <!-- WHO IT'S FOR -->
-  <section class="section" id="who">
-    <div class="sec-head">
-      <div class="sec-ey">Is This You?</div>
-      <h2 class="sec-h2">You'll recognise at least three of these</h2>
-    </div>
-    <div class="symptoms">
-      <div class="symptom"><span class="symptom-icon">📵</span><div><div class="symptom-t">Can't take a real week off</div><div class="symptom-b">The last time you tried, you were on the phone the whole time. The business doesn't have a life without you there.</div></div></div>
-      <div class="symptom"><span class="symptom-icon">💸</span><div><div class="symptom-t">Your exit number surprised you</div><div class="symptom-b">A broker or advisor gave you a valuation that was far lower than you expected. You didn't know where to start fixing it.</div></div></div>
-      <div class="symptom"><span class="symptom-icon">🔄</span><div><div class="symptom-t">Delegation didn't stick</div><div class="symptom-b">You've tried to hand things off before. It fell apart. You quietly accepted that no one can do it like you can.</div></div></div>
-      <div class="symptom"><span class="symptom-icon">⏳</span><div><div class="symptom-t">Revenue is fine. Life isn't.</div><div class="symptom-b">The business is profitable. But you're working more hours than ever. This wasn't what you had in mind when you started.</div></div></div>
-      <div class="symptom"><span class="symptom-icon">🧠</span><div><div class="symptom-t">Everything runs through you</div><div class="symptom-b">Every key decision, every major client, every problem that needs solving it all comes back to you. Every single day..</div></div></div>
-      <div class="symptom"><span class="symptom-icon">🚪</span><div><div class="symptom-t">No clear path to exit</div><div class="symptom-b">You know you want options eventually sell, step back, hand it on. No structured plan to get there from here.</div></div></div>
-    </div>
-    <div style="text-align:center">
-      <a href="#audit-form" class="btn-cta-big" style="display:inline-block;background:var(--navy);color:white;padding:.9rem 2.4rem;border-radius:8px;font-size:.95rem;font-weight:800;text-decoration:none">Take the Free Quiz →</a>
-    </div>
-  </section>
+  <div class="method-section">
+    <h2>How this is calculated</h2>
+    <p>This estimate starts from your annual SDE (owner's discretionary earnings — your real take-home, not just "profit" on paper) and applies a multiple based on factors that actually move what buyers pay for landscaping businesses: how much revenue is recurring vs. one-off, how dependent the business is on you personally, how long it's been operating, and team size.</p>
+    <p>Landscaping businesses typically sell for somewhere between 2x and 5x SDE. Recurring maintenance contracts pull that multiple up significantly — businesses with heavy recurring revenue routinely sell for close to double the multiple of project-only operations, because the revenue is predictable instead of something that has to be re-won every job.</p>
+    <table class="method-table">
+      <tr><th>What you told us</th><th>Typical effect on multiple</th></tr>
+      <tr><td>Recurring revenue under 20%</td><td class="mult">Pulls multiple down</td></tr>
+      <tr><td>Recurring revenue over 60%</td><td class="mult">Pushes multiple up significantly</td></tr>
+      <tr><td>Business runs fully without you</td><td class="mult">Pushes multiple up</td></tr>
+      <tr><td>Business depends entirely on you</td><td class="mult">Pulls multiple down significantly</td></tr>
+      <tr><td>10+ years operating</td><td class="mult">Modest upward adjustment</td></tr>
+      <tr><td>Larger team / multiple crews</td><td class="mult">Modest upward adjustment</td></tr>
+    </table>
+    <p style="font-size:.78rem">This tool gives a directional range, not an appraisal. It does not account for equipment value, real estate, local market conditions, customer concentration, or add-backs specific to your financials — all of which a real valuation would weigh.</p>
+  </div>
 
-  <!-- TESTIMONIALS -->
-  <section class="section section-dark" id="testimonials">
-    <div class="sec-head">
-      <div class="sec-ey sec-ey-light">What Owners Say</div>
-      <h2 class="sec-h2 sec-h2-light">From the audit sessions</h2>
-      <p class="sec-sub sec-sub-light">These are real sessions. Real numbers. Real owners who didn't know what their audit would show them.</p>
-    </div>
-    <div class="tgrid">
-      <div class="tcard">
-        <div class="stars">★★★★★</div>
-        <div class="ttext">"I came in thinking my business was worth $1.2M. The audit showed me it was realistically closer to $500K because of how dependent it was on me. Nobody had ever shown me that number before. I walked out with three things to fix and a number to aim for."</div>
-        <div class="tauthor"><div class="avatar">MR</div><div><div class="aname">Marcus R.</div><div class="arole">HVAC Company, Tampa FL · $1.8M revenue</div><div class="result-badge">Exit offer: $740K ↑95%</div></div></div>
-      </div>
-      <div class="tcard">
-        <div class="stars">★★★★★</div>
-        <div class="ttext">"14 years in business and nobody had ever mapped it out this clearly. The valuation gap number hit hard. But the 90-day roadmap made it feel fixable for the first time. More useful than most coaching I've ever paid for . And it was free."</div>
-        <div class="tauthor"><div class="avatar">SL</div><div><div class="aname">Sandra L.</div><div class="arole">Commercial Cleaning · $2.1M revenue</div><div class="result-badge">First 2-week holiday in 4 years</div></div></div>
-      </div>
-      <div class="tcard">
-        <div class="stars">★★★★★</div>
-        <div class="ttext">"I'd been trying to sell for two years. Couldn't get the number I wanted. Kyle walked me through exactly why and exactly what buyers were seeing. Eight months later, I had a buyer at 3.8x. He effectively doubled my exit."</div>
-        <div class="tauthor"><div class="avatar">CW</div><div><div class="aname">Christine W.</div><div class="arole">Recruitment Firm · $1.6M revenue</div><div class="result-badge">Sold at 3.8× EBITDA</div></div></div>
-      </div>
-      <div class="tcard">
-        <div class="stars">★★★★★</div>
-        <div class="ttext">"The audit showed me I was making 47 decisions a week that someone else could make. We documented them all in the program. I'm now making maybe 5. My Fridays are mine again. I didn't think that was possible 6 months ago."</div>
-        <div class="tauthor"><div class="avatar">DT</div><div><div class="aname">David T.</div><div class="arole">Chiropractic Group · $3.2M revenue</div><div class="result-badge">47 decisions/week → 5</div></div></div>
-      </div>
-      <div class="tcard">
-        <div class="stars">★★★★★</div>
-        <div class="ttext">"My accountant kept saying 'clean up the business' before selling. Nobody told me what that actually meant to a buyer. This program told me exactly what mattered and exactly what to fix. Night and day from anything else I tried."</div>
-        <div class="tauthor"><div class="avatar">RB</div><div><div class="aname">Robert B.</div><div class="arole">Med Spa Group · $2.8M revenue</div><div class="result-badge">Revenue +34% · New site opened</div></div></div>
-      </div>
-      <div class="tcard">
-        <div class="stars">★★★★★</div>
-        <div class="ttext">"I hadn't taken a holiday in four years. Not because I didn't want to . The business would fall apart. Three months in, I booked two weeks in Europe. I checked my phone twice. That's not a small thing. That's my life back."</div>
-        <div class="tauthor"><div class="avatar">SL</div><div><div class="aname">Jason M.</div><div class="arole">Pest Control · $2.3M revenue</div><div class="result-badge">3 weeks off · Revenue held</div></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="cta-section">
-    <h2>Stop Being the <em>Ceiling</em> of Your Own Business</h2>
-    <p>Free. Focused on your business. You keep your results either way.</p>
-    <a href="#audit-form" class="btn-cta-big">Take Your Free Business Quiz →</a>
-    <div class="cta-micro">Free quiz. Instant results. Takes 5–10 minutes.</div>
-  </section>
-
-</div>
-
-
-<!-- ═══ PAGE 2 ═══ -->
-<div id="p2" class="page">
-
-  <section class="dark-section" style="padding-top:3.5rem;padding-bottom:3rem">
-    <div class="results-card">
-      <div class="results-badge">🎯 Your Personalised Results</div>
-      <h2 class="results-h2" id="p2-findings-head">Based on what you told us</h2>
-      <p class="results-sub" id="p2-findings-sub">Here's what we found.</p>
-      <div class="snapshot-chips" id="p2-snapshot"></div>
-      <div class="findings-wrap" id="p2-findings"></div>
-    </div>
-  </section>
-
-  <section class="hero2" style="padding-top:1rem">
-    <div class="persona-badge" id="p2-badge">🛠️ Want Help Implementing This?</div>
-    <h1 id="p2-headline">Watch How We'd Help You <em>Put This Into Action.</em></h1>
-    <p class="sub" id="p2-sub">This quick walkthrough shows how the program works — or skip straight to a free call below and we'll talk it through directly.</p>
-    <div class="vsl-box">
-      <div class="play-btn"><div class="play-icon"></div></div>
-      <div class="vsl-label" id="p2-vsl-label">Watch: How We'd Help You Implement This — 8 min</div>
-    </div>
-    <p style="font-size:.78rem;color:rgba(255,255,255,.3);margin-top:1.2rem">For business owners doing $1M–$4M · <span id="p2-sector-note">Personalised to your industry</span></p>
-  </section>
-
-  <section class="dark-section" style="padding-top:2rem;padding-bottom:0.5rem">
-    <div class="sector-strip" id="p2-sector-strip" style="margin-bottom:0">
-      <div class="sector-strip-icon">🏢</div>
-      <div class="sector-strip-text" id="p2-sector-text">Loading your personalised overview…</div>
-    </div>
-  </section>
-
-  <section class="dark-section">
-    <div class="sec-head">
-      <div class="sec-ey">Real Outcomes</div>
-      <h2 class="sec-h2" id="p2-results-head" style="color:white">What owners typically see</h2>
-      <p class="sec-sub" style="color:rgba(255,255,255,.5)">After completing The Exit Blueprint</p>
-    </div>
-    <div class="results-grid" id="p2-stats"></div>
-  </section>
-
-
-  <section class="dark-section">
-    <div class="sec-head">
-      <div class="sec-ey">The Program</div>
-      <h2 class="sec-h2" style="color:white">What happens during 6 months</h2>
-      <p class="sec-sub" style="color:rgba(255,255,255,.5)">Three phases. A defined finish line. A business that works without you.</p>
-    </div>
-    <div class="what-box">
-      <div class="what-item"><div class="what-num">1</div><div><div class="what-t">Dependency Audit + Systems Foundation (Months 1–2)</div><div class="what-b" id="p2-phase1">Map every point of owner dependency. Build the first SOPs. Identify the five things only you know how to do. Then begin transferring them.</div></div></div>
-      <div class="what-item"><div class="what-num">2</div><div><div class="what-t">People + Operations (Months 3–4)</div><div class="what-b" id="p2-phase2">Hire or restructure so a manager runs day-to-day without your involvement. Build the training and accountability systems around them.</div></div></div>
-      <div class="what-item"><div class="what-num">3</div><div><div class="what-t">Revenue Without the Owner (Months 5–6)</div><div class="what-b" id="p2-phase3">Lead generation running without you. Financials clean. Business is buyer-ready or you simply keep it and enjoy the life it gives back.</div></div></div>
-    </div>
-  </section>
-
-
-  <section class="dark-section">
-    <div class="sec-head">
-      <div class="sec-ey">Common Questions</div>
-      <h2 class="sec-h2" style="color:white">Answered honestly</h2>
-    </div>
-    <div class="qa-list">
-      <div class="qa"><div class="qa-q">Is this right for my industry?</div><div class="qa-a">If you're doing <strong>$1M–$4M per year</strong> and your business depends on you daily, yes. HVAC, cleaning, chiropractic, med spa, recruitment, logistics, accounting, agencies. If you have 5+ employees and a signed lease, we can almost certainly help.</div></div>
-      <div class="qa"><div class="qa-q" id="qa-goal-q">What if I'm not planning to sell?</div><div class="qa-a" id="qa-goal-a">The program works whether you ever sell or not. Removing yourself as the bottleneck gives you the <strong>choice</strong>. Most owners come in wanting an exit and stay because they've got their life back.</div></div>
-      <div class="qa"><div class="qa-q">How much is it?</div><div class="qa-a">The group program starts at <strong>$4,500</strong>. The 1-1 premium is <strong>$12,000–$15,000</strong>. On a $400K EBITDA business, fixing owner dependency adds $600K–$1.2M in exit value. The audit is free that's where we start.</div></div>
-      <div class="qa"><div class="qa-q">I've tried to delegate before and it didn't work.</div><div class="qa-a">The problem is almost never the person you hired it's the absence of a <strong>documented system</strong> for them to run. Phase 1 fixes that before Phase 2 touches any people decisions.</div></div>
-      <div class="qa"><div class="qa-q">What if I don't get results?</div><div class="qa-a">Attend every session and complete the Phase 1 actions in the first 30 days. If you don't walk away knowing exactly what to fix first <strong>I work with you free until you do</strong>. No loopholes.</div></div>
-    </div>
-  </section>
-
-
-  <section class="dark-section">
-    <div class="sec-head">
-      <div class="sec-ey">Book Your Session</div>
-      <h2 class="sec-h2" id="p2-booking-head" style="color:white">Choose a time that works for you</h2>
-      <p class="sec-sub" id="p2-booking-sub" style="color:rgba(255,255,255,.5)">Pick a slot below. We'll send a short intake form to make the 30 to 60 minutes as useful as possible.</p>
-    </div>
-    <div class="calendly-wrap">
-      <!-- REPLACE WITH YOUR CALENDLY EMBED:
-      <div class="calendly-inline-widget" data-url="https://calendly.com/kylemicallef01/audit-analysis-call" style="min-width:320px;height:700px;"></div>
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script> -->
-      <div class="calendly-placeholder">
-        <h3>📅 Select Your Audit Time</h3>
-        <p>Replace this block with your Calendly inline embed code.</p>
-        <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="calendly-btn">Book a Time →</a>
-        <p class="calendly-note">Free 30 to 60 minute call · Free call · You keep everything we build</p>
-      </div>
-    </div>
-  </section>
 </div>
 
 <footer>
-  <div class="footer-brand">KROW · THE EXIT BLUEPRINT</div>
-  © 2026 Krow · Tampa, FL<br>
-  Built for business owners doing $1M–$4M who are ready to stop being the ceiling of their own company.
+  Built using real landscaping industry sale data. Not a substitute for a professional valuation.<br>
+  A tool by <a href="/">Krow: The Exit Blueprint</a>
 </footer>
 
 <script>
-let answers={systems:[]};
+// Get your free access key at https://web3forms.com — takes 30 seconds, no account needed.
+// Paste it below to start receiving an email the instant someone submits this form.
+const WEB3FORMS_ACCESS_KEY = "3f46aea5-82f3-4c90-b64c-dc6e244bb85f";
 
-const stepProgress={step1:15,step2:25,stepRevenue:32,stepMargin:38,stepFork:42,
-  stepOfferA:48,stepOfferB:54,stepOfferC:60,
-  stepGrowthA:66,stepGrowthB:72,stepGrowthC:78,
-  stepCapA:84,stepCapB:88,
-  stepRetA:92,stepRetB:96,
-  stepContact:99};
+let calcResult = null;
 
-function showStep(id){
-  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.getElementById('progress').style.width=(stepProgress[id]||50)+'%';
-  document.querySelector('.form-card').scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-/* ---------- baseline ---------- */
-function selectGoal(btn,goal){
-  document.querySelectorAll('#step1 .goal-card').forEach(c=>c.classList.remove('selected'));
-  btn.classList.add('selected');
-  answers.goal=goal;
-  document.getElementById('step1-next').disabled=false;
-}
-function checkStep2(){answers.sector=document.getElementById('sector').value;document.getElementById('step2-next').disabled=!answers.sector;}
-function checkRevenue(){answers.revenue=document.getElementById('revenue').value;document.getElementById('revenue-next').disabled=!answers.revenue;}
-function checkMargin(){answers.margin=document.getElementById('margin').value;document.getElementById('margin-next').disabled=!answers.margin;}
-
-function chooseFull(){answers.path='full';showStep('stepOfferA');}
-function chooseBasic(){answers.path='basic';showStep('stepContact');}
-
-/* ---------- generic helpers ---------- */
-function setChoice(field,value,btn){
-  answers[field]=value;
-  const row=btn.parentElement;
-  row.querySelectorAll('.yn-btn').forEach(b=>b.classList.remove('selected'));
-  btn.classList.add('selected');
-}
-function toggleChip(arrField,value,btn){
-  if(!answers[arrField])answers[arrField]=[];
-  const arr=answers[arrField];
-  const i=arr.indexOf(value);
-  if(i>=0){arr.splice(i,1);btn.classList.remove('selected');}
-  else{arr.push(value);btn.classList.add('selected');}
+function checkForm(){
+  const revenue = document.getElementById('revenue').value;
+  const sde = document.getElementById('sde').value;
+  const years = document.getElementById('years').value;
+  const recurring = document.getElementById('recurring').value;
+  const involvement = document.getElementById('involvement').value;
+  const ok = revenue !== '' && sde !== '' && years !== '' && recurring !== '' && involvement !== '';
+  document.getElementById('calc-btn').disabled = !ok;
 }
 
-/* ---------- offer & pricing ---------- */
-function checkOfferA(){
-  const t=document.getElementById('ticket').value,c=document.getElementById('closeRate').value;
-  answers.ticket=parseFloat(t)||0;answers.closeRate=parseFloat(c)||0;
-  document.getElementById('offerA-next').disabled=!(t!==''&&c!=='');
-}
-function checkOfferB(){
-  answers.priceChange=document.getElementById('priceChange').value;
-  answers.contactSpeed=document.getElementById('contactSpeed').value;
-  document.getElementById('offerB-next').disabled=!(answers.priceChange&&answers.contactSpeed);
-}
-function goOfferC(){
-  document.getElementById('vslQuestion').style.display=answers.ticket>=3000?'block':'none';
-  checkOfferC();
-  showStep('stepOfferC');
-}
-function checkOfferC(){
-  const vslVisible=document.getElementById('vslQuestion').style.display==='block';
-  let ok=answers.otherCloser!==undefined;
-  if(vslVisible)ok=ok&&answers.hasVSL!==undefined;
-  document.getElementById('offerC-next').disabled=!ok;
+function goToContactGate(){
+  const gate = document.getElementById('gate-card');
+  gate.classList.add('show');
+  gate.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-/* ---------- growth engine ---------- */
-function checkGrowthA(){
-  const l=document.getElementById('leads').value;
-  answers.leads=parseFloat(l)||0;
-  answers.attribution=parseInt(document.getElementById('attribution').value);
-  document.getElementById('growthA-next').disabled=(l==='');
-}
-function selectChannel(btn,val){
-  document.querySelectorAll('.chan-card').forEach(c=>c.classList.remove('selected'));
-  btn.classList.add('selected');
-  answers.channel=val;
-  document.getElementById('growthB-next').disabled=false;
-}
-function goGrowthC(){
-  document.getElementById('roiQuestion').style.display=answers.channel==='paid'?'block':'none';
-  document.getElementById('referralQuestion').style.display=answers.channel==='referral'?'block':'none';
-  checkGrowthC();
-  showStep('stepGrowthC');
-}
-function checkGrowthC(){
-  if(document.getElementById('channelROI'))answers.channelROI=document.getElementById('channelROI').value;
-  if(document.getElementById('referralPct'))answers.referralPct=parseFloat(document.getElementById('referralPct').value)||0;
-  let ok=!!answers.volumeTrend;
-  if(answers.channel==='paid')ok=ok&&!!answers.channelROI;
-  if(answers.channel==='referral')ok=ok&&document.getElementById('referralPct').value!=='';
-  document.getElementById('growthC-next').disabled=!ok;
+function calculate(){
+  const revenue = parseFloat(document.getElementById('revenue').value) || 0;
+  const sde = parseFloat(document.getElementById('sde').value) || 0;
+  const years = document.getElementById('years').value;
+  const recurring = parseFloat(document.getElementById('recurring').value) || 0;
+  const involvement = document.getElementById('involvement').value;
+  const crews = document.getElementById('crews').value;
+
+  // Base multiple range — grounded in industry SDE multiple data (~2.3x-2.9x typical)
+  let baseLow = 2.3, baseHigh = 2.9;
+
+  // Recurring revenue adjustment
+  let recurringAdj = 0, recurringNote = '';
+  if(recurring < 20){ recurringAdj = -0.3; recurringNote = 'low'; }
+  else if(recurring < 40){ recurringAdj = -0.1; recurringNote = 'belowAvg'; }
+  else if(recurring < 60){ recurringAdj = 0; recurringNote = 'avg'; }
+  else if(recurring < 80){ recurringAdj = 0.4; recurringNote = 'high'; }
+  else { recurringAdj = 0.7; recurringNote = 'veryHigh'; }
+
+  // Owner involvement adjustment
+  let involvementAdj = 0, involvementNote = '';
+  if(involvement === 'full_independent'){ involvementAdj = 0.6; involvementNote = 'independent'; }
+  else if(involvement === 'mostly_independent'){ involvementAdj = 0.2; involvementNote = 'mostlyIndependent'; }
+  else if(involvement === 'regular_involvement'){ involvementAdj = -0.2; involvementNote = 'regular'; }
+  else { involvementAdj = -0.6; involvementNote = 'dependent'; }
+
+  // Years in business adjustment
+  let yearsAdj = 0, yearsNote = '';
+  if(years === 'lt2'){ yearsAdj = -0.3; yearsNote = 'new'; }
+  else if(years === '2to5'){ yearsAdj = 0; yearsNote = 'established'; }
+  else if(years === '5to10'){ yearsAdj = 0.15; yearsNote = 'mature'; }
+  else { yearsAdj = 0.3; yearsNote = 'veryMature'; }
+
+  // Crew size adjustment (optional)
+  let crewsAdj = 0;
+  if(crews === 'solo'){ crewsAdj = -0.2; }
+  else if(crews === 'mid'){ crewsAdj = 0.15; }
+  else if(crews === 'large'){ crewsAdj = 0.3; }
+
+  const totalAdj = recurringAdj + involvementAdj + yearsAdj + crewsAdj;
+
+  let finalLow = Math.max(1.5, baseLow + totalAdj);
+  let finalHigh = Math.max(finalLow + 0.4, baseHigh + totalAdj);
+  finalHigh = Math.min(finalHigh, 6.5);
+  if(finalLow > finalHigh - 0.4) finalLow = finalHigh - 0.4;
+
+  const valLow = Math.round(sde * finalLow / 1000) * 1000;
+  const valHigh = Math.round(sde * finalHigh / 1000) * 1000;
+
+  calcResult = {revenue, sde, recurring, involvement, years, crews, finalLow, finalHigh, valLow, valHigh,
+    factors: {recurringAdj, recurringNote, involvementAdj, involvementNote, yearsAdj, yearsNote, crewsAdj}};
+
+  renderResults();
 }
 
-/* ---------- capacity ---------- */
-function checkCapA(){
-  document.getElementById('capA-next').disabled=!(answers.canDouble!==undefined&&answers.delegationFailed!==undefined);
-}
-function checkCapB(){
-  const pct=document.getElementById('pctHoursOnlyYou').value;
-  answers.pctHoursOnlyYou=parseFloat(pct)||0;
-  document.getElementById('capB-next').disabled=!(answers.documented!==undefined&&pct!=='');
-}
+function fmt(n){ return '$' + n.toLocaleString('en-US'); }
 
-/* ---------- retention ---------- */
-function revealRepeatPct(){
-  document.getElementById('repeatPctWrap').style.display=answers.knowsRepeat?'block':'none';
-  checkRetA();
-}
-function checkRetA(){
-  let ok=answers.knowsRepeat!==undefined;
-  if(answers.knowsRepeat){
-    const v=document.getElementById('repeatPct').value;
-    answers.repeatPct=parseFloat(v)||0;
-    ok=ok&&v!=='';
+function renderResults(){
+  const r = calcResult;
+  document.getElementById('val-range').textContent = fmt(r.valLow) + ' – ' + fmt(r.valHigh);
+  document.getElementById('val-multiple').textContent = `Based on ${r.finalLow.toFixed(1)}x – ${r.finalHigh.toFixed(1)}x your annual SDE of ${fmt(r.sde)}`;
+
+  // Determine biggest positive and biggest negative factor
+  const factors = [
+    {key:'recurring', adj:r.factors.recurringAdj, note:r.factors.recurringNote},
+    {key:'involvement', adj:r.factors.involvementAdj, note:r.factors.involvementNote},
+    {key:'years', adj:r.factors.yearsAdj, note:r.factors.yearsNote},
+  ];
+  const positives = factors.filter(f=>f.adj>0).sort((a,b)=>b.adj-a.adj);
+  const negatives = factors.filter(f=>f.adj<0).sort((a,b)=>a.adj-b.adj);
+
+  const positiveText = {
+    recurring: `Your ${r.recurring}% recurring revenue is the biggest thing helping your number — landscaping businesses with strong maintenance contracts typically sell for close to double the multiple of project-only operations.`,
+    involvement: `The business running largely without you day-to-day is a real asset here — buyers pay a premium for landscaping companies that don't disappear the moment the owner steps back.`,
+    years: `${r.years === '10plus' ? '10+ years' : '5-10 years'} in business adds a real track record buyers can underwrite — it's worth more to a buyer than the same numbers from a newer operation.`
+  };
+  const negativeText = {
+    recurring: `Your recurring revenue is on the low side, which is likely the single biggest thing capping your multiple right now. Converting even a portion of one-off jobs into maintenance contracts is usually the fastest way to move this number.`,
+    involvement: `The business currently depends heavily on you personally, and that's a real drag on what a buyer would pay — it reads as risk, not as your hard work. Documenting how you operate and training someone else into key tasks is the highest-leverage fix available.`,
+    years: `Being relatively new in the market means there's less of a track record for a buyer to underwrite yet, which is reflected in a slightly lower multiple — this naturally improves with time and consistency.`
+  };
+
+  let explain = '';
+  if(positives.length){
+    explain += positiveText[positives[0].key] + ' ';
   }
-  document.getElementById('retA-next').disabled=!ok;
-}
-function checkRetB(){
-  const v=document.getElementById('recurringPct').value;
-  answers.recurringPct=parseFloat(v)||0;
-  document.getElementById('retB-next').disabled=(v==='');
+  if(negatives.length){
+    explain += negativeText[negatives[0].key];
+  }
+  if(!positives.length && !negatives.length){
+    explain = `Your numbers land close to the industry average for landscaping businesses — nothing here is dramatically helping or hurting your multiple yet, which also means there's real room to push it higher.`;
+  }
+  document.getElementById('val-explain').textContent = explain;
+
+  document.getElementById('results-card').classList.add('show');
+  document.getElementById('cta-banner-mid').classList.add('show');
+  document.getElementById('booking-cta').classList.add('show');
+  document.getElementById('gate-card').classList.remove('show');
+  document.getElementById('results-card').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-/* ---------- contact gate validation ---------- */
-const personalEmailDomains=new Set(['gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','yahoo.co.in','hotmail.com','hotmail.co.uk','outlook.com','live.com','msn.com','aol.com','icloud.com','me.com','mac.com','protonmail.com','proton.me','mail.com','gmx.com','yandex.com','zoho.com','rocketmail.com','ymail.com','comcast.net','verizon.net','att.net','sbcglobal.net','bellsouth.net','cox.net','charter.net','optusnet.com.au','bigpond.com']);
-
-function isValidEmailFormat(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);}
-function isBusinessEmail(v){
-  if(!isValidEmailFormat(v))return false;
-  const domain=v.split('@')[1].toLowerCase().trim();
-  return !personalEmailDomains.has(domain);
-}
+/* Contact gate — required before the valuation is revealed */
+function isValidEmailFormat(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
 function isValidPhone(v){
-  const digits=v.replace(/\D/g,'');
-  return digits.length===10||(digits.length===11&&digits[0]==='1');
+  const digits = v.replace(/\D/g,'');
+  return digits.length === 10 || (digits.length === 11 && digits[0] === '1');
 }
 function isFullName(v){
-  const parts=v.trim().split(/\s+/).filter(Boolean);
-  return parts.length>=2&&parts.every(p=>p.length>=1);
+  const parts = v.trim().split(/\s+/).filter(Boolean);
+  return parts.length >= 2 && parts.every(p => p.length >= 1);
 }
-function toggleFieldError(field,show){
-  document.getElementById(field+'-error').classList.toggle('show',show);
-  document.getElementById(field).classList.toggle('invalid',show);
+function toggleErr(field, show){
+  document.getElementById(field+'-error').classList.toggle('show', show);
+  document.getElementById(field).classList.toggle('invalid', show);
 }
-function checkContact(){
-  const fullname=document.getElementById('fullname').value;
-  const bizname=document.getElementById('bizname').value.trim();
-  const email=document.getElementById('email').value.trim();
-  const phone=document.getElementById('phone').value.trim();
-
-  const nameOk=isFullName(fullname);
-  const emailOk=isBusinessEmail(email);
-  const phoneOk=isValidPhone(phone);
-
-  toggleFieldError('fullname',fullname.trim()!==''&&!nameOk);
-  toggleFieldError('email',email!==''&&!emailOk);
-  toggleFieldError('phone',phone!==''&&!phoneOk);
-
-  document.getElementById('contact-submit').disabled=!(nameOk&&!!bizname&&emailOk&&phoneOk);
+function checkGate(){
+  const name = document.getElementById('fullname').value;
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const nameOk = isFullName(name);
+  const emailOk = isValidEmailFormat(email);
+  const phoneOk = isValidPhone(phone);
+  toggleErr('fullname', name.trim() !== '' && !nameOk);
+  toggleErr('email', email !== '' && !emailOk);
+  toggleErr('phone', phone !== '' && !phoneOk);
+  document.getElementById('gate-btn').disabled = !(nameOk && emailOk && phoneOk);
 }
 
-function scrollCases(dir){
-  const el=document.getElementById('casesScroll');
-  el.scrollBy({left:dir*360,behavior:'smooth'});
+function sendLeadNotification(payload){
+  if(WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY"){
+    console.warn("Web3Forms access key not set — lead was calculated but NOT emailed. See comment at top of <script>.");
+    return;
+  }
+  const allFields = {
+    access_key: WEB3FORMS_ACCESS_KEY,
+    subject: `New Landscaping Valuation Lead — ${payload.name}`,
+    from_name: 'Landscaping Valuation Calculator',
+    ...payload
+  };
+
+  const iframeName = 'w3f_iframe_' + Date.now();
+  const iframe = document.createElement('iframe');
+  iframe.name = iframeName;
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+
+  const form = document.createElement('form');
+  form.action = 'https://api.web3forms.com/submit';
+  form.method = 'POST';
+  form.target = iframeName;
+  form.style.display = 'none';
+
+  for(const [key, value] of Object.entries(allFields)){
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = value;
+    form.appendChild(input);
+  }
+  document.body.appendChild(form);
+  form.submit();
+
+  setTimeout(() => { form.remove(); iframe.remove(); }, 5000);
 }
 
-/* ============================================================
-   FINDINGS ENGINE — fully deterministic, no AI call.
-   Mirrors "Business Diagnostic — Build Spec" in the CTRL Vault.
-   ============================================================ */
-function computeFindings(a){
-  let pool=[];
-  const push=(id,area,headline,advice,impact,polarity)=>pool.push({id,area,headline,advice,impact,polarity});
+function revealValuation(){
+  const lead = {
+    name: document.getElementById('fullname').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    phone: document.getElementById('phone').value.trim()
+  };
 
-  /* OFFER & PRICING */
-  const vslAsked=a.ticket>=3000;
-  if(vslAsked&&a.closeRate<20&&a.hasVSL===false){
-    push('OF-1','offer','Your price supports more proof before the call',
-      `At a $${a.ticket.toLocaleString()} price point, a ${a.closeRate}% close rate usually means prospects need to see proof and hear the full case before they ever talk to you. A VSL that walks through the transformation, the process, and objections before the call typically lifts close rate without changing anything about your pitch.`,4,'fix');
-  }else if(a.closeRate<20&&(!vslAsked||a.hasVSL===true)){
-    push('OF-2','offer','Your close rate points to the offer, not the price point',
-      `A ${a.closeRate}% close rate usually isn't a proof problem here — it's an offer clarity problem. One specific, named offer at one tested price point typically outperforms a flexible pitch.`,4,'fix');
-  }
-  if(a.contactSpeed==='sameday'||a.contactSpeed==='nextday'){
-    push('OF-3','offer',"You're losing deals to response speed, not selling skill",
-      `Contacting a lead ${a.contactSpeed==='sameday'?'the same day':'the next day or later'} instead of within minutes is one of the most common — and most fixable — causes of a soft close rate. Routing new leads to an instant text or call commonly recovers 10–20 points of close rate with no change to the pitch itself.`,5,'fix');
-  }
-  const thinMarginBands=['under5','5-10','10-15','15-20'];
-  const marginLabel={under5:'under 5%','5-10':'5–10%','10-15':'10–15%','15-20':'15–20%','20-25':'20–25%','25-30':'25–30%','30-40':'30–40%','40plus':'40%+',notsure:'not sure'};
-  if((a.priceChange==='2yplus'||a.priceChange==='never')&&thinMarginBands.includes(a.margin)){
-    push('OF-4','offer',"Price hasn't moved in a while, and margin shows it",
-      `Going ${a.priceChange==='never'?'without ever raising prices':'2+ years without a price change'} while margin sits ${marginLabel[a.margin]} usually means costs have crept up around a frozen price. A 10–15% increase tested on new customers only is the lowest-risk way to find out what the market will actually bear.`,3,'fix');
-  }
-  const hasUpsell=a.systems&&a.systems.includes('upsell');
-  const hasRecurring=a.systems&&a.systems.includes('recurring');
-  const hasDownsell=a.systems&&a.systems.includes('downsell');
-  if(!hasUpsell){
-    push('OF-5','offer','No system to increase order value after the first sale',
-      `Right now, the first purchase is the only purchase. The single highest-leverage fix here is usually not more leads — it's a structured upsell or bundle offered at the point of sale.`,3,'fix');
-  }
-  if(!hasDownsell){
-    push('OF-7','offer','No safety net for price-sensitive prospects',
-      `Prospects who say no on price right now just leave. A downsell — a smaller, lower-commitment version of the offer — captures revenue that's currently walking out the door.`,2,'fix');
-  }
-  const offerSalesFindingFired=pool.some(f=>['OF-1','OF-2','OF-3'].includes(f.id));
-  if(a.otherCloser===false&&!offerSalesFindingFired){
-    push('OF-8','offer',"You're the only one who can close a sale",
-      `Sales conversion is fine today, but it's entirely dependent on you personally. That's not a problem yet — it becomes one the moment you try to grow past your own calendar, or the moment anyone tries to value this business without you in it.`,3,'fix');
-  }
-  if(a.otherCloser===false&&offerSalesFindingFired){
-    pool.forEach(f=>{if(['OF-1','OF-2','OF-3'].includes(f.id)){f.advice+=" And right now, you're the only one who runs these conversations — so even fixing this still routes back through your calendar until that changes too.";}});
-  }
+  calculate(); // computes calcResult and renders the results card
 
-  /* GROWTH ENGINE */
-  if(a.attribution<=4){
-    push('GR-1','growth',"You don't actually know what's working",
-      `A ${a.attribution}/10 confidence score on where customers come from means any decision to spend more, spend less, or add a channel right now is a guess. Before touching budget anywhere, spend 30 days tagging every new lead with a source.`,5,'fix');
-  }
-  if(a.channel==='paid'&&a.channelROI==='3xplus'){
-    push('GR-2','growth','You have a proven, profitable channel — do more of it',
-      `A 3x+ return means this channel is making you money faster than you're spending it. The highest-leverage move available right now is simply more — more budget, more volume, on the exact thing that's already working.`,5,'positive');
-  }
-  if(a.channel==='referral'&&a.referralPct>=30){
-    push('GR-3','growth','Your referral engine is strong and almost certainly informal',
-      `${a.referralPct}% of your business from referrals with no formal system behind it means this is running on goodwill alone. A simple, consistent ask — plus a small incentive — usually increases referral volume without any ad spend at all.`,4,'positive');
-  }
-  if(a.channel==='paid'&&['losing','breakeven','notsure'].includes(a.channelROI)){
-    push('GR-4','growth',"Ads aren't profitable yet — fix that before spending more",
-      `Putting more budget into a channel that's ${a.channelROI==='losing'?'losing money':a.channelROI==='breakeven'?'at breakeven':'unclear'} just loses money faster, or wastes it. This almost always traces back to the offer or the economics — fix what happens after the click before changing what happens before it.`,5,'fix');
-  }
-  if(a.channel==='paid'&&a.channelROI==='3xplus'&&(a.volumeTrend==='down'||a.volumeTrend==='flat')){
-    const existing=pool.find(f=>f.id==='GR-2');
-    if(existing)existing.advice+=` That said, volume has gone ${a.volumeTrend} over six months — worth pushing harder with new creative or expanded targeting before assuming it's broken.`;
-  }
-
-  /* CAPACITY */
-  if(a.canDouble===false&&a.documented===false){
-    push('CA-1','capacity',"You can't grow past current volume, and the reason is nothing's written down",
-      `Doubling demand would break delivery today, and the process lives in your head, not on paper. Hiring into that won't fix it — it just produces more undertrained people faster. Documenting the delivery process comes before any hiring decision.`,5,'fix');
-  }
-  if(a.delegationFailed===true&&a.canDouble===false){
-    push('CA-2','capacity',"Past delegation didn't stick — that's a training gap, not a people gap",
-      `Having taken a task back before, combined with not being able to handle more volume today, points to a missing training system rather than a hiring problem. A simple SOP plus a shadow-training period before anyone works solo usually fixes what hiring alone won't.`,4,'fix');
-  }
-  const capFired=pool.some(f=>f.id==='CA-1');
-  if(a.pctHoursOnlyYou>=50&&!capFired){
-    push('CA-3','capacity','Over half your week is tasks only you can do',
-      `At ${a.pctHoursOnlyYou}% of your hours, the business runs fine today — but that's also exactly what suppresses what it's worth without you, and what makes any kind of real time off difficult.`,3,'fix');
-  }
-  if(a.canDouble===true){
-    push('CA-4','capacity','You have room to grow before hiring becomes the constraint',
-      `Capacity isn't what's holding you back right now — your team could absorb more demand today. Whatever else this report surfaces is the better place to focus first.`,2,'positive');
-  }
-
-  /* RETENTION */
-  if(a.knowsRepeat===false){
-    push('R-F1','retention',"You don't know your repeat-customer rate",
-      `This is the first thing to fix in retention — not a specific offer or campaign. For the next 90 days, simply tag every sale as new or repeat. You can't improve a number you're not tracking.`,3,'fix');
-  }
-  if(a.knowsRepeat===true&&a.repeatPct<30){
-    push('R-F2','retention','Most customers buy once and disappear',
-      `Only ${a.repeatPct}% of last year's customers came back. A structured repeat-purchase trigger — a membership, a maintenance plan, a scheduled follow-up — usually recovers a meaningful share of this without needing a single new customer.`,4,'fix');
-  }
-  if(a.recurringPct<15||!hasRecurring){
-    push('R-F3','retention','Almost no revenue is locked in',
-      `At ${a.recurringPct}% recurring, nearly everything resets to zero every month — which affects cash flow today and what a buyer would pay for this business later. Packaging a recurring or contracted version of what you already deliver is usually the single highest-impact change available.`,4,'fix');
-  }
-  if(a.repeatPct>=50||a.recurringPct>=40){
-    push('R-F4','retention',"Customers stick around — that's a real, usable asset",
-      `Retention here is genuinely strong. That's worth leaning into directly — testimonials, referral asks, and case studies land much better with an audience that already sticks around.`,2,'positive');
-  }
-
-  /* merge rule: OF-5 (no upsell) is subsumed by R-F3 (almost no recurring revenue) if both fire */
-  if(pool.some(f=>f.id==='R-F3'))pool=pool.filter(f=>f.id!=='OF-5');
-
-  /* goal-based weighting bonus */
-  const bonusAreas={revenue:['offer','growth'],time:['capacity'],sell:['retention'],health:[]}[a.goal]||[];
-  pool.forEach(f=>{
-    if(bonusAreas.includes(f.area))f.impact+=2;
-    if(a.goal==='sell'&&/only you|requires you|depends on you|routes back through/i.test(f.advice))f.impact+=2;
+  sendLeadNotification({
+    name: lead.name,
+    email: lead.email,
+    phone: lead.phone,
+    annual_revenue: fmt(calcResult.revenue),
+    annual_sde: fmt(calcResult.sde),
+    years_in_business: calcResult.years,
+    recurring_revenue_pct: calcResult.recurring + '%',
+    owner_involvement: calcResult.involvement,
+    crews: calcResult.crews || 'not provided',
+    estimated_valuation: fmt(calcResult.valLow) + ' - ' + fmt(calcResult.valHigh),
+    multiple_used: calcResult.finalLow.toFixed(1) + 'x - ' + calcResult.finalHigh.toFixed(1) + 'x'
   });
-
-  pool.sort((x,y)=>y.impact-x.impact);
-  let selected=pool.slice(0,4);
-
-  /* positive-finding guarantee */
-  if(!selected.some(f=>f.polarity==='positive')){
-    const bestPositive=pool.find(f=>f.polarity==='positive');
-    if(bestPositive){
-      if(selected.length>=4){selected[selected.length-1]=bestPositive;}
-      else{selected.push(bestPositive);}
-      selected.sort((x,y)=>y.impact-x.impact);
-    }
-  }
-
-  /* empty-pool fallback */
-  if(selected.length===0){
-    const fallback={
-      revenue:{headline:'Test a price increase',advice:"Nothing in your answers points to an obvious gap — that's a good sign. A 10% price test on new customers is usually the highest-leverage next move when the fundamentals are already solid."},
-      time:{headline:'Document one process this month',advice:"Nothing major stood out — pick the one task you do most often and write it down step by step. That's the foundation for taking real time off later."},
-      sell:{headline:'Get one real valuation conversation',advice:'Your fundamentals look solid. Get one real number from someone who actually buys businesses like yours — most owners are guessing at what they\'re worth.'},
-      health:{headline:'Fundamentals look solid',advice:'Nothing major stood out in this check. Worth revisiting in 6 months as the business grows.'}
-    }[a.goal]||{headline:'Fundamentals look solid',advice:'Nothing major stood out. Worth revisiting in 6 months.'};
-    selected=[{id:'FALLBACK',area:'general',headline:fallback.headline,advice:fallback.advice,impact:1,polarity:'positive'}];
-  }
-  return selected;
 }
-
-const basicAuditContent={
-  revenue:[
-    {headline:"Install a Recurring Offer",body:"The fastest way to add revenue without finding a single new customer is converting one-time buyers into a standing relationship. Package what you already deliver into a recurring add-on — a maintenance plan, a membership, a scheduled check-in — and price the one-off version slightly higher so the recurring option reads as the smart choice, not a discount. Offer it at the point of sale, not as a separate campaign later. Businesses that do this commonly move recurring revenue from near-zero to 20%+ of total revenue within six months."},
-    {headline:"Test a Price Increase on New Customers Only",body:"If price hasn't moved in over a year, you're almost certainly leaving margin on the table. The lowest-risk way to find out what the market will bear is a 10–15% increase applied only to new customers, while existing customers stay at their current rate. Watch close rate for 60 days before deciding whether to roll it out further — a price increase that doesn't dent close rate is proof it was overdue, not a risk that paid off."},
-    {headline:"Fix Speed-to-Lead Before Anything Else",body:"Contacting a new lead within 5 minutes instead of same-day or next-day is one of the most common — and most fixable — causes of a soft close rate, and it's a process fix, not a sales-skill fix. Route every inquiry to an instant text or call rather than letting it sit in an inbox. This alone commonly recovers 10–20 points of close rate with zero change to your actual pitch."},
-    {headline:"Anchor With a Premium Option First",body:"A flat discount rarely moves the needle the way people expect. Presenting a premium, fully-done-for-you tier first — even one most people won't buy — makes your standard offer look like the obvious, reasonable middle choice by comparison. Add a downsell for genuine price objections instead of discounting outright, and you capture revenue that's currently just walking away."}
-  ],
-  time:[
-    {headline:"Document the One Task Only You Can Do",body:"List everything that currently requires you personally — sales calls, quality sign-off, vendor relationships, pricing decisions — and pick the single task that would do the most damage if you disappeared for a month. Write down exactly how you do it: the steps, the judgment calls, the phrases you use. That document is the entire difference between hiring someone and hiring someone into chaos."},
-    {headline:"Shadow Before You Hand Off",body:"Delegation usually fails not because the wrong person was hired, but because no one watched the process closely enough to copy it first. Before anyone runs a task solo, have them shadow you on 8–10 real instances, then run a few themselves with you watching. That one extra step is usually the difference between a hire that sticks and one that gets the task handed back to you within a month."},
-    {headline:"Replace Yourself in the Sales Conversation First",body:"If you're the only one who closes deals, that's the highest-leverage place to start — it's the task most owners assume can't be trained, but it's one of the most systemizable. Record your own sales calls, turn the structure into a script and checklist, then test someone else running it on your lowest-stakes accounts first before rolling it out everywhere."},
-    {headline:"Replace Daily Check-Ins With a Weekly Number",body:"If you're touching the business every day to confirm it's fine, it doesn't actually run without you — it runs with you checking constantly. Pick the 3–5 numbers that actually tell you something's wrong (margin, close rate, complaints, capacity) and build a 15-minute weekly review around just those instead. It feels uncomfortable at first. It's also the actual mechanism by which owners go from daily involvement to a weekly check-in."}
-  ],
-  sell:[
-    {headline:"Calculate Your Real Valuation Gap",body:"Buyers pay multiples on adjusted earnings, not revenue — and that multiple moves a lot based on how dependent the business is on you personally. The same business can be worth roughly 2x adjusted earnings if it's entirely owner-run, or 4x if it demonstrably runs without you. On a $400K–$600K earnings business, that gap alone is commonly $800K–$1.2M. Get a real number on where you currently sit before doing anything else on this list."},
-    {headline:"Convert One-Off Revenue Into Contracts",body:"Recurring revenue is priced higher by buyers than one-off revenue at the exact same dollar amount, because it's predictable. If most of your revenue resets to zero every month, packaging it into standing contracts or a maintenance plan is usually the single highest-leverage change available before talking to a buyer — it can move the valuation multiple itself, not just monthly cash flow."},
-    {headline:"Prove the Business Runs Without You, in Writing",body:"It's not enough to say the business doesn't need you — a buyer needs to see it. Pick your most owner-dependent process or location and run a real test: someone other than you runs it for 60–90 days, with results tracked against your own benchmark. That data point, not a claim, is what supports your asking price in a negotiation."},
-    {headline:"Get a Real Number From Someone Who Buys Businesses Like Yours",body:"Most owners are guessing at what their business is worth, usually from a revenue multiple they heard secondhand. A broker or buyer who actually transacts in your industry will give you a far more specific number — and tell you which gap above is actually costing you the most. That conversation costs nothing and changes how you prioritize everything else."}
-  ],
-  health:[
-    {headline:"Fix Speed-to-Lead Before Anything Else",body:"Contacting a new lead within 5 minutes instead of same-day or next-day is one of the most common, most fixable causes of a soft close rate. Route every inquiry to an instant text or call rather than letting it sit in an inbox — this alone commonly recovers 10–20 points of close rate."},
-    {headline:"Document the One Task Only You Can Do",body:"List everything that currently requires you personally, and pick the single task that would do the most damage if you disappeared for a month. Writing down exactly how you do it — steps, judgment calls, the phrases you use — is the entire difference between hiring someone and hiring someone into chaos."},
-    {headline:"Calculate Your Real Valuation Gap",body:"The same business can be worth roughly 2x adjusted earnings if it's entirely owner-run, or 4x if it demonstrably runs without you. On a $400K–$600K earnings business, that gap is commonly $800K–$1.2M — worth knowing even if selling isn't on your mind right now."},
-    {headline:"Know What % of Revenue Is Recurring",body:"This single number predicts more about cash flow stability and what your business is worth than almost anything else. If you don't know it offhand, that's the first thing worth finding out."}
-  ]
-};
-
-const goalContent={
-  revenue:{badge:'🛠️ Want Help Implementing This?',headline:'Watch How We\'d Help You <em>Put This Into Action.</em>',sub:'This quick walkthrough shows how we\'d help you act on the revenue fixes above — or skip straight to a free call and we\'ll talk it through directly.',vslLabel:'Watch: How We\'d Help You Grow Revenue Without Adding Hours — 8 min',resultsHead:'What owners see when the ceiling is removed',stats:[{n:'20–40%',l:'Revenue growth after owner removes themselves as bottleneck'},{n:'15 hrs',l:'Weekly hours reclaimed within 90 days'},{n:'3×',l:'Growth capacity when owner stops doing delivery'},{n:'6 mo',l:'To revenue running without the owner'}],phase1:'We identify every revenue-generating activity that flows through you personally relationships, decisions, proposals that only happen because you show up. Then we build the handoff system for each.',phase2:'Hire or develop a sales leader who drives revenue in your absence. Build the process and accountability structure so results are predictable.',phase3:'With revenue no longer dependent on your presence, growth becomes scalable. Your business can take on more without requiring more of you.',qaGoalQ:'Can the business actually grow without me in sales?',qaGoalA:'Almost always yes and faster. When you build a <strong>repeatable sales process</strong> with the right person running it, conversion often improves because the process is consistent.',bookingHead:'Book your free Revenue Dependency Audit',bookingSub:'We\'ll map exactly which revenue activities depend on you and what freeing those up is worth.'},
-  time:{badge:'🛠️ Want Help Implementing This?',headline:'Watch How We\'d Help You <em>Put This Into Action.</em>',sub:'This quick walkthrough shows how we\'d help you actually build the time-freedom fixes above — or skip straight to a free call and we\'ll talk it through directly.',vslLabel:'Watch: How We\'d Help You Reclaim Your Time — 8 min',resultsHead:'What owners see when the dependency is removed',stats:[{n:'15 hrs',l:'Hours reclaimed per week within 90 days'},{n:'90 days',l:'To a real holiday without the phone melting'},{n:'5',l:'Owner-critical dependencies found in a typical audit'},{n:'6 mo',l:'To a business that runs weeks without you'}],phase1:'We map every single thing that flows through you alone decisions, relationships, approvals, tasks. We score each by urgency and replaceability. The result is your freedom roadmap, in priority order.',phase2:'For every critical dependency, we build the system, the SOP, and the person to run it. Phase 2 ensures the system is built before the person is hired.',phase3:'By Month 5, you\'re not in the daily loop. Revenue is steady. You\'re a business owner again not an employee of your own company.',qaGoalQ:'What if I\'ve tried to delegate before and it didn\'t work?',qaGoalA:'The problem is almost never the person you hired it\'s the <strong>absence of a system</strong> for them to run. Phase 1 fixes that before Phase 2 touches any people decisions.',bookingHead:'Book your free Time Freedom Audit',bookingSub:'We\'ll identify the top 5 things keeping you trapped and what freeing them up is worth.'},
-  sell:{badge:'🛠️ Want Help Implementing This?',headline:'Watch How We\'d Help You <em>Put This Into Action.</em>',sub:'This quick walkthrough shows how we\'d help you close the valuation gap above — or skip straight to a free call and we\'ll talk it through directly.',vslLabel:'Watch: How We\'d Help You Close Your Valuation Gap — 8 min',resultsHead:'What happens when you prepare properly',stats:[{n:'2–3×',l:'Exit valuation increase from dependent to independent'},{n:'$1M+',l:'Valuation difference at $2M revenue'},{n:'6 mo',l:'Average time to being buyer-ready'},{n:'3.8×',l:'EBITDA multiple achieved by program graduates'}],phase1:'We start with the same assessment a buyer would run. Dependency score. Valuation gap. The specific items that cause a buyer to walk or discount heavily. Then we fix the highest-value issues first.',phase2:'The biggest driver of exit valuation is whether the business has a real operator who isn\'t you. Phase 2 is entirely focused on building and placing that person.',phase3:'Clean financials, documented processes, stable revenue without you. A buyer-readiness scorecard at Month 6 maps your progress against what the market actually pays for.',qaGoalQ:'How much can this actually increase my exit price?',qaGoalA:'On a $400K EBITDA business, moving from 2× to 4× adds <strong>$800,000 to your exit</strong>. The program costs $7,500–$15,000. We quantify your gap in the audit so you see the number before committing to anything.',bookingHead:'Book your free Exit Valuation Audit',bookingSub:'We\'ll calculate your valuation gap what your business is worth today vs. what it could be worth in 6 months.'},
-  health:{badge:'🛠️ Want Help Implementing This?',headline:'Watch How We\'d Help You <em>Put This Into Action.</em>',sub:'This quick walkthrough shows how we\'d help you act on whichever of this matters most — or skip straight to a free call and we\'ll talk it through directly.',vslLabel:'Watch: How We\'d Help You Implement This — 8 min',resultsHead:'What a typical health check finds',stats:[{n:'1–4',l:'Specific, fixable issues found per business on average'},{n:'15 min',l:'To get your own personalised read'},{n:'$0',l:'Cost to find out'},{n:'100%',l:'Yours to keep, whatever you decide to do'}],phase1:'We map every point of owner dependency and compare your numbers to what\'s typical at your size.',phase2:'We tell you, in plain terms, which 1–4 things are actually worth fixing first not a generic checklist.',phase3:'You decide what to do with it: grow, step back, or prepare to sell. The information is the same either way.',qaGoalQ:'I\'m not sure what I want yet is this still useful?',qaGoalA:'That\'s exactly who this is for. <strong>See the numbers first</strong>, decide the goal after.',bookingHead:'Book your free Business Health Check',bookingSub:'We\'ll walk through your results and answer anything the report didn\'t cover.'}
-};
-
-const sectorContent={
-  hvac:{strip:'<strong>For HVAC, plumbing and electrical businesses:</strong> The most common dependency is that the owner is the primary estimator, the quality sign-off, and the relationship for every major commercial account. Buyers offer 1.5–2× EBITDA for that. We map every dependency and build the handoff.',sectorNote:'Tailored for HVAC / Trades businesses'},
-  medSpa:{strip:'<strong>For med spa and aesthetic clinic owners:</strong> The most common issue is that the owner is the lead injector, the brand, and the client relationship. When that\'s you, the business doesn\'t survive your exit. We build the clinical leadership and patient retention systems.',sectorNote:'Tailored for Med Spa / Aesthetic Clinic owners'},
-  chiro:{strip:'<strong>For chiropractic and allied health chains:</strong> Revenue tied to your personal patient relationships is the core problem. We build the associate model, referral system, and management structure so the practice runs and exits without you.',sectorNote:'Tailored for Chiropractic / Allied Health owners'},
-  cleaning:{strip:'<strong>For commercial cleaning business owners:</strong> The owner typically wins every contract, handles every complaint, and holds the quality standard in their head. When that\'s not documented, it\'s not transferable. We fix that.',sectorNote:'Tailored for Commercial Cleaning businesses'},
-  recruitment:{strip:'<strong>For recruitment and HR firm owners:</strong> Key client relationships are personal to you. Buyers price that risk heavily. We build the account management structure, placement playbook, and team accountability system.',sectorNote:'Tailored for Recruitment / HR Firm owners'},
-  logistics:{strip:'<strong>For freight and logistics SMB owners:</strong> Carrier relationships, key account negotiations, operational problem-solving all flowing through the founder. We document, develop the leadership, and build a business a strategic buyer pays a premium for.',sectorNote:'Tailored for Freight / Logistics businesses'},
-  accountant:{strip:'<strong>For accounting and bookkeeping practice owners:</strong> Clients follow the person, not the firm. We build the client transition playbook, team competency structure, and recurring revenue model that lets a buyer see continuity after you\'re gone.',sectorNote:'Tailored for Accounting / Bookkeeping Practice owners'},
-  agency:{strip:'<strong>For marketing, PR and creative agency owners:</strong> You\'re the creative director, lead strategist, and key client relationship simultaneously. We build the delivery system, account management layer, and creative leadership structure.',sectorNote:'Tailored for Marketing / PR / Agency owners'},
-  other:{strip:'<strong>For owner-dependent service businesses:</strong> The pattern is always the same: the owner is the rainmaker, quality controller, and decision-maker. When that\'s concentrated in one person, buyers discount heavily. We map and fix every dependency.',sectorNote:'Tailored for your business type'}
-};
-
-const revenueLabelMap={under500k:'Under $500K','500k-1m':'$500K–$1M','1m-2m':'$1M–$2M','2m-3m':'$2M–$3M','3m-4m':'$3M–$4M','4mplus':'$4M+'};
-const marginLabelMap={under5:'Margin: Under 5%','5-10':'Margin: 5–10%','10-15':'Margin: 10–15%','15-20':'Margin: 15–20%','20-25':'Margin: 20–25%','25-30':'Margin: 25–30%','30-40':'Margin: 30–40%','40plus':'Margin: 40%+',notsure:'Margin: not sure'};
-const sectorNameMap={hvac:'HVAC / Trades',medSpa:'Med Spa',chiro:'Chiropractic',cleaning:'Commercial Cleaning',recruitment:'Recruitment',logistics:'Logistics',accountant:'Accounting',agency:'Agency',other:'Service Business'};
-const goalNameMap={revenue:'Goal: Increase Revenue',time:'Goal: Get Time Back',sell:'Goal: Sell the Business',health:'Goal: Health Check'};
-
-function renderSnapshotChips(){
-  const chips=[sectorNameMap[answers.sector],revenueLabelMap[answers.revenue],marginLabelMap[answers.margin],goalNameMap[answers.goal]].filter(Boolean);
-  document.getElementById('p2-snapshot').innerHTML=chips.map(c=>`<span class="snapshot-chip">${c}</span>`).join('');
-}
-
-function buildPage2(){
-  renderSnapshotChips();
-  const g=goalContent[answers.goal]||goalContent.health;
-  const s=sectorContent[answers.sector]||sectorContent.other;
-  document.getElementById('p2-badge').textContent=g.badge;
-  document.getElementById('p2-headline').innerHTML=g.headline;
-  document.getElementById('p2-sub').textContent=g.sub;
-  document.getElementById('p2-vsl-label').textContent=g.vslLabel;
-  document.getElementById('p2-sector-note').textContent=s.sectorNote;
-  document.getElementById('p2-sector-text').innerHTML=s.strip;
-  document.getElementById('p2-results-head').textContent=g.resultsHead;
-  document.getElementById('p2-stats').innerHTML=g.stats.map(st=>`<div class="rcard"><div class="rcard-n">${st.n}</div><div class="rcard-l">${st.l}</div></div>`).join('');
-  document.getElementById('p2-phase1').textContent=g.phase1;
-  document.getElementById('p2-phase2').textContent=g.phase2;
-  document.getElementById('p2-phase3').textContent=g.phase3;
-  document.getElementById('qa-goal-q').textContent=g.qaGoalQ;
-  document.getElementById('qa-goal-a').innerHTML=g.qaGoalA;
-  document.getElementById('p2-booking-head').textContent=g.bookingHead;
-  document.getElementById('p2-booking-sub').textContent=g.bookingSub;
-
-  const findingsContainer=document.getElementById('p2-findings');
-  if(answers.path==='full'){
-    const findings=computeFindings(answers);
-    document.getElementById('p2-findings-head').textContent='What we found in your business';
-    document.getElementById('p2-findings-sub').textContent=`The ${findings.length} highest-impact thing${findings.length===1?'':'s'} to act on first.`;
-    findingsContainer.innerHTML=findings.map(f=>`
-      <div class="finding-card ${f.polarity==='positive'?'positive':''}">
-        <div class="finding-tag">${f.polarity==='positive'?'Working well':'Fix this'}</div>
-        <div class="finding-h">${f.headline}</div>
-        <div class="finding-b">${f.advice}</div>
-      </div>`).join('');
-  }else{
-    document.getElementById('p2-findings-head').textContent='Where to start';
-    document.getElementById('p2-findings-sub').textContent='General guidance based on your goal — go deeper with the full diagnosis any time.';
-    findingsContainer.innerHTML=(basicAuditContent[answers.goal]||basicAuditContent.health).map((t,i)=>`
-      <div class="tip-card">
-        <div class="tip-num">${i+1}</div>
-        <div><div class="tip-h">${t.headline}</div><div class="tip-b">${t.body}</div></div>
-      </div>`).join('');
-  }
-}
-
-function submitForm(){
-  answers.fullname=document.getElementById('fullname').value.trim();
-  answers.bizname=document.getElementById('bizname').value.trim();
-  answers.email=document.getElementById('email').value.trim();
-  answers.phone=document.getElementById('phone').value.trim();
-
-  /* PLACEHOLDER — send `answers` to your email/CRM/Mailerlite webhook here, e.g.:
-  fetch('https://YOUR-WEBHOOK-URL', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(answers)
-  });
-  */
-
-  buildPage2();
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('p2').classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
 </script>
+
 </body>
 </html>

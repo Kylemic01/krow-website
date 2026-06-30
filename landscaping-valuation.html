@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landscaping Business Valuation Calculator — Free Instant Estimate</title>
+<meta name="description" content="Free landscaping business valuation calculator. Get an instant estimated value range based on your SDE, recurring revenue, and owner involvement — grounded in real industry multiples.">
+<style>
+  :root{
+    --green:#1F7A4D;--green2:#2C9A63;--greenLight:#E8F5EE;
+    --ink:#15291F;--muted:#5A7268;--border:#DCE8E1;--bg:#FAFCFB;--white:#FFFFFF;
+    --warn:#B5651D;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  .wrap{max-width:760px;margin:0 auto;padding:0 1.2rem}
+
+  .utility-bar{background:var(--greenLight);border-bottom:1px solid var(--border);padding:.6rem 0;text-align:center;font-size:.78rem;color:var(--green);font-weight:700;letter-spacing:.02em}
+
+  header{padding:3rem 0 1.5rem;text-align:center}
+  .tool-tag{display:inline-flex;align-items:center;gap:.4rem;background:var(--greenLight);color:var(--green);border:1px solid #C9E6D6;border-radius:20px;padding:.35rem 1rem;font-size:.76rem;font-weight:700;margin-bottom:1.1rem}
+  h1{font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1.18;margin-bottom:.8rem;color:var(--ink)}
+  header .sub{font-size:1rem;color:var(--muted);max-width:520px;margin:0 auto}
+  .trust-line{margin-top:1.1rem;font-size:.78rem;color:var(--muted)}
+
+  .card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2rem 1.8rem;box-shadow:0 4px 24px rgba(21,41,31,.05);margin-bottom:1.6rem}
+
+  label{display:block;font-size:.84rem;font-weight:700;color:var(--ink);margin-bottom:.4rem}
+  .hint{font-size:.74rem;color:var(--muted);margin-top:-.25rem;margin-bottom:.5rem}
+  .field-row{margin-bottom:1.3rem}
+  input[type=number],select{width:100%;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.95rem;color:var(--ink);background:var(--white);font-family:inherit;transition:border-color .15s}
+  input[type=number]:focus,select:focus{outline:none;border-color:var(--green2);box-shadow:0 0 0 3px rgba(44,154,99,.12)}
+  .input-prefix{position:relative}
+  .input-prefix span{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.95rem;pointer-events:none}
+  .input-prefix input{padding-left:1.7rem}
+  .input-suffix{position:relative}
+  .input-suffix span{position:absolute;right:.9rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none}
+  .input-suffix input{padding-right:2.2rem}
+
+  .calc-btn{width:100%;background:var(--green);color:white;border:none;padding:.95rem;border-radius:9px;font-size:1rem;font-weight:800;cursor:pointer;font-family:inherit;transition:background .18s}
+  .calc-btn:hover:not(:disabled){background:#185F3C}
+  .calc-btn:disabled{background:#B9C9C0;cursor:not-allowed}
+
+  /* RESULTS */
+  .results-card{display:none}
+  .results-card.show{display:block}
+  .valuation-range{text-align:center;padding:1.6rem 0 1.2rem}
+  .valuation-label{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:.6rem}
+  .valuation-num{font-size:2.5rem;font-weight:900;color:var(--ink);letter-spacing:-.02em}
+  .valuation-multiple{font-size:.84rem;color:var(--muted);margin-top:.4rem}
+  .explain-box{background:var(--greenLight);border-left:4px solid var(--green2);border-radius:8px;padding:1.1rem 1.3rem;margin:1.2rem 0;font-size:.9rem;color:#1F3A2C;line-height:1.65}
+  .disclaimer{font-size:.74rem;color:var(--muted);text-align:center;margin-top:.6rem;line-height:1.5}
+
+  .lead-gate{border-top:1px solid var(--border);margin-top:1.6rem;padding-top:1.6rem}
+  .lead-gate h3{font-size:1.05rem;font-weight:800;margin-bottom:.3rem}
+  .lead-gate p{font-size:.85rem;color:var(--muted);margin-bottom:1.1rem}
+  .field-error{display:none;color:#B5392E;font-size:.76rem;margin:-.5rem 0 .7rem 2px;font-weight:600}
+  .field-error.show{display:block}
+  .field.invalid{border-color:#B5392E}
+
+  .booking-cta{display:none;text-align:center;background:linear-gradient(135deg,#15291F,#1F3A2C);border-radius:14px;padding:2.2rem 1.8rem;color:white}
+  .booking-cta.show{display:block}
+  .booking-cta h3{font-size:1.3rem;font-weight:800;margin-bottom:.5rem}
+  .booking-cta p{font-size:.88rem;color:rgba(255,255,255,.65);max-width:440px;margin:0 auto 1.4rem;line-height:1.6}
+  .booking-btn{display:inline-block;background:var(--green2);color:white;padding:.85rem 2.2rem;border-radius:8px;font-weight:800;font-size:.95rem;text-decoration:none;transition:background .18s}
+  .booking-btn:hover{background:#36AF73}
+  .booking-note{font-size:.74rem;color:rgba(255,255,255,.4);margin-top:1rem}
+
+  /* METHODOLOGY */
+  .method-section{margin-top:2.5rem}
+  .method-section h2{font-size:1.25rem;font-weight:800;margin-bottom:.9rem}
+  .method-section p{font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem}
+  .method-table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.84rem}
+  .method-table th{text-align:left;padding:.6rem .5rem;border-bottom:2px solid var(--border);color:var(--muted);font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.03em}
+  .method-table td{padding:.7rem .5rem;border-bottom:1px solid var(--border)}
+  .method-table td.mult{font-weight:800;color:var(--green)}
+
+  footer{text-align:center;padding:2.5rem 1rem 3rem;font-size:.76rem;color:var(--muted)}
+  footer a{color:var(--green);text-decoration:none;font-weight:600}
+
+  @media(max-width:560px){
+    h1{font-size:1.6rem}
+    .valuation-num{font-size:2rem}
+    .card{padding:1.5rem 1.2rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="utility-bar">🌿 Free Tool · No signup required to see your number</div>
+
+<header class="wrap">
+  <div class="tool-tag">📊 2-Minute Estimate</div>
+  <h1>What's Your Landscaping Business Actually Worth?</h1>
+  <p class="sub">Answer six quick questions and get an instant, real-world estimate — grounded in actual landscaping industry sale data, not a guess.</p>
+  <p class="trust-line">Based on real SDE multiples from landscaping business sales · Takes about 90 seconds</p>
+</header>
+
+<div class="wrap">
+
+  <div class="card" id="calc-card">
+    <div class="field-row">
+      <label for="revenue">Annual revenue</label>
+      <div class="input-prefix"><span>$</span><input type="number" id="revenue" min="0" placeholder="850,000" oninput="checkForm()"></div>
+    </div>
+
+    <div class="field-row">
+      <label for="sde">Annual net profit (owner's discretionary earnings)</label>
+      <div class="hint">What you personally take home before taxes — salary, draws, and profit combined.</div>
+      <div class="input-prefix"><span>$</span><input type="number" id="sde" min="0" placeholder="180,000" oninput="checkForm()"></div>
+    </div>
+
+    <div class="field-row">
+      <label for="years">Years in business</label>
+      <select id="years" onchange="checkForm()">
+        <option value="" disabled selected>Select one</option>
+        <option value="lt2">Less than 2 years</option>
+        <option value="2to5">2–5 years</option>
+        <option value="5to10">5–10 years</option>
+        <option value="10plus">10+ years</option>
+      </select>
+    </div>
+
+    <div class="field-row">
+      <label for="recurring">Recurring revenue %</label>
+      <div class="hint">Maintenance contracts and standing agreements, vs. one-off jobs and projects.</div>
+      <div class="input-suffix"><input type="number" id="recurring" min="0" max="100" placeholder="40" oninput="checkForm()"><span>%</span></div>
+    </div>
+
+    <div class="field-row">
+      <label for="involvement">How much does the business depend on you personally?</label>
+      <select id="involvement" onchange="checkForm()">
+        <option value="" disabled selected>Select one</option>
+        <option value="full_independent">Runs fully without me — I could step away a month with no issue</option>
+        <option value="mostly_independent">Mostly runs without me — I check in occasionally</option>
+        <option value="regular_involvement">Needs me regularly — I'm involved most weeks</option>
+        <option value="fully_dependent">Depends entirely on me — nothing happens without me</option>
+      </select>
+    </div>
+
+    <div class="field-row">
+      <label for="crews">Number of employees / crews <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+      <select id="crews" onchange="checkForm()">
+        <option value="">Prefer not to say</option>
+        <option value="solo">Just me</option>
+        <option value="small">2–4</option>
+        <option value="mid">5–9</option>
+        <option value="large">10+</option>
+      </select>
+    </div>
+
+    <button class="calc-btn" id="calc-btn" disabled onclick="calculate()">Calculate My Valuation →</button>
+  </div>
+
+  <div class="card results-card" id="results-card">
+    <div class="valuation-range">
+      <div class="valuation-label">Estimated Business Value</div>
+      <div class="valuation-num" id="val-range">$0 – $0</div>
+      <div class="valuation-multiple" id="val-multiple"></div>
+    </div>
+    <div class="explain-box" id="val-explain"></div>
+    <p class="disclaimer">This is a directional estimate based on typical industry multiples, not a formal valuation. Actual value depends on add-backs, local market conditions, assets, and buyer-specific factors. For a precise number, work with a business appraiser or broker.</p>
+
+    <div class="lead-gate" id="lead-gate">
+      <h3>Get your full breakdown</h3>
+      <p>We'll email you the full number with the exact factors moving your multiple up or down — and what's worth fixing first if you want a higher number before you sell or grow.</p>
+      <input class="field" type="text" id="fullname" placeholder="Full name" oninput="checkLead()" style="width:100%;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.9rem;margin-bottom:.7rem;font-family:inherit">
+      <input class="field" type="email" id="email" placeholder="Email address" oninput="checkLead()" style="width:100%;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.9rem;margin-bottom:.7rem;font-family:inherit">
+      <div class="field-error" id="email-error">Enter a valid email address</div>
+      <input class="field" type="tel" id="phone" placeholder="Phone number" oninput="checkLead()" style="width:100%;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.9rem;margin-bottom:.7rem;font-family:inherit">
+      <div class="field-error" id="phone-error">Enter a valid phone number</div>
+      <button class="calc-btn" id="lead-btn" disabled onclick="submitLead()">Get My Full Breakdown →</button>
+    </div>
+  </div>
+
+  <div class="booking-cta" id="booking-cta">
+    <h3>Want help increasing this number?</h3>
+    <p>Whether you're planning to sell or just want to grow, book a free strategy session and we'll map exactly what would move your number — and how fast.</p>
+    <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="booking-btn">Book Your Free Consultation →</a>
+    <div class="booking-note">Free 30–45 minute call · No pressure · You keep the roadmap either way</div>
+  </div>
+
+  <div class="method-section">
+    <h2>How this is calculated</h2>
+    <p>This estimate starts from your annual SDE (owner's discretionary earnings — your real take-home, not just "profit" on paper) and applies a multiple based on factors that actually move what buyers pay for landscaping businesses: how much revenue is recurring vs. one-off, how dependent the business is on you personally, how long it's been operating, and team size.</p>
+    <p>Landscaping businesses typically sell for somewhere between 2x and 5x SDE. Recurring maintenance contracts pull that multiple up significantly — businesses with heavy recurring revenue routinely sell for close to double the multiple of project-only operations, because the revenue is predictable instead of something that has to be re-won every job.</p>
+    <table class="method-table">
+      <tr><th>What you told us</th><th>Typical effect on multiple</th></tr>
+      <tr><td>Recurring revenue under 20%</td><td class="mult">Pulls multiple down</td></tr>
+      <tr><td>Recurring revenue over 60%</td><td class="mult">Pushes multiple up significantly</td></tr>
+      <tr><td>Business runs fully without you</td><td class="mult">Pushes multiple up</td></tr>
+      <tr><td>Business depends entirely on you</td><td class="mult">Pulls multiple down significantly</td></tr>
+      <tr><td>10+ years operating</td><td class="mult">Modest upward adjustment</td></tr>
+      <tr><td>Larger team / multiple crews</td><td class="mult">Modest upward adjustment</td></tr>
+    </table>
+    <p style="font-size:.78rem">This tool gives a directional range, not an appraisal. It does not account for equipment value, real estate, local market conditions, customer concentration, or add-backs specific to your financials — all of which a real valuation would weigh.</p>
+  </div>
+
+</div>
+
+<footer>
+  Built using real landscaping industry sale data. Not a substitute for a professional valuation.<br>
+  A tool by <a href="/">Krow: The Exit Blueprint</a>
+</footer>
+
+<script>
+let calcResult = null;
+
+function checkForm(){
+  const revenue = document.getElementById('revenue').value;
+  const sde = document.getElementById('sde').value;
+  const years = document.getElementById('years').value;
+  const recurring = document.getElementById('recurring').value;
+  const involvement = document.getElementById('involvement').value;
+  const ok = revenue !== '' && sde !== '' && years !== '' && recurring !== '' && involvement !== '';
+  document.getElementById('calc-btn').disabled = !ok;
+}
+
+function calculate(){
+  const revenue = parseFloat(document.getElementById('revenue').value) || 0;
+  const sde = parseFloat(document.getElementById('sde').value) || 0;
+  const years = document.getElementById('years').value;
+  const recurring = parseFloat(document.getElementById('recurring').value) || 0;
+  const involvement = document.getElementById('involvement').value;
+  const crews = document.getElementById('crews').value;
+
+  // Base multiple range — grounded in industry SDE multiple data (~2.3x-2.9x typical)
+  let baseLow = 2.3, baseHigh = 2.9;
+
+  // Recurring revenue adjustment
+  let recurringAdj = 0, recurringNote = '';
+  if(recurring < 20){ recurringAdj = -0.3; recurringNote = 'low'; }
+  else if(recurring < 40){ recurringAdj = -0.1; recurringNote = 'belowAvg'; }
+  else if(recurring < 60){ recurringAdj = 0; recurringNote = 'avg'; }
+  else if(recurring < 80){ recurringAdj = 0.4; recurringNote = 'high'; }
+  else { recurringAdj = 0.7; recurringNote = 'veryHigh'; }
+
+  // Owner involvement adjustment
+  let involvementAdj = 0, involvementNote = '';
+  if(involvement === 'full_independent'){ involvementAdj = 0.6; involvementNote = 'independent'; }
+  else if(involvement === 'mostly_independent'){ involvementAdj = 0.2; involvementNote = 'mostlyIndependent'; }
+  else if(involvement === 'regular_involvement'){ involvementAdj = -0.2; involvementNote = 'regular'; }
+  else { involvementAdj = -0.6; involvementNote = 'dependent'; }
+
+  // Years in business adjustment
+  let yearsAdj = 0, yearsNote = '';
+  if(years === 'lt2'){ yearsAdj = -0.3; yearsNote = 'new'; }
+  else if(years === '2to5'){ yearsAdj = 0; yearsNote = 'established'; }
+  else if(years === '5to10'){ yearsAdj = 0.15; yearsNote = 'mature'; }
+  else { yearsAdj = 0.3; yearsNote = 'veryMature'; }
+
+  // Crew size adjustment (optional)
+  let crewsAdj = 0;
+  if(crews === 'solo'){ crewsAdj = -0.2; }
+  else if(crews === 'mid'){ crewsAdj = 0.15; }
+  else if(crews === 'large'){ crewsAdj = 0.3; }
+
+  const totalAdj = recurringAdj + involvementAdj + yearsAdj + crewsAdj;
+
+  let finalLow = Math.max(1.5, baseLow + totalAdj);
+  let finalHigh = Math.max(finalLow + 0.4, baseHigh + totalAdj);
+  finalHigh = Math.min(finalHigh, 6.5);
+  if(finalLow > finalHigh - 0.4) finalLow = finalHigh - 0.4;
+
+  const valLow = Math.round(sde * finalLow / 1000) * 1000;
+  const valHigh = Math.round(sde * finalHigh / 1000) * 1000;
+
+  calcResult = {revenue, sde, recurring, involvement, years, crews, finalLow, finalHigh, valLow, valHigh,
+    factors: {recurringAdj, recurringNote, involvementAdj, involvementNote, yearsAdj, yearsNote, crewsAdj}};
+
+  renderResults();
+}
+
+function fmt(n){ return '$' + n.toLocaleString('en-US'); }
+
+function renderResults(){
+  const r = calcResult;
+  document.getElementById('val-range').textContent = fmt(r.valLow) + ' – ' + fmt(r.valHigh);
+  document.getElementById('val-multiple').textContent = `Based on ${r.finalLow.toFixed(1)}x – ${r.finalHigh.toFixed(1)}x your annual SDE of ${fmt(r.sde)}`;
+
+  // Determine biggest positive and biggest negative factor
+  const factors = [
+    {key:'recurring', adj:r.factors.recurringAdj, note:r.factors.recurringNote},
+    {key:'involvement', adj:r.factors.involvementAdj, note:r.factors.involvementNote},
+    {key:'years', adj:r.factors.yearsAdj, note:r.factors.yearsNote},
+  ];
+  const positives = factors.filter(f=>f.adj>0).sort((a,b)=>b.adj-a.adj);
+  const negatives = factors.filter(f=>f.adj<0).sort((a,b)=>a.adj-b.adj);
+
+  const positiveText = {
+    recurring: `Your ${r.recurring}% recurring revenue is the biggest thing helping your number — landscaping businesses with strong maintenance contracts typically sell for close to double the multiple of project-only operations.`,
+    involvement: `The business running largely without you day-to-day is a real asset here — buyers pay a premium for landscaping companies that don't disappear the moment the owner steps back.`,
+    years: `${r.years === '10plus' ? '10+ years' : '5-10 years'} in business adds a real track record buyers can underwrite — it's worth more to a buyer than the same numbers from a newer operation.`
+  };
+  const negativeText = {
+    recurring: `Your recurring revenue is on the low side, which is likely the single biggest thing capping your multiple right now. Converting even a portion of one-off jobs into maintenance contracts is usually the fastest way to move this number.`,
+    involvement: `The business currently depends heavily on you personally, and that's a real drag on what a buyer would pay — it reads as risk, not as your hard work. Documenting how you operate and training someone else into key tasks is the highest-leverage fix available.`,
+    years: `Being relatively new in the market means there's less of a track record for a buyer to underwrite yet, which is reflected in a slightly lower multiple — this naturally improves with time and consistency.`
+  };
+
+  let explain = '';
+  if(positives.length){
+    explain += positiveText[positives[0].key] + ' ';
+  }
+  if(negatives.length){
+    explain += negativeText[negatives[0].key];
+  }
+  if(!positives.length && !negatives.length){
+    explain = `Your numbers land close to the industry average for landscaping businesses — nothing here is dramatically helping or hurting your multiple yet, which also means there's real room to push it higher.`;
+  }
+  document.getElementById('val-explain').textContent = explain;
+
+  document.getElementById('results-card').classList.add('show');
+  document.getElementById('results-card').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* Lead capture */
+function isValidEmailFormat(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+function isValidPhone(v){
+  const digits = v.replace(/\D/g,'');
+  return digits.length === 10 || (digits.length === 11 && digits[0] === '1');
+}
+function toggleErr(field, show){
+  document.getElementById(field+'-error').classList.toggle('show', show);
+  document.getElementById(field).classList.toggle('invalid', show);
+}
+function checkLead(){
+  const name = document.getElementById('fullname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const emailOk = isValidEmailFormat(email);
+  const phoneOk = isValidPhone(phone);
+  toggleErr('email', email !== '' && !emailOk);
+  toggleErr('phone', phone !== '' && !phoneOk);
+  document.getElementById('lead-btn').disabled = !(name && emailOk && phoneOk);
+}
+
+function submitLead(){
+  const lead = {
+    name: document.getElementById('fullname').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    ...calcResult
+  };
+
+  /* PLACEHOLDER — send `lead` to your email/CRM/Mailerlite webhook here, e.g.:
+  fetch('https://YOUR-WEBHOOK-URL', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(lead)
+  });
+  */
+
+  document.getElementById('lead-gate').style.display = 'none';
+  document.getElementById('booking-cta').classList.add('show');
+  document.getElementById('booking-cta').scrollIntoView({behavior:'smooth', block:'start'});
+}
+</script>
+
+</body>
+</html>

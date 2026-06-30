@@ -58,6 +58,23 @@
   .field-error.show{display:block}
   .field.invalid{border-color:#B5392E}
 
+  .gate-card{display:none}
+  .gate-card.show{display:block}
+  .gate-card h3{font-size:1.2rem;font-weight:800;margin-bottom:.4rem}
+  .gate-card p{font-size:.87rem;color:var(--muted);margin-bottom:1.3rem;line-height:1.6}
+  .gate-card input{width:100%;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.9rem;margin-bottom:.7rem;font-family:inherit}
+  .gate-card input:focus{outline:none;border-color:var(--green2);box-shadow:0 0 0 3px rgba(44,154,99,.12)}
+  .gate-card input.invalid{border-color:#B5392E}
+
+  .mini-cta{display:block;width:100%;text-align:center;background:var(--green);color:white;padding:.85rem 1.5rem;border-radius:8px;font-weight:800;font-size:.92rem;text-decoration:none;margin-top:1.3rem;transition:background .18s}
+  .mini-cta:hover{background:#185F3C}
+
+  .cta-banner{display:none;background:var(--greenLight);border:1px solid #C9E6D6;border-radius:14px;padding:1.7rem 1.6rem;text-align:center;margin-bottom:1.6rem}
+  .cta-banner.show{display:block}
+  .cta-banner h4{font-size:1.08rem;font-weight:800;margin-bottom:.4rem;color:var(--ink)}
+  .cta-banner p{font-size:.85rem;color:var(--muted);margin-bottom:1.1rem}
+  .cta-banner .mini-cta{display:inline-block;width:auto;padding:.8rem 1.8rem;margin-top:0}
+
   .booking-cta{display:none;text-align:center;background:linear-gradient(135deg,#15291F,#1F3A2C);border-radius:14px;padding:2.2rem 1.8rem;color:white}
   .booking-cta.show{display:block}
   .booking-cta h3{font-size:1.3rem;font-weight:800;margin-bottom:.5rem}
@@ -87,7 +104,7 @@
 </head>
 <body>
 
-<div class="utility-bar">🌿 Free Tool · No signup required to see your number</div>
+<div class="utility-bar">🌿 Free Tool · Takes about 90 seconds</div>
 
 <header class="wrap">
   <div class="tool-tag">📊 2-Minute Estimate</div>
@@ -149,7 +166,19 @@
       </select>
     </div>
 
-    <button class="calc-btn" id="calc-btn" disabled onclick="calculate()">Calculate My Valuation →</button>
+    <button class="calc-btn" id="calc-btn" disabled onclick="goToContactGate()">Continue →</button>
+  </div>
+
+  <div class="card gate-card" id="gate-card">
+    <h3>One last step — enter your details to see your valuation</h3>
+    <p>We'll show you your number right after this, and email you a copy. No spam — just your result.</p>
+    <input type="text" id="fullname" placeholder="Full name" oninput="checkGate()">
+    <div class="field-error" id="fullname-error">Please enter your first and last name</div>
+    <input type="email" id="email" placeholder="Email address" oninput="checkGate()">
+    <div class="field-error" id="email-error">Enter a valid email address</div>
+    <input type="tel" id="phone" placeholder="Phone number" oninput="checkGate()">
+    <div class="field-error" id="phone-error">Enter a valid phone number</div>
+    <button class="calc-btn" id="gate-btn" disabled onclick="revealValuation()">Get My Valuation →</button>
   </div>
 
   <div class="card results-card" id="results-card">
@@ -160,23 +189,19 @@
     </div>
     <div class="explain-box" id="val-explain"></div>
     <p class="disclaimer">This is a directional estimate based on typical industry multiples, not a formal valuation. Actual value depends on add-backs, local market conditions, assets, and buyer-specific factors. For a precise number, work with a business appraiser or broker.</p>
+    <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="mini-cta">Get Your Free Audit →</a>
+  </div>
 
-    <div class="lead-gate" id="lead-gate">
-      <h3>Get your full breakdown</h3>
-      <p>We'll email you the full number with the exact factors moving your multiple up or down — and what's worth fixing first if you want a higher number before you sell or grow.</p>
-      <input class="field" type="text" id="fullname" placeholder="Full name" oninput="checkLead()" style="width:100%;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.9rem;margin-bottom:.7rem;font-family:inherit">
-      <input class="field" type="email" id="email" placeholder="Email address" oninput="checkLead()" style="width:100%;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.9rem;margin-bottom:.7rem;font-family:inherit">
-      <div class="field-error" id="email-error">Enter a valid email address</div>
-      <input class="field" type="tel" id="phone" placeholder="Phone number" oninput="checkLead()" style="width:100%;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.9rem;margin-bottom:.7rem;font-family:inherit">
-      <div class="field-error" id="phone-error">Enter a valid phone number</div>
-      <button class="calc-btn" id="lead-btn" disabled onclick="submitLead()">Get My Full Breakdown →</button>
-    </div>
+  <div class="cta-banner" id="cta-banner-mid">
+    <h4>Want a plan to move this number higher?</h4>
+    <p>We'll show you exactly what would push your multiple up — before you sell, or just to grow.</p>
+    <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="mini-cta">Get Your Free Audit →</a>
   </div>
 
   <div class="booking-cta" id="booking-cta">
     <h3>Want help increasing this number?</h3>
     <p>Whether you're planning to sell or just want to grow, book a free strategy session and we'll map exactly what would move your number — and how fast.</p>
-    <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="booking-btn">Book Your Free Consultation →</a>
+    <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="booking-btn">Get Your Free Audit →</a>
     <div class="booking-note">Free 30–45 minute call · No pressure · You keep the roadmap either way</div>
   </div>
 
@@ -204,6 +229,10 @@
 </footer>
 
 <script>
+// Get your free access key at https://web3forms.com — takes 30 seconds, no account needed.
+// Paste it below to start receiving an email the instant someone submits this form.
+const WEB3FORMS_ACCESS_KEY = "3f46aea5-82f3-4c90-b64c-dc6e244bb85f";
+
 let calcResult = null;
 
 function checkForm(){
@@ -214,6 +243,12 @@ function checkForm(){
   const involvement = document.getElementById('involvement').value;
   const ok = revenue !== '' && sde !== '' && years !== '' && recurring !== '' && involvement !== '';
   document.getElementById('calc-btn').disabled = !ok;
+}
+
+function goToContactGate(){
+  const gate = document.getElementById('gate-card');
+  gate.classList.add('show');
+  gate.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 function calculate(){
@@ -311,49 +346,98 @@ function renderResults(){
   document.getElementById('val-explain').textContent = explain;
 
   document.getElementById('results-card').classList.add('show');
+  document.getElementById('cta-banner-mid').classList.add('show');
+  document.getElementById('booking-cta').classList.add('show');
+  document.getElementById('gate-card').classList.remove('show');
   document.getElementById('results-card').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-/* Lead capture */
+/* Contact gate — required before the valuation is revealed */
 function isValidEmailFormat(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
 function isValidPhone(v){
   const digits = v.replace(/\D/g,'');
   return digits.length === 10 || (digits.length === 11 && digits[0] === '1');
 }
+function isFullName(v){
+  const parts = v.trim().split(/\s+/).filter(Boolean);
+  return parts.length >= 2 && parts.every(p => p.length >= 1);
+}
 function toggleErr(field, show){
   document.getElementById(field+'-error').classList.toggle('show', show);
   document.getElementById(field).classList.toggle('invalid', show);
 }
-function checkLead(){
-  const name = document.getElementById('fullname').value.trim();
+function checkGate(){
+  const name = document.getElementById('fullname').value;
   const email = document.getElementById('email').value.trim();
   const phone = document.getElementById('phone').value.trim();
+  const nameOk = isFullName(name);
   const emailOk = isValidEmailFormat(email);
   const phoneOk = isValidPhone(phone);
+  toggleErr('fullname', name.trim() !== '' && !nameOk);
   toggleErr('email', email !== '' && !emailOk);
   toggleErr('phone', phone !== '' && !phoneOk);
-  document.getElementById('lead-btn').disabled = !(name && emailOk && phoneOk);
+  document.getElementById('gate-btn').disabled = !(nameOk && emailOk && phoneOk);
 }
 
-function submitLead(){
+function sendLeadNotification(payload){
+  if(WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY"){
+    console.warn("Web3Forms access key not set — lead was calculated but NOT emailed. See comment at top of <script>.");
+    return;
+  }
+  const allFields = {
+    access_key: WEB3FORMS_ACCESS_KEY,
+    subject: `New Landscaping Valuation Lead — ${payload.name}`,
+    from_name: 'Landscaping Valuation Calculator',
+    ...payload
+  };
+
+  const iframeName = 'w3f_iframe_' + Date.now();
+  const iframe = document.createElement('iframe');
+  iframe.name = iframeName;
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+
+  const form = document.createElement('form');
+  form.action = 'https://api.web3forms.com/submit';
+  form.method = 'POST';
+  form.target = iframeName;
+  form.style.display = 'none';
+
+  for(const [key, value] of Object.entries(allFields)){
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = value;
+    form.appendChild(input);
+  }
+  document.body.appendChild(form);
+  form.submit();
+
+  setTimeout(() => { form.remove(); iframe.remove(); }, 5000);
+}
+
+function revealValuation(){
   const lead = {
     name: document.getElementById('fullname').value.trim(),
     email: document.getElementById('email').value.trim(),
-    phone: document.getElementById('phone').value.trim(),
-    ...calcResult
+    phone: document.getElementById('phone').value.trim()
   };
 
-  /* PLACEHOLDER — send `lead` to your email/CRM/Mailerlite webhook here, e.g.:
-  fetch('https://YOUR-WEBHOOK-URL', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(lead)
-  });
-  */
+  calculate(); // computes calcResult and renders the results card
 
-  document.getElementById('lead-gate').style.display = 'none';
-  document.getElementById('booking-cta').classList.add('show');
-  document.getElementById('booking-cta').scrollIntoView({behavior:'smooth', block:'start'});
+  sendLeadNotification({
+    name: lead.name,
+    email: lead.email,
+    phone: lead.phone,
+    annual_revenue: fmt(calcResult.revenue),
+    annual_sde: fmt(calcResult.sde),
+    years_in_business: calcResult.years,
+    recurring_revenue_pct: calcResult.recurring + '%',
+    owner_involvement: calcResult.involvement,
+    crews: calcResult.crews || 'not provided',
+    estimated_valuation: fmt(calcResult.valLow) + ' - ' + fmt(calcResult.valHigh),
+    multiple_used: calcResult.finalLow.toFixed(1) + 'x - ' + calcResult.finalHigh.toFixed(1) + 'x'
+  });
 }
 </script>
 

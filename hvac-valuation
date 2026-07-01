@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HVAC Business Valuation Calculator — Free 2026 Estimate</title>
+<meta name="description" content="Free HVAC business valuation calculator. Get an instant estimated value range based on your SDE, service agreements, and owner involvement — grounded in real 2026 HVAC transaction data.">
+<style>
+  :root{
+    --blue:#1A4A8A;--blue2:#2563B0;--blueLight:#E8F1FB;
+    --ink:#0D1F35;--muted:#4A6A8A;--border:#CDDAEE;--bg:#F5F8FD;--white:#FFFFFF;
+    --warn:#B5392E;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  .wrap{max-width:760px;margin:0 auto;padding:0 1.2rem}
+
+  .utility-bar{background:var(--blueLight);border-bottom:1px solid var(--border);padding:.6rem 0;text-align:center;font-size:.78rem;color:var(--blue);font-weight:700;letter-spacing:.02em}
+
+  header.wrap{padding:4rem 1.2rem 1.5rem;text-align:center}
+  .tool-tag{display:inline-flex;align-items:center;gap:.4rem;background:var(--blueLight);color:var(--blue);border:1px solid #BACDE8;border-radius:20px;padding:.35rem 1rem;font-size:.76rem;font-weight:700;margin-bottom:1.1rem}
+  h1{font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1.18;margin-bottom:.8rem;color:var(--ink)}
+  header .sub{font-size:1rem;color:var(--muted);max-width:520px;margin:0 auto}
+  .trust-line{margin-top:1.1rem;font-size:.78rem;color:var(--muted)}
+
+  .card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2rem 1.8rem;box-shadow:0 4px 24px rgba(26,74,138,.05);margin-bottom:1.6rem}
+
+  label{display:block;font-size:.84rem;font-weight:700;color:var(--ink);margin-bottom:.4rem}
+  .hint{font-size:.74rem;color:var(--muted);margin-top:-.25rem;margin-bottom:.5rem}
+  .field-row{margin-bottom:1.3rem}
+  input[type=number],select{width:100%;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.95rem;color:var(--ink);background:var(--white);font-family:inherit;transition:border-color .15s}
+  input[type=number]:focus,select:focus{outline:none;border-color:var(--blue2);box-shadow:0 0 0 3px rgba(37,99,176,.12)}
+  .input-prefix{position:relative}
+  .input-prefix span{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.95rem;pointer-events:none}
+  .input-prefix input{padding-left:1.7rem}
+  .input-suffix{position:relative}
+  .input-suffix span{position:absolute;right:.9rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none}
+  .input-suffix input{padding-right:2.2rem}
+
+  .calc-btn{width:100%;background:var(--blue);color:white;border:none;padding:.95rem;border-radius:9px;font-size:1rem;font-weight:800;cursor:pointer;font-family:inherit;transition:background .18s}
+  .calc-btn:hover:not(:disabled){background:#133A6E}
+  .calc-btn:disabled{background:#B0BDD4;cursor:not-allowed}
+
+  /* RESULTS */
+  .results-card{display:none}
+  .results-card.show{display:block}
+  .valuation-range{text-align:center;padding:1.6rem 0 1.2rem}
+  .valuation-label{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:.6rem}
+  .valuation-num{font-size:2.5rem;font-weight:900;color:var(--ink);letter-spacing:-.02em}
+  .valuation-multiple{font-size:.84rem;color:var(--muted);margin-top:.4rem}
+  .explain-box{background:var(--blueLight);border-left:4px solid var(--blue2);border-radius:8px;padding:1.1rem 1.3rem;margin:1.2rem 0;font-size:.9rem;color:#0D1F35;line-height:1.65}
+  .disclaimer{font-size:.74rem;color:var(--muted);text-align:center;margin-top:.6rem;line-height:1.5}
+
+  .gate-card{display:none}
+  .gate-card.show{display:block}
+  .gate-card h3{font-size:1.2rem;font-weight:800;margin-bottom:.4rem}
+  .gate-card p{font-size:.87rem;color:var(--muted);margin-bottom:1.3rem;line-height:1.6}
+  .gate-card input{width:100%;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.9rem;margin-bottom:.7rem;font-family:inherit}
+  .gate-card input:focus{outline:none;border-color:var(--blue2);box-shadow:0 0 0 3px rgba(37,99,176,.12)}
+  .gate-card input.invalid{border-color:var(--warn)}
+  .field-error{display:none;color:var(--warn);font-size:.76rem;margin:-.5rem 0 .7rem 2px;font-weight:600}
+  .field-error.show{display:block}
+
+  .mini-cta{display:block;width:100%;text-align:center;background:var(--blue);color:white;padding:.85rem 1.5rem;border-radius:8px;font-weight:800;font-size:.92rem;text-decoration:none;margin-top:1.3rem;transition:background .18s}
+  .mini-cta:hover{background:#133A6E}
+
+  .cta-banner{display:none;background:var(--blueLight);border:1px solid #BACDE8;border-radius:14px;padding:1.7rem 1.6rem;text-align:center;margin-bottom:1.6rem}
+  .cta-banner.show{display:block}
+  .cta-banner h4{font-size:1.08rem;font-weight:800;margin-bottom:.4rem;color:var(--ink)}
+  .cta-banner p{font-size:.85rem;color:var(--muted);margin-bottom:1.1rem}
+  .cta-banner .mini-cta{display:inline-block;width:auto;padding:.8rem 1.8rem;margin-top:0}
+
+  .booking-cta{display:none;text-align:center;background:linear-gradient(135deg,#0B1E38,#1A3A6E);border-radius:14px;padding:2.2rem 1.8rem;color:white}
+  .booking-cta.show{display:block}
+  .booking-cta h3{font-size:1.3rem;font-weight:800;margin-bottom:.5rem}
+  .booking-cta p{font-size:.88rem;color:rgba(255,255,255,.65);max-width:440px;margin:0 auto 1.4rem;line-height:1.6}
+  .booking-btn{display:inline-block;background:var(--blue2);color:white;padding:.85rem 2.2rem;border-radius:8px;font-weight:800;font-size:.95rem;text-decoration:none;transition:background .18s}
+  .booking-btn:hover{background:#1A4A8A}
+  .booking-note{font-size:.74rem;color:rgba(255,255,255,.4);margin-top:1rem}
+
+  /* METHODOLOGY */
+  .method-section{margin-top:2.5rem}
+  .method-section h2{font-size:1.25rem;font-weight:800;margin-bottom:.9rem}
+  .method-section p{font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem}
+  .method-table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.84rem}
+  .method-table th{text-align:left;padding:.6rem .5rem;border-bottom:2px solid var(--border);color:var(--muted);font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.03em}
+  .method-table td{padding:.7rem .5rem;border-bottom:1px solid var(--border)}
+  .method-table td.mult{font-weight:800;color:var(--blue)}
+
+  footer{text-align:center;padding:2.5rem 1rem 3rem;font-size:.76rem;color:var(--muted)}
+  footer a{color:var(--blue);text-decoration:none;font-weight:600}
+
+  @media(max-width:560px){
+    h1{font-size:1.6rem}
+    .valuation-num{font-size:2rem}
+    .card{padding:1.5rem 1.2rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="utility-bar">🔧 Free Tool · Takes about 90 seconds</div>
+
+<header class="wrap">
+  <div class="tool-tag">📊 2-Minute Estimate</div>
+  <h1>What's Your HVAC Business Actually Worth?</h1>
+  <p class="sub">Answer six quick questions and get an instant, real-world estimate — grounded in actual 2026 HVAC transaction data, not a guess.</p>
+  <p class="trust-line">Based on real SDE multiples from HVAC business sales · Calibrated to 2026 deal activity · Takes about 90 seconds</p>
+</header>
+
+<div class="wrap">
+
+  <div class="card" id="calc-card">
+    <div class="field-row">
+      <label for="revenue">Annual revenue</label>
+      <div class="input-prefix"><span>$</span><input type="number" id="revenue" min="0" placeholder="1,200,000" oninput="checkForm()"></div>
+    </div>
+
+    <div class="field-row">
+      <label for="sde">Annual SDE (owner's discretionary earnings)</label>
+      <div class="hint">Your net profit plus your salary, benefits, and any personal expenses run through the business. This is the number buyers actually value — not revenue.</div>
+      <div class="input-prefix"><span>$</span><input type="number" id="sde" min="0" placeholder="240,000" oninput="checkForm()"></div>
+    </div>
+
+    <div class="field-row">
+      <label for="revenueType">Revenue mix</label>
+      <div class="hint">Residential replacement work is more predictable and commands a premium. Commercial installation is cyclical and buyers discount it.</div>
+      <select id="revenueType" onchange="checkForm()">
+        <option value="" disabled selected>Select one</option>
+        <option value="residential">Mostly residential (70%+ residential service & replacement)</option>
+        <option value="mixed">Mixed residential and commercial</option>
+        <option value="commercial">Mostly commercial (70%+ commercial)</option>
+      </select>
+    </div>
+
+    <div class="field-row">
+      <label for="serviceAgreements">Service / maintenance agreement revenue</label>
+      <div class="hint">This is the single biggest driver of HVAC valuation. Annual maintenance plans, service agreements, and scheduled tune-up contracts — as a % of total revenue.</div>
+      <div class="input-suffix"><input type="number" id="serviceAgreements" min="0" max="100" placeholder="30" oninput="checkForm()"><span>%</span></div>
+    </div>
+
+    <div class="field-row">
+      <label for="involvement">How much does the business depend on you personally?</label>
+      <select id="involvement" onchange="checkForm()">
+        <option value="" disabled selected>Select one</option>
+        <option value="full_independent">Runs fully without me — I could step away a month with no issue</option>
+        <option value="mostly_independent">Mostly runs without me — I check in occasionally</option>
+        <option value="regular_involvement">Needs me regularly — I'm involved most weeks</option>
+        <option value="fully_dependent">Depends entirely on me — I'm the key technician, estimator, or salesperson</option>
+      </select>
+    </div>
+
+    <div class="field-row">
+      <label for="years">Years in business</label>
+      <select id="years" onchange="checkForm()">
+        <option value="" disabled selected>Select one</option>
+        <option value="lt3">Less than 3 years</option>
+        <option value="3to7">3–7 years</option>
+        <option value="7to15">7–15 years</option>
+        <option value="15plus">15+ years</option>
+      </select>
+    </div>
+
+    <div class="field-row">
+      <label for="techs">Number of technicians <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+      <select id="techs" onchange="checkForm()">
+        <option value="">Prefer not to say</option>
+        <option value="solo">Just me</option>
+        <option value="small">2–4</option>
+        <option value="mid">5–9</option>
+        <option value="large">10+</option>
+      </select>
+    </div>
+
+    <button class="calc-btn" id="calc-btn" disabled onclick="goToContactGate()">Continue →</button>
+  </div>
+
+  <div class="card gate-card" id="gate-card">
+    <h3>One last step — enter your details to see your valuation</h3>
+    <p>We'll show you your number right after this, and email you a copy. No spam — just your result.</p>
+    <input type="text" id="fullname" placeholder="Full name" oninput="checkGate()">
+    <div class="field-error" id="fullname-error">Please enter your first and last name</div>
+    <input type="email" id="email" placeholder="Email address" oninput="checkGate()">
+    <div class="field-error" id="email-error">Enter a valid email address</div>
+    <input type="tel" id="phone" placeholder="Phone number" oninput="checkGate()">
+    <div class="field-error" id="phone-error">Enter a valid phone number</div>
+    <button class="calc-btn" id="gate-btn" disabled onclick="revealValuation()">Get My Valuation →</button>
+  </div>
+
+  <div class="card results-card" id="results-card">
+    <div class="valuation-range">
+      <div class="valuation-label">Estimated Business Value</div>
+      <div class="valuation-num" id="val-range">$0 – $0</div>
+      <div class="valuation-multiple" id="val-multiple"></div>
+    </div>
+    <div class="explain-box" id="val-explain"></div>
+    <p class="disclaimer">This is a directional estimate based on 2026 HVAC transaction data, not a formal valuation. Actual value depends on add-backs, local market conditions, equipment assets, customer concentration, technician tenure, and buyer-specific factors. For a precise number, work with a business broker or M&A advisor who specialises in HVAC.</p>
+    <a href="/vsl" class="mini-cta">Get Your Free Audit →</a>
+  </div>
+
+  <div class="cta-banner" id="cta-banner-mid">
+    <h4>Want a plan to move this number higher?</h4>
+    <p>We'll show you exactly which factors are capping your multiple — and what's worth fixing first before you sell or grow.</p>
+    <a href="/vsl" class="mini-cta">Get Your Free Audit →</a>
+  </div>
+
+  <div class="booking-cta" id="booking-cta">
+    <h3>Want help increasing this number?</h3>
+    <p>Whether you're planning to sell or just want to know where you stand, book a free strategy session and we'll map exactly what's capping your multiple — and how fast you can move it.</p>
+    <a href="/vsl" class="booking-btn">Get Your Free Audit →</a>
+    <div class="booking-note">Free 30–45 minute call · No pressure · You keep the roadmap either way</div>
+  </div>
+
+  <div class="method-section">
+    <h2>How this is calculated</h2>
+    <p>This estimate starts from your annual SDE (seller's discretionary earnings — your real economic take-home as the owner, not just reported profit) and applies a multiple based on the factors that most directly move what HVAC buyers actually pay. The data is drawn from 2026 HVAC M&A transaction activity, BizBuySell deal data, and practitioner ranges from active HVAC M&A advisors.</p>
+    <p>For small HVAC companies (under $1M SDE), buyers typically use SDE-based multiples rather than EBITDA, because you as the owner-operator are part of the economics. The SDE multiple range for this tier is 2.0x–4.5x in 2026, with where you land in that range driven almost entirely by the factors below.</p>
+    <p><strong>The single biggest lever in HVAC valuation</strong> is your service/maintenance agreement base. Buyers treat maintenance contracts as an underwriteable, recurring asset — businesses with 50%+ service agreement revenue routinely command 0.5x–1.0x higher multiples than installation-heavy operations, and a strong maintenance base can add 2x–3x its annual value to your total purchase price. This one factor can be worth hundreds of thousands of dollars in exit value.</p>
+    <table class="method-table">
+      <tr><th>Factor</th><th>Typical effect on your multiple</th></tr>
+      <tr><td>Service agreements under 15% of revenue</td><td class="mult">Pulls multiple down significantly</td></tr>
+      <tr><td>Service agreements over 50% of revenue</td><td class="mult">Pushes multiple up significantly</td></tr>
+      <tr><td>Service agreements over 70% of revenue</td><td class="mult">Strongest positive factor available</td></tr>
+      <tr><td>Business depends entirely on you (key tech/estimator)</td><td class="mult">Pulls multiple down significantly</td></tr>
+      <tr><td>Business runs without you day-to-day</td><td class="mult">Pushes multiple up</td></tr>
+      <tr><td>Primarily residential replacement work</td><td class="mult">Positive — recession-resistant, predictable</td></tr>
+      <tr><td>Primarily commercial installation</td><td class="mult">Negative — cyclical, construction-dependent</td></tr>
+      <tr><td>10+ technicians on the team</td><td class="mult">Modest positive</td></tr>
+      <tr><td>15+ years in business</td><td class="mult">Modest positive</td></tr>
+    </table>
+    <p style="font-size:.78rem">This tool gives a directional range, not an appraisal. It does not account for equipment value, vehicles, real estate, customer concentration, technician tenure, non-compete agreements, or add-backs specific to your financials — all of which a real valuation or broker process would weigh.</p>
+  </div>
+
+</div>
+
+<footer>
+  Built using 2026 HVAC transaction data and M&A industry benchmarks. Not a substitute for a professional valuation.<br>
+  A tool by <a href="/">Krow: The Exit Blueprint</a>
+</footer>
+
+<script>
+const WEB3FORMS_ACCESS_KEY = "3f46aea5-82f3-4c90-b64c-dc6e244bb85f";
+
+let calcResult = null;
+let hasSubmittedLead = false;
+
+function checkForm(){
+  const revenue = document.getElementById('revenue').value;
+  const sde = document.getElementById('sde').value;
+  const revenueType = document.getElementById('revenueType').value;
+  const serviceAgreements = document.getElementById('serviceAgreements').value;
+  const involvement = document.getElementById('involvement').value;
+  const years = document.getElementById('years').value;
+  const ok = revenue !== '' && sde !== '' && revenueType !== '' && serviceAgreements !== '' && involvement !== '' && years !== '';
+  document.getElementById('calc-btn').disabled = !ok;
+
+  if(hasSubmittedLead && ok){
+    calculate();
+  }
+}
+
+function goToContactGate(){
+  if(hasSubmittedLead){
+    calculate();
+    document.getElementById('results-card').scrollIntoView({behavior:'smooth', block:'start'});
+    return;
+  }
+  const gate = document.getElementById('gate-card');
+  gate.classList.add('show');
+  gate.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function calculate(){
+  const revenue = parseFloat(document.getElementById('revenue').value) || 0;
+  const sde = parseFloat(document.getElementById('sde').value) || 0;
+  const revenueType = document.getElementById('revenueType').value;
+  const serviceAgreements = parseFloat(document.getElementById('serviceAgreements').value) || 0;
+  const involvement = document.getElementById('involvement').value;
+  const years = document.getElementById('years').value;
+  const techs = document.getElementById('techs').value;
+
+  // Base multiple — 2026 HVAC SDE range for owner-operator small businesses
+  let baseLow = 2.3, baseHigh = 2.9;
+
+  // Revenue type adjustment: residential is recession-resistant; commercial is cyclical
+  let revenueTypeAdj = 0, revenueTypeNote = '';
+  if(revenueType === 'residential'){ revenueTypeAdj = 0.3; revenueTypeNote = 'residential'; }
+  else if(revenueType === 'mixed'){ revenueTypeAdj = 0; revenueTypeNote = 'mixed'; }
+  else if(revenueType === 'commercial'){ revenueTypeAdj = -0.35; revenueTypeNote = 'commercial'; }
+
+  // Service agreement adjustment — the SINGLE BIGGEST LEVER in HVAC valuation
+  let serviceAdj = 0, serviceNote = '';
+  if(serviceAgreements < 15){ serviceAdj = -0.5; serviceNote = 'veryLow'; }
+  else if(serviceAgreements < 30){ serviceAdj = -0.2; serviceNote = 'low'; }
+  else if(serviceAgreements < 50){ serviceAdj = 0; serviceNote = 'avg'; }
+  else if(serviceAgreements < 70){ serviceAdj = 0.45; serviceNote = 'high'; }
+  else { serviceAdj = 0.75; serviceNote = 'veryHigh'; }
+
+  // Owner involvement
+  let involvementAdj = 0, involvementNote = '';
+  if(involvement === 'full_independent'){ involvementAdj = 0.5; involvementNote = 'independent'; }
+  else if(involvement === 'mostly_independent'){ involvementAdj = 0.15; involvementNote = 'mostlyIndependent'; }
+  else if(involvement === 'regular_involvement'){ involvementAdj = -0.15; involvementNote = 'regular'; }
+  else { involvementAdj = -0.5; involvementNote = 'dependent'; }
+
+  // Years in business
+  let yearsAdj = 0, yearsNote = '';
+  if(years === 'lt3'){ yearsAdj = -0.25; yearsNote = 'new'; }
+  else if(years === '3to7'){ yearsAdj = 0; yearsNote = 'established'; }
+  else if(years === '7to15'){ yearsAdj = 0.15; yearsNote = 'mature'; }
+  else { yearsAdj = 0.25; yearsNote = 'veryMature'; }
+
+  // Technician count (optional)
+  let techsAdj = 0;
+  if(techs === 'solo'){ techsAdj = -0.25; }
+  else if(techs === 'mid'){ techsAdj = 0.15; }
+  else if(techs === 'large'){ techsAdj = 0.3; }
+
+  const totalAdj = revenueTypeAdj + serviceAdj + involvementAdj + yearsAdj + techsAdj;
+
+  let finalLow = Math.max(1.5, baseLow + totalAdj);
+  let finalHigh = Math.max(finalLow + 0.4, baseHigh + totalAdj);
+  finalHigh = Math.min(finalHigh, 5.5);
+  if(finalLow > finalHigh - 0.4) finalLow = finalHigh - 0.4;
+
+  const valLow = Math.round(sde * finalLow / 1000) * 1000;
+  const valHigh = Math.round(sde * finalHigh / 1000) * 1000;
+
+  calcResult = {revenue, sde, serviceAgreements, revenueType, involvement, years, techs, finalLow, finalHigh, valLow, valHigh,
+    factors: {serviceAdj, serviceNote, involvementAdj, involvementNote, revenueTypeAdj, revenueTypeNote, yearsAdj, yearsNote}};
+
+  renderResults();
+}
+
+function fmt(n){ return '$' + n.toLocaleString('en-US'); }
+
+function renderResults(){
+  const r = calcResult;
+  document.getElementById('val-range').textContent = fmt(r.valLow) + ' – ' + fmt(r.valHigh);
+  document.getElementById('val-multiple').textContent = `Based on ${r.finalLow.toFixed(1)}x – ${r.finalHigh.toFixed(1)}x your annual SDE of ${fmt(r.sde)}`;
+
+  const factors = [
+    {key:'service',    adj:r.factors.serviceAdj,     note:r.factors.serviceNote},
+    {key:'involvement',adj:r.factors.involvementAdj, note:r.factors.involvementNote},
+    {key:'revenueType',adj:r.factors.revenueTypeAdj, note:r.factors.revenueTypeNote},
+    {key:'years',      adj:r.factors.yearsAdj,       note:r.factors.yearsNote},
+  ];
+  const positives = factors.filter(f=>f.adj>0).sort((a,b)=>b.adj-a.adj);
+  const negatives = factors.filter(f=>f.adj<0).sort((a,b)=>a.adj-b.adj);
+
+  const positiveText = {
+    service: `Your ${r.serviceAgreements}% service agreement revenue is the biggest thing helping your number. Buyers treat maintenance contracts as a recurring, underwriteable asset — HVAC businesses with a strong service base routinely sell for 0.5x–1.0x more than installation-only operations at the same SDE.`,
+    involvement: `The business running largely without you day-to-day is a real premium here. Buyers price owner dependency as risk — a business that demonstrably operates without the owner commands significantly more than one that falls apart when the owner steps back.`,
+    revenueType: `Your residential focus works in your favour. Residential HVAC is replacement-driven and recession-resistant — buyers underwrite it with more confidence than commercial work, which is tied to new construction and economic cycles.`,
+    years: `${r.years === '15plus' ? '15+ years' : '7–15 years'} of operating history is worth real money to a buyer. It means established customer relationships, a reputation that survives transitions, and a track record they can stress-test.`
+  };
+
+  const negativeText = {
+    service: `Your service agreement revenue is ${r.serviceAgreements < 15 ? 'very low' : 'below average'}, which is likely the biggest single thing capping your multiple right now. In HVAC, maintenance contracts are the asset buyers most want to underwrite — even moving from near-zero to 30% can add meaningfully to your exit number. Every service call is a pitch opportunity.`,
+    involvement: `The business currently depends heavily on you personally — as the key technician, estimator, or relationship holder — and that reads as risk to any buyer. It's the most common reason HVAC businesses sell for 2x when they could sell for 3.5x. Documenting how you operate and training a foreman or service manager into your role is the highest-ROI fix available before a sale.`,
+    revenueType: `Your commercial-heavy revenue mix makes your business harder to underwrite for buyers. Commercial HVAC is tied to construction cycles and longer sales cycles, whereas residential is replacement-driven and more predictable. This is reflected in a lower multiple — not a permanent discount, but one worth knowing about.`,
+    years: `Being relatively early in the business means less track record for a buyer to underwrite, which is reflected in a slightly lower multiple. This improves naturally with time, consistent financials, and a growing service base.`
+  };
+
+  let explain = '';
+  if(positives.length){
+    explain += positiveText[positives[0].key] + ' ';
+  }
+  if(negatives.length){
+    explain += negativeText[negatives[0].key];
+  }
+  if(!positives.length && !negatives.length){
+    explain = `Your numbers land close to the average for HVAC businesses at this size — no single factor is dramatically helping or hurting your multiple. That means the fastest path to a higher number is usually improving your service agreement base, which is the highest-ROI move available in HVAC before a sale.`;
+  }
+  document.getElementById('val-explain').textContent = explain;
+
+  document.getElementById('results-card').classList.add('show');
+  document.getElementById('cta-banner-mid').classList.add('show');
+  document.getElementById('booking-cta').classList.add('show');
+  document.getElementById('gate-card').classList.remove('show');
+}
+
+/* Contact gate */
+function isValidEmailFormat(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+function isValidPhone(v){
+  const digits = v.replace(/\D/g,'');
+  return digits.length === 10 || (digits.length === 11 && digits[0] === '1');
+}
+function isFullName(v){
+  const parts = v.trim().split(/\s+/).filter(Boolean);
+  return parts.length >= 2 && parts.every(p=>p.length>=1);
+}
+function toggleErr(field, show){
+  document.getElementById(field+'-error').classList.toggle('show', show);
+  document.getElementById(field).classList.toggle('invalid', show);
+}
+function checkGate(){
+  const name = document.getElementById('fullname').value;
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const nameOk = isFullName(name);
+  const emailOk = isValidEmailFormat(email);
+  const phoneOk = isValidPhone(phone);
+  toggleErr('fullname', name.trim() !== '' && !nameOk);
+  toggleErr('email', email !== '' && !emailOk);
+  toggleErr('phone', phone !== '' && !phoneOk);
+  document.getElementById('gate-btn').disabled = !(nameOk && emailOk && phoneOk);
+}
+
+function sendLeadNotification(payload){
+  const allFields = {
+    access_key: WEB3FORMS_ACCESS_KEY,
+    subject: `New HVAC Valuation Lead — ${payload.name}`,
+    from_name: 'HVAC Valuation Calculator',
+    ...payload
+  };
+  const iframeName = 'w3f_iframe_' + Date.now();
+  const iframe = document.createElement('iframe');
+  iframe.name = iframeName;
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  const form = document.createElement('form');
+  form.action = 'https://api.web3forms.com/submit';
+  form.method = 'POST';
+  form.target = iframeName;
+  form.style.display = 'none';
+  for(const [key, value] of Object.entries(allFields)){
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = value;
+    form.appendChild(input);
+  }
+  document.body.appendChild(form);
+  form.submit();
+  setTimeout(() => { form.remove(); iframe.remove(); }, 5000);
+}
+
+function revealValuation(){
+  const lead = {
+    name: document.getElementById('fullname').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    phone: document.getElementById('phone').value.trim()
+  };
+
+  calculate();
+  document.getElementById('results-card').scrollIntoView({behavior:'smooth', block:'start'});
+
+  if(!hasSubmittedLead){
+    hasSubmittedLead = true;
+    sendLeadNotification({
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone,
+      annual_revenue: fmt(calcResult.revenue),
+      annual_sde: fmt(calcResult.sde),
+      revenue_type: calcResult.revenueType,
+      service_agreement_pct: calcResult.serviceAgreements + '%',
+      owner_involvement: calcResult.involvement,
+      years_in_business: calcResult.years,
+      technicians: calcResult.techs || 'not provided',
+      estimated_valuation: fmt(calcResult.valLow) + ' - ' + fmt(calcResult.valHigh),
+      multiple_used: calcResult.finalLow.toFixed(1) + 'x - ' + calcResult.finalHigh.toFixed(1) + 'x'
+    });
+  }
+}
+</script>
+
+</body>
+</html>

@@ -34,13 +34,9 @@
   .sec-h2{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:900;letter-spacing:-0.03em;color:white;max-width:660px;margin:0 auto .8rem;line-height:1.15}
   .sec-sub{color:rgba(255,255,255,.5);font-size:.95rem;max-width:520px;margin:0 auto;line-height:1.75}
 
-  .calendly-wrap{max-width:680px;margin:0 auto;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden}
-  .calendly-placeholder{padding:3rem 2rem;text-align:center}
-  .calendly-placeholder h3{font-size:1.05rem;font-weight:800;color:white;margin-bottom:.5rem}
-  .calendly-placeholder p{font-size:.86rem;color:rgba(255,255,255,.45);margin-bottom:1.5rem;line-height:1.6}
-  .calendly-btn{display:inline-block;background:var(--skyAccent);color:white;padding:.82rem 2.2rem;border-radius:7px;font-size:.95rem;font-weight:800;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:background .2s}
-  .calendly-btn:hover{background:var(--cobalt2)}
-  .calendly-note{font-size:.73rem;color:rgba(255,255,255,.28);margin-top:.9rem;line-height:1.5}
+  .calendly-wrap{max-width:720px;margin:0 auto;border-radius:14px;overflow:hidden}
+  .book-scroll-btn{display:inline-block;margin-top:1.6rem;background:rgba(59,159,232,.15);border:1px solid rgba(59,159,232,.35);color:var(--sky3);padding:.65rem 1.6rem;border-radius:20px;font-size:.85rem;font-weight:700;text-decoration:none;transition:background .18s}
+  .book-scroll-btn:hover{background:rgba(59,159,232,.28)}
 
   footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:2rem 5%;font-size:.76rem;line-height:1.7}
   .footer-brand{font-weight:800;color:rgba(255,255,255,.5);letter-spacing:.1em;font-size:.8rem;margin-bottom:.3rem}
@@ -73,24 +69,18 @@
   })(window, document, 'Vidalytics', 'vidalytics_embed_u8IvGVOH3wFJKqgX', 'https://fast.vidalytics.com/embeds/ivM5E6gg/u8IvGVOH3wFJKqgX/');
   </script>
   <p style="font-size:.78rem;color:rgba(255,255,255,.3);margin-top:1.2rem">For business owners doing $1M–$4M</p>
+  <a href="#calendly-booking" class="book-scroll-btn" onclick="document.getElementById('calendly-booking').scrollIntoView({behavior:'smooth'});return false;">Book Your Free Call Below ↓</a>
 </section>
 
-<section class="dark-section">
+<section class="dark-section" id="calendly-booking" style="padding-top:3rem">
   <div class="sec-head">
     <div class="sec-ey">Book Your Session</div>
     <h2 class="sec-h2">Choose a time that works for you</h2>
     <p class="sec-sub">Pick a slot below. We'll send a short intake form to make the 30 to 60 minutes as useful as possible.</p>
   </div>
   <div class="calendly-wrap">
-    <!-- REPLACE WITH YOUR CALENDLY EMBED:
     <div class="calendly-inline-widget" data-url="https://calendly.com/kylemicallef01/audit-analysis-call" style="min-width:320px;height:700px;"></div>
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script> -->
-    <div class="calendly-placeholder">
-      <h3>📅 Select Your Audit Time</h3>
-      <p>Replace this block with your Calendly inline embed code.</p>
-      <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="calendly-btn">Book a Time →</a>
-      <p class="calendly-note">Free 30 to 60 minute call · Free call · You keep everything we build</p>
-    </div>
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
   </div>
 </section>
 

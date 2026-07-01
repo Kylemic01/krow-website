@@ -247,13 +247,9 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .tcard-dark .aname{color:white}
 .tcard-dark .arole{color:rgba(255,255,255,.35)}
 .tcard-dark .avatar{background:rgba(59,159,232,.2);color:var(--sky3)}
-.calendly-wrap{max-width:680px;margin:0 auto;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden}
-.calendly-placeholder{padding:3rem 2rem;text-align:center}
-.calendly-placeholder h3{font-size:1.05rem;font-weight:800;color:white;margin-bottom:.5rem}
-.calendly-placeholder p{font-size:.86rem;color:rgba(255,255,255,.45);margin-bottom:1.5rem;line-height:1.6}
-.calendly-btn{display:inline-block;background:var(--skyAccent);color:white;padding:.82rem 2.2rem;border-radius:7px;font-size:.95rem;font-weight:800;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:background .2s}
-.calendly-btn:hover{background:var(--cobalt2)}
-.calendly-note{font-size:.73rem;color:rgba(255,255,255,.28);margin-top:.9rem;line-height:1.5}
+.calendly-wrap{max-width:720px;margin:0 auto;border-radius:14px;overflow:hidden}
+.book-scroll-btn{display:inline-block;margin-top:1.6rem;background:rgba(59,159,232,.15);border:1px solid rgba(59,159,232,.35);color:var(--sky3);padding:.65rem 1.6rem;border-radius:20px;font-size:.85rem;font-weight:700;text-decoration:none;transition:background .18s}
+.book-scroll-btn:hover{background:rgba(59,159,232,.28)}
 .sector-strip{background:rgba(59,159,232,.1);border:1px solid rgba(59,159,232,.25);border-radius:10px;padding:1rem 1.2rem;max-width:680px;margin:0 auto 2rem;display:flex;align-items:flex-start;gap:.8rem}
 .sector-strip-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
 .sector-strip-text{font-size:.84rem;color:rgba(255,255,255,.7);line-height:1.65}
@@ -909,6 +905,19 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
       <div id="vidalytics_embed_u8IvGVOH3wFJKqgX" style="width:100%;position:relative;padding-top:56.25%;"></div>
     </div>
     <p style="font-size:.78rem;color:rgba(255,255,255,.3);margin-top:1.2rem">For business owners doing $1M–$4M · <span id="p2-sector-note">Personalised to your industry</span></p>
+    <a href="#calendly-booking" class="book-scroll-btn" onclick="document.getElementById('calendly-booking').scrollIntoView({behavior:'smooth'});return false;">Book Your Free Call Below ↓</a>
+  </section>
+
+  <section class="dark-section" id="calendly-booking" style="padding-top:3rem">
+    <div class="sec-head">
+      <div class="sec-ey">Book Your Session</div>
+      <h2 class="sec-h2" id="p2-booking-head" style="color:white">Choose a time that works for you</h2>
+      <p class="sec-sub" id="p2-booking-sub" style="color:rgba(255,255,255,.5)">Pick a slot below. We'll send a short intake form to make the 30 to 60 minutes as useful as possible.</p>
+    </div>
+    <div class="calendly-wrap">
+      <div class="calendly-inline-widget" data-url="https://calendly.com/kylemicallef01/audit-analysis-call" style="min-width:320px;height:700px;"></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    </div>
   </section>
 
   <section class="dark-section" style="padding-top:2rem;padding-bottom:0.5rem">
@@ -927,7 +936,6 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
     <div class="results-grid" id="p2-stats"></div>
   </section>
 
-
   <section class="dark-section">
     <div class="sec-head">
       <div class="sec-ey">The Program</div>
@@ -941,7 +949,6 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
     </div>
   </section>
 
-
   <section class="dark-section">
     <div class="sec-head">
       <div class="sec-ey">Common Questions</div>
@@ -953,26 +960,6 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
       <div class="qa"><div class="qa-q">How much is it?</div><div class="qa-a">The group program starts at <strong>$4,500</strong>. The 1-1 premium is <strong>$12,000–$15,000</strong>. On a $400K EBITDA business, fixing owner dependency adds $600K–$1.2M in exit value. The audit is free that's where we start.</div></div>
       <div class="qa"><div class="qa-q">I've tried to delegate before and it didn't work.</div><div class="qa-a">The problem is almost never the person you hired it's the absence of a <strong>documented system</strong> for them to run. Phase 1 fixes that before Phase 2 touches any people decisions.</div></div>
       <div class="qa"><div class="qa-q">What if I don't get results?</div><div class="qa-a">Attend every session and complete the Phase 1 actions in the first 30 days. If you don't walk away knowing exactly what to fix first <strong>I work with you free until you do</strong>. No loopholes.</div></div>
-    </div>
-  </section>
-
-
-  <section class="dark-section">
-    <div class="sec-head">
-      <div class="sec-ey">Book Your Session</div>
-      <h2 class="sec-h2" id="p2-booking-head" style="color:white">Choose a time that works for you</h2>
-      <p class="sec-sub" id="p2-booking-sub" style="color:rgba(255,255,255,.5)">Pick a slot below. We'll send a short intake form to make the 30 to 60 minutes as useful as possible.</p>
-    </div>
-    <div class="calendly-wrap">
-      <!-- REPLACE WITH YOUR CALENDLY EMBED:
-      <div class="calendly-inline-widget" data-url="https://calendly.com/kylemicallef01/audit-analysis-call" style="min-width:320px;height:700px;"></div>
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script> -->
-      <div class="calendly-placeholder">
-        <h3>📅 Select Your Audit Time</h3>
-        <p>Replace this block with your Calendly inline embed code.</p>
-        <a href="https://calendly.com/kylemicallef01/audit-analysis-call" target="_blank" class="calendly-btn">Book a Time →</a>
-        <p class="calendly-note">Free 30 to 60 minute call · Free call · You keep everything we build</p>
-      </div>
     </div>
   </section>
 </div>

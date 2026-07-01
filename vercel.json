@@ -3,10 +3,12 @@
   "builds": [
     { "src": "index.html", "use": "@vercel/static" },
     { "src": "landscaping-valuation.html", "use": "@vercel/static" },
+    { "src": "hvac-valuation.html", "use": "@vercel/static" },
     { "src": "vsl.html", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/landscaping-valuation", "dest": "/landscaping-valuation.html" },
+    { "src": "/hvac-valuation", "dest": "/hvac-valuation.html" },
     { "src": "/vsl", "dest": "/vsl.html" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]

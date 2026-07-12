@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Krow: Free AI Adoption Quiz for Accounting Firms</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0D2B55;--cobalt:#1A4A8A;--cobalt2:#2563B0;
+  --sky:#E8F4FD;--sky2:#BFDBF7;--sky3:#93C5FD;--skyAccent:#3B9FE8;
+  --dark:#071828;--text:#0D1F35;--muted:#4A6A8A;
+  --white:#FFFFFF;--border:#D1E4F5;--bg:#F0F7FF;
+  font-family:'Inter',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text)}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;background:var(--navy);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.08)}
+.logo{font-size:1.15rem;font-weight:900;color:var(--white);letter-spacing:0.06em;text-decoration:none;text-transform:uppercase;line-height:1.1}
+.logo span{color:var(--sky3)}
+.logo-sub{font-size:.6rem;font-weight:500;color:rgba(255,255,255,.4);letter-spacing:.12em;text-transform:uppercase;display:block}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;color:rgba(255,255,255,.6);font-size:.88rem;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--skyAccent);color:white;padding:.5rem 1.3rem;border-radius:6px;text-decoration:none;font-size:.88rem;font-weight:700;transition:background .2s;white-space:nowrap}
+.nav-cta:hover{background:var(--cobalt2)}
+@media(max-width:640px){.nav-links{display:none}}
+
+/* PAGES */
+.page{display:none}.page.active{display:block}
+
+/* HERO */
+.hero1{background:linear-gradient(160deg,var(--navy) 0%,var(--cobalt) 55%,#1B5FA0 100%);padding:5rem 5% 0;text-align:center;position:relative;overflow:hidden}
+.hero1::before{content:'';position:absolute;top:-40px;right:-60px;width:500px;height:500px;background:radial-gradient(circle,rgba(59,159,232,0.12) 0%,transparent 65%);pointer-events:none}
+.hero1::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:var(--white);clip-path:ellipse(55% 100% at 50% 100%)}
+.eyebrow{display:inline-block;background:rgba(147,197,253,0.15);color:var(--sky3);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem 1rem;border-radius:20px;margin-bottom:1.2rem;border:1px solid rgba(147,197,253,.25)}
+.h1{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:900;line-height:1.08;letter-spacing:-0.035em;color:var(--white);max-width:820px;margin:0 auto 1rem}
+.h1 em{color:var(--sky3);font-style:normal}
+.h1-sub{font-size:1.08rem;color:rgba(255,255,255,.7);max-width:580px;margin:0 auto 2.2rem;line-height:1.75}
+.hero-cta-btn{display:inline-block;background:var(--skyAccent);color:white;padding:1rem 2.6rem;border-radius:8px;font-size:1.05rem;font-weight:800;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 20px rgba(59,159,232,.35);margin-bottom:2.8rem}
+.hero-cta-btn:hover{background:#2b8fd8;transform:translateY(-1px)}
+.trust-pills{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+.tpill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:.3rem .85rem;font-size:.75rem;font-weight:600;color:rgba(255,255,255,.75)}
+
+/* FORM CARD */
+.form-card-wrap{max-width:500px;margin:0 auto;position:relative;z-index:2;padding-bottom:2rem}
+.form-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2rem 2rem 1.6rem;box-shadow:0 8px 40px rgba(13,43,85,.18)}
+.form-card-header{text-align:center;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid var(--border)}
+.form-card-title{font-size:1.05rem;font-weight:800;color:var(--navy);margin-bottom:.25rem}
+.form-card-sub{font-size:.8rem;color:var(--muted);line-height:1.5}
+.progress-bar{height:3px;background:var(--sky2);border-radius:3px;margin-bottom:1.4rem}
+.progress-fill{height:100%;background:var(--cobalt2);border-radius:3px;transition:width .4s ease}
+.form-step{display:none;animation:fadein .25s ease}.form-step.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.step-counter{font-size:.7rem;font-weight:700;color:var(--muted);margin-bottom:.35rem;letter-spacing:.06em;text-transform:uppercase}
+.step-title{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:.2rem}
+.step-sub{font-size:.8rem;color:var(--muted);margin-bottom:1.1rem;line-height:1.5}
+.field{width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:7px;font-size:.9rem;margin-bottom:.7rem;color:var(--text);background:var(--white);font-family:inherit;transition:border-color .2s}
+.field.invalid{border-color:#C0392B}
+.field.invalid:focus{border-color:#C0392B;box-shadow:0 0 0 3px rgba(192,57,43,.12)}
+.field-error{display:none;color:#C0392B;font-size:.78rem;margin:-.45rem 0 .75rem 2px;font-weight:600}
+.field-error.show{display:block}
+.field:focus{outline:none;border-color:var(--cobalt2);box-shadow:0 0 0 3px rgba(37,99,176,.1)}
+select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A6A8A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center;padding-right:2.2rem}
+.goal-grid{display:grid;grid-template-columns:1fr;gap:.55rem;margin-bottom:.9rem}
+.goal-card{border:2px solid var(--border);border-radius:8px;padding:.8rem .95rem;cursor:pointer;transition:all .18s;text-align:left;background:var(--white);font-family:inherit;width:100%}
+.goal-card:hover{border-color:var(--cobalt2);background:var(--sky)}
+.goal-card.selected{border-color:var(--navy);background:var(--sky);box-shadow:0 0 0 3px rgba(13,43,85,.07)}
+.goal-card-title{font-size:.88rem;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:.5rem}
+.goal-card-sub{font-size:.76rem;color:var(--muted);margin-top:.15rem;padding-left:1.6rem;line-height:1.45}
+.btn{width:100%;background:var(--navy);color:white;padding:.82rem;border:none;border-radius:7px;font-size:.95rem;font-weight:800;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn:hover{background:var(--cobalt2)}
+.btn:disabled{background:var(--sky2);color:var(--muted);cursor:not-allowed}
+.btn-back{background:transparent;border:1.5px solid var(--border);color:var(--muted);width:100%;padding:.65rem;border-radius:7px;font-size:.85rem;font-weight:600;cursor:pointer;margin-top:.5rem;font-family:inherit;transition:all .2s}
+.btn-back:hover{border-color:var(--cobalt2);color:var(--cobalt2)}
+.micro{font-size:.73rem;color:var(--muted);margin-top:.65rem;text-align:center;line-height:1.5}
+
+/* TRUST BAR */
+.trust-bar{background:var(--sky);border-bottom:1px solid var(--border);padding:2.4rem 5% 1.8rem;text-align:center}
+.trust-bar p{font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-bottom:.8rem}
+.logos-row{display:flex;gap:1rem;justify-content:center;align-items:center;flex-wrap:wrap}
+.logo-pill{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:.32rem .85rem;font-size:.73rem;font-weight:700;color:var(--navy);letter-spacing:.04em}
+
+/* STATS BAR */
+.stats-bar{background:var(--navy);padding:3rem 5%}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0}
+.stat-item{text-align:center;padding:1rem;border-right:1px solid rgba(255,255,255,.08)}
+.stat-item:last-child{border-right:none}
+.stat-n{font-size:2.6rem;font-weight:900;color:var(--sky3);letter-spacing:-0.04em;line-height:1;margin-bottom:.35rem}
+.stat-label{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.25rem}
+.stat-desc{font-size:.75rem;color:rgba(255,255,255,.3);line-height:1.5}
+@media(max-width:600px){.stats-inner{grid-template-columns:1fr 1fr}.stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}.stat-item:nth-child(odd){border-right:1px solid rgba(255,255,255,.08)}}
+
+/* GENERIC SECTION */
+.section{padding:5rem 5%}
+.section-alt{background:var(--bg)}
+.section-dark{background:var(--dark)}
+.sec-head{text-align:center;margin-bottom:3rem}
+.sec-ey{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--skyAccent);margin-bottom:.55rem}
+.sec-ey-light{color:rgba(147,197,253,.7)}
+.sec-h2{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;letter-spacing:-0.03em;color:var(--navy);max-width:660px;margin:0 auto .8rem;line-height:1.15}
+.sec-h2-light{color:white}
+.sec-sub{color:var(--muted);font-size:.95rem;max-width:520px;margin:0 auto;line-height:1.75}
+.sec-sub-light{color:rgba(255,255,255,.5)}
+
+/* TRANSFORMATION (before/after) */
+.transform-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:860px;margin:0 auto 2.5rem}
+@media(max-width:600px){.transform-grid{grid-template-columns:1fr}}
+.transform-col{border-radius:14px;padding:2rem}
+.transform-col.before{background:#FFF1F1;border:1.5px solid #FECACA}
+.transform-col.after{background:#F0FDF4;border:1.5px solid #BBF7D0}
+.transform-label{font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.4rem}
+.transform-col.before .transform-label{color:#DC2626}
+.transform-col.after .transform-label{color:#16A34A}
+.transform-dot{width:8px;height:8px;border-radius:50%}
+.transform-col.before .transform-dot{background:#DC2626}
+.transform-col.after .transform-dot{background:#16A34A}
+.transform-item{display:flex;align-items:flex-start;gap:.7rem;margin-bottom:.9rem;font-size:.87rem;line-height:1.6}
+.transform-item:last-child{margin-bottom:0}
+.transform-col.before .transform-item{color:#7F1D1D}
+.transform-col.after .transform-item{color:#14532D}
+.ti-icon{flex-shrink:0;margin-top:2px;font-size:.85rem}
+
+/* CASE STUDIES CAROUSEL */
+.cases-section{background:var(--dark);padding:5rem 5%}
+.cases-scroll-wrap{position:relative;margin-top:2rem}
+.cases-scroll{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:1rem;scrollbar-width:none}
+.cases-scroll::-webkit-scrollbar{display:none}
+.case-card{
+  min-width:340px;max-width:340px;border-radius:14px;padding:0;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  scroll-snap-align:start;overflow:hidden;flex-shrink:0;
+  transition:border-color .2s,transform .2s;cursor:default;
+}
+.case-card:hover{border-color:rgba(59,159,232,.4);transform:translateY(-3px)}
+.case-card-top{padding:1.8rem 1.8rem 1.4rem}
+.case-tag{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sky3);margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem}
+.case-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--sky3);flex-shrink:0}
+.case-h{font-size:1.1rem;font-weight:800;color:white;line-height:1.3;margin-bottom:.7rem;letter-spacing:-0.02em}
+.case-body{font-size:.84rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:1.2rem}
+.case-results{display:flex;gap:1rem;flex-wrap:wrap}
+.case-result{background:rgba(59,159,232,.12);border:1px solid rgba(59,159,232,.2);border-radius:8px;padding:.5rem .8rem;text-align:center}
+.case-result-n{font-size:1.2rem;font-weight:900;color:var(--sky3);letter-spacing:-0.02em;line-height:1}
+.case-result-l{font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.2rem;line-height:1.3}
+.case-card-bottom{background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.07);padding:1.1rem 1.8rem;display:flex;align-items:center;justify-content:space-between}
+.case-industry{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.05em;text-transform:uppercase}
+.case-arrow{font-size:.9rem;color:var(--sky3);opacity:.6}
+.cases-nav{display:flex;gap:.7rem;margin-top:1.5rem;justify-content:flex-end}
+.cases-btn{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:white;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cases-btn:hover{background:var(--skyAccent);border-color:var(--skyAccent)}
+
+/* HOW IT WORKS */
+.how-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;max-width:900px;margin:0 auto}
+.step{padding:1.6rem;background:var(--white);border:1.5px solid var(--border);border-radius:14px;position:relative}
+.step-num{width:36px;height:36px;border-radius:9px;background:var(--sky);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:900;color:var(--navy);margin-bottom:.9rem}
+.step-t{font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:.4rem}
+.step-b{font-size:.82rem;color:var(--muted);line-height:1.65}
+
+/* WHO ITS FOR */
+.symptoms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:900px;margin:0 auto 2.5rem}
+.symptom{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:1.4rem;display:flex;gap:.9rem;align-items:flex-start}
+.symptom-icon{font-size:1.3rem;flex-shrink:0;margin-top:1px}
+.symptom-t{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.3rem}
+.symptom-b{font-size:.8rem;color:var(--muted);line-height:1.6}
+
+/* TESTIMONIALS */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;max-width:920px;margin:0 auto}
+.tcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.6rem;transition:border-color .2s}
+.tcard:hover{border-color:rgba(59,159,232,.3)}
+.stars{color:#F59E0B;font-size:.88rem;margin-bottom:.8rem}
+.ttext{font-size:.87rem;color:rgba(255,255,255,.72);line-height:1.72;margin-bottom:1.2rem}
+.tauthor{display:flex;align-items:center;gap:.75rem}
+.avatar{width:38px;height:38px;border-radius:50%;background:rgba(59,159,232,.2);display:flex;align-items:center;justify-content:center;font-size:.73rem;font-weight:800;color:var(--sky3);flex-shrink:0}
+.aname{font-size:.83rem;font-weight:700;color:white}
+.arole{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:1px}
+.result-badge{display:inline-block;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.25);border-radius:6px;padding:.2rem .55rem;font-size:.68rem;font-weight:700;color:#34D399;margin-top:.4rem}
+
+/* VAL GAP */
+.val-gap{background:var(--navy);padding:5rem 5%;text-align:center}
+.val-gap h2{font-size:clamp(1.7rem,4vw,2.4rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:.8rem;color:white;line-height:1.15}
+.val-gap h2 span{color:var(--sky3)}
+.val-gap p{font-size:.95rem;color:rgba(255,255,255,.6);max-width:520px;margin:0 auto 2.5rem;line-height:1.75}
+.gap-cols{display:grid;grid-template-columns:1fr auto 1fr;gap:1.5rem;align-items:center;max-width:680px;margin:0 auto 1.5rem}
+@media(max-width:600px){.gap-cols{grid-template-columns:1fr}.gap-arrow{display:none}}
+.gap-col{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:1.6rem}
+.gap-col h4{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.9rem;color:rgba(255,255,255,.45)}
+.gap-stat{font-size:2rem;font-weight:900;margin-bottom:.25rem;letter-spacing:-.03em}
+.gap-col.bad .gap-stat{color:#F87171}
+.gap-col.good .gap-stat{color:#34D399}
+.gap-label{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.45}
+.gap-arrow{font-size:1.8rem;color:rgba(255,255,255,.4)}
+.gap-note{color:rgba(255,255,255,.55);font-size:.85rem;margin-bottom:2rem}
+
+/* CTA SECTION */
+.cta-section{background:linear-gradient(135deg,var(--navy) 0%,var(--cobalt) 100%);padding:5.5rem 5%;text-align:center}
+.cta-section h2{font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:900;letter-spacing:-0.03em;color:white;margin-bottom:.8rem;line-height:1.12}
+.cta-section h2 em{color:var(--sky3);font-style:normal}
+.cta-section p{font-size:1rem;color:rgba(255,255,255,.65);max-width:480px;margin:0 auto 2rem;line-height:1.75}
+.btn-cta-big{display:inline-block;background:var(--skyAccent);color:white;padding:1.1rem 3rem;border-radius:8px;font-size:1.05rem;font-weight:800;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 24px rgba(59,159,232,.35)}
+.btn-cta-big:hover{background:#2b8fd8;transform:translateY(-1px)}
+.cta-micro{font-size:.78rem;color:rgba(255,255,255,.3);margin-top:1rem}
+
+/* INLINE CTA STRIP */
+.cta-strip{background:var(--sky);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem 5%;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.cta-strip-text h4{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:.2rem}
+.cta-strip-text p{font-size:.85rem;color:var(--muted)}
+.btn-strip{background:var(--navy);color:white;padding:.7rem 1.6rem;border-radius:7px;font-size:.9rem;font-weight:800;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:background .2s;white-space:nowrap}
+.btn-strip:hover{background:var(--cobalt2)}
+
+/* PAGE 2 */
+.hero2{background:linear-gradient(160deg,var(--dark) 0%,var(--navy) 100%);color:white;padding:5rem 5% 4rem;text-align:center}
+.hero2 .eyebrow{background:rgba(147,197,253,.12);color:var(--sky3);border:1px solid rgba(147,197,253,.2)}
+.hero2 h1{font-size:clamp(2rem,5vw,3rem);font-weight:900;letter-spacing:-0.03em;max-width:700px;margin:0 auto 1rem;line-height:1.12}
+.hero2 h1 em{color:var(--sky3);font-style:normal}
+.hero2 .sub{color:rgba(255,255,255,.6);max-width:520px;margin:0 auto;font-size:1rem;line-height:1.7}
+.vid-wrap{width:100%;max-width:660px;margin:2rem auto 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.45)}
+.vid-wrap iframe,.vid-wrap video{display:block;width:100%;height:100%;}
+.persona-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(147,197,253,.12);border:1px solid rgba(147,197,253,.2);border-radius:20px;padding:.35rem 1rem;font-size:.78rem;font-weight:600;color:var(--sky3);margin-bottom:1.2rem}
+.dark-section{background:var(--dark);color:white;padding:4rem 5%}
+.dark-section .sec-h2{color:white}
+.dark-section .sec-ey{color:var(--skyAccent)}
+.dark-section .sec-sub{color:rgba(255,255,255,.5)}
+.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;max-width:720px;margin:0 auto 2rem}
+.rcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.3rem;text-align:center}
+.rcard-n{font-size:1.8rem;font-weight:900;color:var(--sky3);margin-bottom:.3rem;letter-spacing:-.02em}
+.rcard-l{font-size:.73rem;color:rgba(255,255,255,.4);line-height:1.5}
+.what-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:2rem;max-width:680px;margin:0 auto}
+.what-item{display:flex;gap:.9rem;margin-bottom:1.2rem;align-items:flex-start}
+.what-item:last-child{margin-bottom:0}
+.what-num{min-width:30px;height:30px;border-radius:8px;background:rgba(59,159,232,.2);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:var(--sky3);flex-shrink:0;margin-top:2px}
+.what-t{font-size:.9rem;font-weight:700;color:white;margin-bottom:.25rem}
+.what-b{font-size:.82rem;color:rgba(255,255,255,.48);line-height:1.65}
+.divider{height:1px;background:rgba(255,255,255,.06);margin:0 5%}
+.qa-list{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:1.3rem}
+.qa{border-bottom:1px solid rgba(255,255,255,.07);padding-bottom:1.3rem}
+.qa:last-child{border-bottom:none;padding-bottom:0}
+.qa-q{font-size:.95rem;font-weight:700;color:white;margin-bottom:.5rem}
+.qa-a{font-size:.87rem;color:rgba(255,255,255,.52);line-height:1.72}
+.qa-a strong{color:rgba(255,255,255,.9);font-weight:600}
+.tcard-dark{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.4rem}
+.tcard-dark .ttext{color:rgba(255,255,255,.7)}
+.tcard-dark .aname{color:white}
+.tcard-dark .arole{color:rgba(255,255,255,.35)}
+.tcard-dark .avatar{background:rgba(59,159,232,.2);color:var(--sky3)}
+.calendly-wrap{max-width:720px;margin:0 auto;border-radius:14px;overflow:hidden}
+.book-scroll-btn{display:inline-block;margin-top:1.6rem;background:rgba(59,159,232,.15);border:1px solid rgba(59,159,232,.35);color:var(--sky3);padding:.65rem 1.6rem;border-radius:20px;font-size:.85rem;font-weight:700;text-decoration:none;transition:background .18s}
+.book-scroll-btn:hover{background:rgba(59,159,232,.28)}
+.sector-strip{background:rgba(59,159,232,.1);border:1px solid rgba(59,159,232,.25);border-radius:10px;padding:1rem 1.2rem;max-width:680px;margin:0 auto 2rem;display:flex;align-items:flex-start;gap:.8rem}
+.sector-strip-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+.sector-strip-text{font-size:.84rem;color:rgba(255,255,255,.7);line-height:1.65}
+.sector-strip-text strong{color:var(--sky3)}
+
+footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:2rem 5%;font-size:.76rem;line-height:1.7}
+.footer-brand{font-weight:800;color:rgba(255,255,255,.5);letter-spacing:.1em;font-size:.8rem;margin-bottom:.3rem}
+
+/* QUIZ — question types */
+.yn-row{display:flex;gap:.6rem;margin-bottom:.9rem}
+.yn-btn{flex:1;border:2px solid var(--border);border-radius:8px;padding:.75rem;text-align:center;font-weight:700;font-size:.86rem;color:var(--navy);background:white;cursor:pointer;font-family:inherit;transition:all .18s}
+.yn-btn:hover{border-color:var(--cobalt2);background:var(--sky)}
+.yn-btn.selected{border-color:var(--navy);background:var(--sky);box-shadow:0 0 0 3px rgba(13,43,85,.07)}
+.slider-wrap{margin-bottom:1.1rem}
+.slider-val{text-align:center;font-size:1.7rem;font-weight:900;color:var(--navy);margin-bottom:.3rem}
+.slider-wrap input[type=range]{width:100%;accent-color:var(--cobalt2)}
+.slider-labels{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:.3rem}
+.chip-grid{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1rem}
+.chip{border:2px solid var(--border);border-radius:20px;padding:.55rem 1.1rem;font-size:.82rem;font-weight:600;color:var(--navy);background:white;cursor:pointer;font-family:inherit;transition:all .18s}
+.chip:hover{border-color:var(--cobalt2)}
+.chip.selected{border-color:var(--navy);background:var(--navy);color:white}
+
+/* RESULTS — findings */
+.results-card{background:#FAFCFE;border:1px solid rgba(13,43,85,.08);border-top:5px solid var(--cobalt2);border-radius:20px;padding:2.8rem 2.2rem;max-width:760px;margin:0 auto;box-shadow:0 25px 60px rgba(0,0,0,.3);text-align:center}
+.results-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(37,99,176,.1);border:1px solid rgba(37,99,176,.25);border-radius:20px;padding:.4rem 1.1rem;font-size:.76rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--cobalt2);margin-bottom:1.2rem}
+.results-h2{font-size:1.7rem;font-weight:900;color:var(--navy);margin-bottom:.5rem;letter-spacing:-.01em;line-height:1.2}
+.results-sub{color:var(--muted);font-size:.92rem;margin-bottom:1.3rem}
+.findings-wrap{max-width:100%;margin:0 auto;text-align:left}
+.snapshot-chips{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.6rem}
+.snapshot-chip{background:var(--sky);border:1px solid var(--border);border-radius:20px;padding:.4rem .95rem;font-size:.74rem;font-weight:700;color:var(--navy);letter-spacing:.02em}
+.leak-banner{background:var(--navy);border-radius:14px;padding:1.6rem 1.4rem;text-align:center;margin-bottom:1.8rem}
+.leak-eyebrow{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(147,197,253,.7);margin-bottom:.5rem}
+.leak-number{font-size:2.4rem;font-weight:900;color:var(--sky3);letter-spacing:-.03em;line-height:1;margin-bottom:.5rem}
+.leak-note{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.6;max-width:480px;margin:0 auto}
+.finding-card{background:#F2F7FD;border:1px solid rgba(13,43,85,.07);border-left:4px solid var(--cobalt2);border-radius:10px;padding:1.3rem 1.4rem;margin-bottom:.9rem}
+.finding-card.positive{border-left-color:#1F9D6B}
+.finding-tag{display:inline-block;font-size:.64rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--cobalt2);margin-bottom:.45rem}
+.finding-card.positive .finding-tag{color:#1F9D6B}
+.finding-h{font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;line-height:1.35;display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap}
+.finding-leak{font-size:.72rem;font-weight:800;color:var(--cobalt2);background:rgba(37,99,176,.08);border-radius:6px;padding:.2rem .55rem;white-space:nowrap}
+.finding-card.positive .finding-leak{color:#1F9D6B;background:rgba(31,157,107,.08)}
+.finding-b{font-size:.85rem;color:var(--muted);line-height:1.65}
+.tip-card{display:flex;gap:1rem;background:#F2F7FD;border:1px solid rgba(13,43,85,.07);border-radius:10px;padding:1.3rem 1.4rem;margin-bottom:.9rem}
+.tip-num{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--navy);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem}
+.tip-h{font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;line-height:1.35}
+.tip-b{font-size:.85rem;color:var(--muted);line-height:1.65}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Krow<span>.</span><span class="logo-sub">AI Adoption Audit</span></a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#transformations">Results</a></li>
+    <li><a href="#testimonials">Firms</a></li>
+  </ul>
+  <a href="#audit-form" class="nav-cta">Take the Free Quiz →</a>
+</nav>
+
+<!-- ═══ PAGE 1 ═══ -->
+<div id="p1" class="page active">
+
+  <!-- HERO -->
+  <section class="hero1">
+    <div class="eyebrow">For Accounting, Bookkeeping & Tax Firms</div>
+    <h1 class="h1">Take the Free Quiz.<br><em>Find Out Exactly Where AI Saves Your Firm Real Hours.</em></h1>
+    <p class="h1-sub">Every firm is being told "AI is revolutionizing accounting." Most owners are still chasing documents by email, re-typing numbers by hand, and writing the same client memo from scratch every month. Take the free quiz and we'll show you which 1–4 things in your specific firm are worth automating first — and roughly what leaving them alone is costing you.</p>
+    <a href="#audit-form" class="hero-cta-btn">Take the Free Quiz →</a>
+    <div class="trust-pills">
+      <span class="tpill">Tax Prep</span><span class="tpill">Bookkeeping</span><span class="tpill">Full-Service CPA</span>
+      <span class="tpill">Fractional CFO</span><span class="tpill">Payroll</span><span class="tpill">Advisory</span>
+    </div>
+    <div class="form-card-wrap" id="audit-form">
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="form-card-title">🔍 Free Quiz: Find Your Firm's Biggest AI Opportunity</div>
+          <div class="form-card-sub">Takes 5–10 minutes · Get your results instantly · Completely free</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progress" style="width:15%"></div></div>
+
+        <div class="form-step active" id="step1">
+          <div class="step-counter">Quick context</div>
+          <div class="step-title">What's the main reason you're curious about AI right now?</div>
+          <div class="step-sub">We'll personalise your results to what matters most to you.</div>
+          <div class="goal-grid">
+            <button class="goal-card" onclick="selectGoal(this,'time')">
+              <div class="goal-card-title"><span>⏰</span> Get hours back every week</div>
+              <div class="goal-card-sub">Less manual work, more capacity without hiring</div>
+            </button>
+            <button class="goal-card" onclick="selectGoal(this,'revenue')">
+              <div class="goal-card-title"><span>📈</span> Grow without adding headcount</div>
+              <div class="goal-card-sub">Take on more clients with the team you already have</div>
+            </button>
+            <button class="goal-card" onclick="selectGoal(this,'errors')">
+              <div class="goal-card-title"><span>🎯</span> Cut down on errors & rework</div>
+              <div class="goal-card-sub">Fewer mistakes slipping through manual processes</div>
+            </button>
+            <button class="goal-card" onclick="selectGoal(this,'curious')">
+              <div class="goal-card-title"><span>🤔</span> Honestly, just curious what's possible</div>
+              <div class="goal-card-sub">No specific agenda yet, want to see where I stand</div>
+            </button>
+          </div>
+          <button class="btn" id="step1-next" disabled onclick="showStep('step2')">Continue →</button>
+        </div>
+
+        <div class="form-step" id="step2">
+          <div class="step-counter">Quick context</div>
+          <div class="step-title">What kind of firm do you run?</div>
+          <div class="step-sub">This helps us tailor which automations are actually relevant to you.</div>
+          <select class="field" id="firmType" onchange="checkStep2()">
+            <option value="" disabled selected>Select your firm type</option>
+            <option value="tax">Tax Preparation</option>
+            <option value="bookkeeping">Bookkeeping</option>
+            <option value="cpa">Full-Service CPA Firm</option>
+            <option value="cfo">Fractional CFO / Advisory</option>
+            <option value="payroll">Payroll Services</option>
+            <option value="other">Other Accounting / Finance Services</option>
+          </select>
+          <button class="btn" id="step2-next" disabled onclick="showStep('stepRevenue')">Continue →</button>
+          <button class="btn-back" onclick="showStep('step1')">← Back</button>
+        </div>
+
+        <div class="form-step" id="stepRevenue">
+          <div class="step-counter">Quick context</div>
+          <div class="step-title">What's your approximate annual firm revenue?</div>
+          <div class="step-sub">This helps us calibrate the quiz to your stage.</div>
+          <select class="field" id="revenue" onchange="checkRevenue()">
+            <option value="" disabled selected>Select your revenue range</option>
+            <option value="under250k">Under $250K</option>
+            <option value="250-500k">$250K – $500K</option>
+            <option value="500k-1m">$500K – $1M</option>
+            <option value="1m-2m">$1M – $2M</option>
+            <option value="2m-5m">$2M – $5M</option>
+            <option value="5mplus">$5M+</option>
+          </select>
+          <button class="btn" id="revenue-next" disabled onclick="showStep('stepRateTeam')">Continue →</button>
+          <button class="btn-back" onclick="showStep('step2')">← Back</button>
+        </div>
+
+        <div class="form-step" id="stepRateTeam">
+          <div class="step-counter">Quick context</div>
+          <div class="step-title">Billing rate & team size</div>
+          <div class="step-sub">This is what turns "hours" into an actual dollar number later — it stays between us.</div>
+          <input class="field" type="number" min="0" id="billingRate" placeholder="Average hourly billing rate ($)" oninput="checkRateTeam()"/>
+          <select class="field" id="teamSize" onchange="checkRateTeam()">
+            <option value="" disabled selected>Team size</option>
+            <option value="solo">Just me</option>
+            <option value="small">2–5 people</option>
+            <option value="large">6+ people</option>
+          </select>
+          <button class="btn" id="rateTeam-next" disabled onclick="showStep('stepFork')">Continue →</button>
+          <button class="btn-back" onclick="showStep('stepRevenue')">← Back</button>
+        </div>
+
+        <div class="form-step" id="stepFork">
+          <div class="step-counter">You're set up</div>
+          <div class="step-title">Want the full picture?</div>
+          <div class="step-sub">Keep going for your personalised AI opportunity report — about 3 more minutes, and we'll show you exactly which automations fit your firm and roughly what they're worth.</div>
+          <div class="goal-grid">
+            <button class="goal-card" onclick="chooseFull()">
+              <div class="goal-card-title"><span>🔍</span> Continue to my Full Diagnosis</div>
+              <div class="goal-card-sub">Recommended — ranked recommendations with real numbers, not generic tips</div>
+            </button>
+            <button class="goal-card" onclick="chooseBasic()">
+              <div class="goal-card-title"><span>⚡</span> Get my Basic AI Starter Tips</div>
+              <div class="goal-card-sub">Quicker — general guidance based on what you've told us so far</div>
+            </button>
+          </div>
+          <button class="btn-back" onclick="showStep('stepRateTeam')">← Back</button>
+        </div>
+
+        <!-- DOCUMENTS -->
+        <div class="form-step" id="stepDocA">
+          <div class="step-counter">Documents & data intake</div>
+          <div class="step-title">Chasing client documents</div>
+          <input class="field" type="number" min="0" id="docHoursWeek" placeholder="Hours/week chasing client documents, receipts, or statements" oninput="checkDocA()"/>
+          <select class="field" id="docMethod" onchange="checkDocA()">
+            <option value="" disabled selected>How do you currently collect documents?</option>
+            <option value="manual">Mostly manual — email and text</option>
+            <option value="portal">Client portal, but I still chase people</option>
+            <option value="automated">Already mostly automated / hands-off</option>
+          </select>
+          <button class="btn" id="docA-next" disabled onclick="showStep('stepDocB')">Continue →</button>
+          <button class="btn-back" onclick="showStep('stepFork')">← Back</button>
+        </div>
+        <div class="form-step" id="stepDocB">
+          <div class="step-counter">Documents & data intake</div>
+          <div class="step-title">Volume & risk</div>
+          <input class="field" type="number" min="0" id="clientsPerMonth" placeholder="Clients needing document collection in an average month" oninput="checkDocB()"/>
+          <div class="step-sub">Have you missed a filing or deadline in the last year because documents came in late?</div>
+          <div class="yn-row">
+            <button class="yn-btn" onclick="setChoice('missedDeadline',true,this);checkDocB()">Yes</button>
+            <button class="yn-btn" onclick="setChoice('missedDeadline',false,this);checkDocB()">No</button>
+          </div>
+          <button class="btn" id="docB-next" disabled onclick="showStep('stepDataA')">Continue →</button>
+          <button class="btn-back" onclick="showStep('stepDocA')">← Back</button>
+        </div>
+
+        <!-- MANUAL WORK -->
+        <div class="form-step" id="stepDataA">
+          <div class="step-counter">Manual work & systems</div>
+          <div class="step-title">Data entry & reconciliation</div>
+          <input class="field" type="number" min="0" id="dataEntryHoursWeek" placeholder="Hours/week on manual data entry, categorization, or reconciliation" oninput="checkDataA()"/>
+          <div class="step-sub">Do you use bank-feed or OCR automation today?</div>
+          <div class="yn-row">
+            <button class="yn-btn" onclick="setChoice('hasAutomationTools',true,this);checkDataA()">Yes</button>
+            <button class="yn-btn" onclick="setChoice('hasAutomationTools',false,this);checkDataA()">No</button>
+          </div>
+          <button class="btn" id="dataA-next" disabled onclick="showStep('stepDataB')">Continue →</button>
+          <button class="btn-back" onclick="showStep('stepDocB')">← Back</button>
+        </div>
+        <div class="form-step" id="stepDataB">
+          <div class="step-counter">Manual work & systems</div>
+          <div class="step-title">Current AI use</div>
+          <div class="step-sub">Have you personally tried AI tools (ChatGPT, Claude, Copilot, etc.) for firm work?</div>
+          <div class="yn-row">
+            <button class="yn-btn" onclick="setChoice('currentAiUse',true,this);toggleAiUseFor(true);checkDataB()">Yes</button>
+            <button class="yn-btn" onclick="setChoice('currentAiUse',false,this);toggleAiUseFor(false);checkDataB()">No</button>
+          </div>
+          <div id="aiUseForWrap" style="display:none">
+            <div class="step-sub">What for? (Select all that apply)</div>
+            <div class="chip-grid">
+              <button class="chip" onclick="toggleChip('aiUseFor','emails',this)">Drafting client emails</button>
+              <button class="chip" onclick="toggleChip('aiUseFor','research',this)">Research / tax questions</button>
+              <button class="chip" onclick="toggleChip('aiUseFor','cleanup',this)">Data cleanup</button>
+              <button class="chip" onclick="toggleChip('aiUseFor','other',this)">Other</button>
+            </div>
+          </div>
+          <button class="btn" id="dataB-next" disabled onclick="showStep('stepMemoA')">Continue →</button>
+          <button class="btn-back" onclick="showStep('stepDataA')">← Back</button>
+        </div>
+
+        <!-- ADVISORY -->
+        <div class="form-step" id="stepMemoA">
+          <div class="step-counter">Client communication & advisory</div>
+          <div class="step-title">Writing client updates</div>
+          <input class="field" type="number" min="0" id="memoHoursWeek" placeholder="Hours/week writing client updates, memos, or advisory reports" oninput="checkMemoA()"/>
+          <div class="step-sub">Do you currently offer a paid advisory or fractional-CFO retainer?</div>
+          <div class="yn-row">
+            <button class="yn-btn" onclick="setChoice('offersAdvisory',true,this);checkMemoA()">Yes</button>
+            <button class="yn-btn" onclick="setChoice('offersAdvisory',false,this);checkMemoA()">No</button>
+          </div>
+          <button class="btn" id="memoA-next" disabled onclick="showStep('stepMemoB')">Continue →</button>
+          <button class="btn-back" onclick="showStep('stepDataB')">← Back</button>
+        </div>
+        <div class="form-step" id="stepMemoB">
+          <div class="step-counter">Client communication & advisory</div>
+          <div class="step-title">How those updates get written</div>
+          <div class="step-sub">Are your client updates and memos templated, or written from scratch each time?</div>
+          <div class="yn-row">
+            <button class="yn-btn" onclick="setChoice('memoFromScratch',false,this);checkMemoB()">Mostly templated</button>
+            <button class="yn-btn" onclick="setChoice('memoFromScratch',true,this);checkMemoB()">From scratch, every time</button>
+          </div>
+          <button class="btn" id="memoB-next" disabled onclick="showStep('stepSeasonA')">Continue →</button>
+          <button class="btn-back" onclick="showStep('stepMemoA')">← Back</button>
+        </div>
+
+        <!-- CAPACITY / AI COMFORT -->
+        <div class="form-step" id="stepSeasonA">
+          <div class="step-counter">Capacity & season</div>
+          <div class="step-title">Deadline crunch</div>
+          <input class="field" type="number" min="0" id="seasonExtraHoursWeek" placeholder="Extra hours/week during tax season or deadline crunch" oninput="checkSeasonA()"/>
+          <button class="btn" id="seasonA-next" disabled onclick="showStep('stepAiComfort')">Continue →</button>
+          <button class="btn-back" onclick="showStep('stepMemoB')">← Back</button>
+        </div>
+        <div class="form-step" id="stepAiComfort">
+          <div class="step-counter">AI comfort</div>
+          <div class="step-title">Where you stand today</div>
+          <div class="step-sub">How confident do you feel using AI tools day-to-day in the firm?</div>
+          <div class="slider-wrap">
+            <div class="slider-val" id="aiConfidenceVal">5</div>
+            <input type="range" min="1" max="10" value="5" id="aiConfidence" oninput="document.getElementById('aiConfidenceVal').textContent=this.value;checkAiComfort()"/>
+            <div class="slider-labels"><span>1 — not at all</span><span>10 — very confident</span></div>
+          </div>
+          <div class="step-sub">What's holding you back, if anything? (Select all that apply)</div>
+          <div class="chip-grid">
+            <button class="chip" onclick="toggleChip('aiConcerns','confidentiality',this)">Client confidentiality / data security</button>
+            <button class="chip" onclick="toggleChip('aiConcerns','accuracy',this)">Accuracy / hallucinations</button>
+            <button class="chip" onclick="toggleChip('aiConcerns','cost',this)">Cost</button>
+            <button class="chip" onclick="toggleChip('aiConcerns','dontknow',this)">Don't know where to start</button>
+            <button class="chip" onclick="toggleChip('aiConcerns','none',this)">None — we already use it well</button>
+          </div>
+          <button class="btn" id="aiComfort-next" disabled onclick="showStep('stepContact')">Continue →</button>
+          <button class="btn-back" onclick="showStep('stepSeasonA')">← Back</button>
+        </div>
+
+        <!-- CONTACT GATE (both paths land here) -->
+        <div class="form-step" id="stepContact">
+          <div class="step-counter">Last step</div>
+          <div class="step-title">Where should we send this?</div>
+          <div class="step-sub">We'll email your full results, and someone will give you a quick call to walk through your highest-impact automation.</div>
+          <input class="field" type="text" id="fullname" placeholder="Full name" oninput="checkContact()"/>
+          <div class="field-error" id="fullname-error">Please enter your first and last name</div>
+          <input class="field" type="text" id="bizname" placeholder="Firm name" oninput="checkContact()"/>
+          <input class="field" type="email" id="email" placeholder="Firm email address" oninput="checkContact()"/>
+          <div class="field-error" id="email-error">Please use your firm email address, not a personal one</div>
+          <input class="field" type="tel" id="phone" placeholder="Phone number" oninput="checkContact()"/>
+          <div class="field-error" id="phone-error">Enter a valid phone number</div>
+          <button class="btn" id="contact-submit" disabled onclick="submitForm()">See My Results →</button>
+          <button class="btn-back" onclick="showStep(answers.path==='basic' ? 'stepFork' : 'stepAiComfort')">← Back</button>
+          <p class="micro">Free. You keep everything from the call. Limited spots each month.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar" style="margin-top:1.5rem">
+    <p>Firm types we work with</p>
+    <div class="logos-row">
+      <span class="logo-pill">TAX PREP</span><span class="logo-pill">BOOKKEEPING</span><span class="logo-pill">FULL-SERVICE CPA</span>
+      <span class="logo-pill">FRACTIONAL CFO</span><span class="logo-pill">PAYROLL</span><span class="logo-pill">ADVISORY</span>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-n">10–15 hrs</div>
+        <div class="stat-label">Reclaimed weekly</div>
+        <div class="stat-desc">Typical time recovered once the top 1–2 automations are live</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-n">2–4 wks</div>
+        <div class="stat-label">To first automation live</div>
+        <div class="stat-desc">From audit to your highest-impact fix actually running</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-n">0</div>
+        <div class="stat-label">New hires required</div>
+        <div class="stat-desc">Every recommendation is designed to run inside your current team</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-n">$1</div>
+        <div class="stat-label">Cost to find out</div>
+        <div class="stat-desc">The quiz and your personalised report are completely free</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRANSFORMATION BEFORE / AFTER -->
+  <section class="section section-alt" id="transformations">
+    <div class="sec-head">
+      <div class="sec-ey">Firm Transformations</div>
+      <h2 class="sec-h2">Where your firm is now vs. where it could be</h2>
+      <p class="sec-sub">The work doesn't change. Who — or what — does the repetitive parts of it does.</p>
+    </div>
+    <div class="transform-grid">
+      <div class="transform-col before">
+        <div class="transform-label"><div class="transform-dot"></div>Before</div>
+        <div class="transform-item"><span class="ti-icon">✗</span> Half the week goes to chasing clients for documents</div>
+        <div class="transform-item"><span class="ti-icon">✗</span> Every client memo starts from a blank page</div>
+        <div class="transform-item"><span class="ti-icon">✗</span> Tax season means 15+ extra hours a week, every year</div>
+        <div class="transform-item"><span class="ti-icon">✗</span> "AI is revolutionizing accounting" — but nothing's actually changed here</div>
+        <div class="transform-item"><span class="ti-icon">✗</span> A missed document almost meant a missed deadline last year</div>
+        <div class="transform-item"><span class="ti-icon">✗</span> No real plan for where to start with AI</div>
+      </div>
+      <div class="transform-col after">
+        <div class="transform-label"><div class="transform-dot"></div>After</div>
+        <div class="transform-item"><span class="ti-icon">✓</span> One upload link and automatic reminders do the chasing</div>
+        <div class="transform-item"><span class="ti-icon">✓</span> Client memos start from an AI-drafted first pass, not a blank page</div>
+        <div class="transform-item"><span class="ti-icon">✓</span> Deadline risk gets flagged a week out, not the day of</div>
+        <div class="transform-item"><span class="ti-icon">✓</span> A specific, ranked list of what to automate first — and what it's worth</div>
+        <div class="transform-item"><span class="ti-icon">✓</span> A simple AI-use policy, so confidentiality isn't a lingering worry</div>
+        <div class="transform-item"><span class="ti-icon">✓</span> The team uses the same tools consistently, not just you in a browser tab</div>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <a href="#audit-form" class="btn-cta-big" style="display:inline-block;background:var(--navy);color:white;padding:.9rem 2.4rem;border-radius:8px;font-size:.95rem;font-weight:800;text-decoration:none">Take the Free Quiz and See Your Results →</a>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section class="cases-section" id="cases">
+    <div class="sec-head">
+      <div class="sec-ey sec-ey-light">Illustrative Outcomes</div>
+      <h2 class="sec-h2 sec-h2-light">What this looks like in a real firm</h2>
+      <p class="sec-sub sec-sub-light">Composite examples based on the kind of results firms typically see once their top automation is live. Every engagement starts with the same free quiz.</p>
+    </div>
+    <div class="cases-scroll-wrap">
+      <div class="cases-scroll" id="casesScroll">
+
+        <div class="case-card">
+          <div class="case-card-top">
+            <div class="case-tag"><div class="case-tag-dot"></div>Solo Tax Practice</div>
+            <div class="case-h">11 fewer hours a week of owner workload, and recurring revenue up 40% in 4 months</div>
+            <div class="case-body">A solo tax preparer billed almost entirely once a year, then spent the other eleven months doing bookkeeping check-ins and document chasing personally between deadlines. Moving 48 clients onto a monthly advisory retainer — with AI drafting the first pass of each check-in — smoothed income across the year instead of just tax season.</div>
+            <div class="case-results">
+              <div class="case-result"><div class="case-result-n">−11 hrs</div><div class="case-result-l">Owner workload/week</div></div>
+              <div class="case-result"><div class="case-result-n">+40%</div><div class="case-result-l">Recurring revenue</div></div>
+              <div class="case-result"><div class="case-result-n">4 mo</div><div class="case-result-l">To completion</div></div>
+            </div>
+          </div>
+          <div class="case-card-bottom">
+            <div class="case-industry">Tax Prep · Solo Practice</div>
+            <div class="case-arrow">→</div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-card-top">
+            <div class="case-tag"><div class="case-tag-dot"></div>Bookkeeping Firm · 4 Staff</div>
+            <div class="case-h">From "half my week chasing receipts" to a single upload link</div>
+            <div class="case-body">A 4-person bookkeeping firm was losing roughly 18 combined hours a week to manual email and text follow-up for client receipts and statements — with two missed deadlines the prior year because documents came in late. An automated document-chaser with a hard per-client deadline and reminder sequence took over the chasing entirely.</div>
+            <div class="case-results">
+              <div class="case-result"><div class="case-result-n">18 hrs</div><div class="case-result-l">Weekly chasing before</div></div>
+              <div class="case-result"><div class="case-result-n">0</div><div class="case-result-l">Missed deadlines since</div></div>
+              <div class="case-result"><div class="case-result-n">3 wks</div><div class="case-result-l">To fully live</div></div>
+            </div>
+          </div>
+          <div class="case-card-bottom">
+            <div class="case-industry">Bookkeeping · 4 Staff</div>
+            <div class="case-arrow">→</div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-card-top">
+            <div class="case-tag"><div class="case-tag-dot"></div>Fractional CFO Practice</div>
+            <div class="case-h">Advisory memos went from a 2-hour write to a 20-minute review</div>
+            <div class="case-body">A fractional CFO practice running 20+ monthly advisory retainers was writing every client memo from scratch, which quietly capped how many clients one advisor could take on. Turning raw financials and call notes into an AI-drafted first pass meant advisors were reviewing and personalising, not writing from zero.</div>
+            <div class="case-results">
+              <div class="case-result"><div class="case-result-n">−85%</div><div class="case-result-l">Memo drafting time</div></div>
+              <div class="case-result"><div class="case-result-n">+6</div><div class="case-result-l">New retainer clients taken on</div></div>
+              <div class="case-result"><div class="case-result-n">6 wks</div><div class="case-result-l">To full team rollout</div></div>
+            </div>
+          </div>
+          <div class="case-card-bottom">
+            <div class="case-industry">Fractional CFO / Advisory</div>
+            <div class="case-arrow">→</div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-card-top">
+            <div class="case-tag"><div class="case-tag-dot"></div>Full-Service CPA Firm</div>
+            <div class="case-h">Tax season stayed profitable instead of just surviving it</div>
+            <div class="case-body">A full-service CPA firm was adding 20+ extra hours a week during tax season, every year, with no plan to change it. A first-draft tax planning assistant — reviewed and finalized by the preparer, never sent unreviewed — cut the blank-page time on routine returns, giving the season back some margin instead of just more hours.</div>
+            <div class="case-results">
+              <div class="case-result"><div class="case-result-n">−9 hrs</div><div class="case-result-l">Weekly season overtime</div></div>
+              <div class="case-result"><div class="case-result-n">+22%</div><div class="case-result-l">Returns per preparer</div></div>
+              <div class="case-result"><div class="case-result-n">1 season</div><div class="case-result-l">To full adoption</div></div>
+            </div>
+          </div>
+          <div class="case-card-bottom">
+            <div class="case-industry">Full-Service CPA</div>
+            <div class="case-arrow">→</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="cases-nav">
+        <button class="cases-btn" onclick="scrollCases(-1)">←</button>
+        <button class="cases-btn" onclick="scrollCases(1)">→</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <div class="cta-strip">
+    <div class="cta-strip-text">
+      <h4>Ready to find out where AI actually helps?</h4>
+      <p>The quiz is free. Your results are instant — yours to keep either way.</p>
+    </div>
+    <a href="#audit-form" class="btn-strip">Take the Free Quiz →</a>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section section-alt" id="how">
+    <div class="sec-head">
+      <div class="sec-ey">How It Works</div>
+      <h2 class="sec-h2">Simple. Focused. Built around your firm.</h2>
+      <p class="sec-sub">A free quiz that shows you exactly where AI saves your firm real hours — instantly. No call required to get your answers.</p>
+    </div>
+    <div class="how-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-t">Take the free quiz</div><div class="step-b">About 5–10 minutes, tailored to your firm type and your actual workflow.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-t">Get your results instantly</div><div class="step-b">See your personalised automation recommendations the moment you finish — ranked by what they're actually worth, based on your own hours and billing rate.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-t">Go deeper on a free call (optional)</div><div class="step-b">Want more? Book a free call and we'll map every automation opportunity in detail and walk through getting the top one live.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-t">You keep everything</div><div class="step-b">Your quiz results are yours to keep regardless of whether you ever book a call. Zero pressure, ever.</div></div>
+    </div>
+  </section>
+
+  <!-- VALUE GAP -->
+  <section class="val-gap">
+    <h2>The Hours Nobody <span>Adds Up</span></h2>
+    <p>A few hours a week chasing documents or writing memos from scratch doesn't feel like much on any single day. Multiplied by 50 weeks a year, at your own billing rate, it usually adds up to more than owners expect.</p>
+    <div class="gap-cols">
+      <div class="gap-col bad"><h4>Still manual</h4><div class="gap-stat">10–20 hrs</div><div class="gap-label">Per week commonly spent on document chasing, data entry, and memo writing across a small firm.</div></div>
+      <div class="gap-arrow">→</div>
+      <div class="gap-col good"><h4>Automated</h4><div class="gap-stat">2–4 hrs</div><div class="gap-label">Per week the same tasks take once the right automation is reviewing and doing the first pass.</div></div>
+    </div>
+    <p class="gap-note">At a $150/hr billing rate, 12 reclaimed hours a week is close to $90,000 a year in freed-up capacity.</p>
+    <a href="#audit-form" class="btn-cta-big">Take the Free Quiz and Find Your Number →</a>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="section" id="who">
+    <div class="sec-head">
+      <div class="sec-ey">Is This You?</div>
+      <h2 class="sec-h2">You'll recognise at least three of these</h2>
+    </div>
+    <div class="symptoms">
+      <div class="symptom"><span class="symptom-icon">📥</span><div><div class="symptom-t">Chasing documents eats your week</div><div class="symptom-b">Emails, texts, follow-up calls — getting clients to actually send what you need takes longer than the work itself.</div></div></div>
+      <div class="symptom"><span class="symptom-icon">🤖</span><div><div class="symptom-t">You've heard "AI is revolutionizing accounting" a hundred times</div><div class="symptom-b">But your day-to-day is still spreadsheets, copy-paste, and manual entry. Nothing's actually changed yet.</div></div></div>
+      <div class="symptom"><span class="symptom-icon">📝</span><div><div class="symptom-t">Every memo starts from a blank page</div><div class="symptom-b">Client updates, advisory reports, quarterly check-ins — written from scratch every single time.</div></div></div>
+      <div class="symptom"><span class="symptom-icon">📅</span><div><div class="symptom-t">Tax season means the same overtime, every year</div><div class="symptom-b">You've accepted the extra hours as the cost of doing business, without a real plan to change it.</div></div></div>
+      <div class="symptom"><span class="symptom-icon">🔒</span><div><div class="symptom-t">Confidentiality is the reason you've held off</div><div class="symptom-b">AI feels risky with client data, and nobody's shown you what "doing it safely" actually looks like.</div></div></div>
+      <div class="symptom"><span class="symptom-icon">🧭</span><div><div class="symptom-t">You don't know where to start</div><div class="symptom-b">There are a hundred AI tools for accountants. None of them tell you which one actually matters for your firm.</div></div></div>
+    </div>
+    <div style="text-align:center">
+      <a href="#audit-form" class="btn-cta-big" style="display:inline-block;background:var(--navy);color:white;padding:.9rem 2.4rem;border-radius:8px;font-size:.95rem;font-weight:800;text-decoration:none">Take the Free Quiz →</a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section section-dark" id="testimonials">
+    <div class="sec-head">
+      <div class="sec-ey sec-ey-light">What Firm Owners Say</div>
+      <h2 class="sec-h2 sec-h2-light">From the audit sessions</h2>
+      <p class="sec-sub sec-sub-light">Illustrative of the sessions this quiz leads to — placeholders to be replaced with real client quotes as they come in.</p>
+    </div>
+    <div class="tgrid">
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <div class="ttext">"I genuinely thought AI meant hiring a developer or buying some huge platform. The quiz showed me it was one specific thing — how I collect documents — and that alone was worth more than a full week of my time every month."</div>
+        <div class="tauthor"><div class="avatar">JM</div><div><div class="aname">Jordan M.</div><div class="arole">Solo Tax Practice</div><div class="result-badge">11 hrs/week reclaimed</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <div class="ttext">"We'd tried ChatGPT before and it just felt like a toy. Seeing the actual dollar number attached to our document-chasing time made it obvious this wasn't optional anymore."</div>
+        <div class="tauthor"><div class="avatar">RB</div><div><div class="aname">Rachel B.</div><div class="arole">Bookkeeping Firm, 4 Staff</div><div class="result-badge">Zero missed deadlines since</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <div class="ttext">"The confidentiality question was the thing holding our whole team back. Having an actual answer — paid tools only, strip client names, a clause in the engagement letter — is what got everyone comfortable using it."</div>
+        <div class="tauthor"><div class="avatar">DK</div><div><div class="aname">David K.</div><div class="arole">Full-Service CPA Firm</div><div class="result-badge">Team-wide AI policy live</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <div class="ttext">"Every advisory memo used to take me close to two hours. Now I'm reviewing a draft and personalising it in twenty minutes. That's the difference between 20 retainer clients and 30."</div>
+        <div class="tauthor"><div class="avatar">SP</div><div><div class="aname">Sasha P.</div><div class="arole">Fractional CFO Practice</div><div class="result-badge">6 new retainer clients</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <div class="ttext">"Tax season used to just mean more hours. This is the first year it meant the same hours and more returns per preparer instead."</div>
+        <div class="tauthor"><div class="avatar">TL</div><div><div class="aname">Theo L.</div><div class="arole">Full-Service CPA Firm</div><div class="result-badge">+22% returns per preparer</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <div class="ttext">"I run this firm solo. The quiz didn't tell me to 'adopt AI broadly' — it told me the one thing worth fixing first. That specificity is why I actually followed through."</div>
+        <div class="tauthor"><div class="avatar">AN</div><div><div class="aname">Ana N.</div><div class="arole">Solo Bookkeeping Practice</div><div class="result-badge">1 automation, first, done right</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-section">
+    <h2>Stop Guessing Where <em>AI Actually Helps</em></h2>
+    <p>Free. Specific to your firm. You keep your results either way.</p>
+    <a href="#audit-form" class="btn-cta-big">Take Your Free AI Adoption Quiz →</a>
+    <div class="cta-micro">Free quiz. Instant results. Takes 5–10 minutes.</div>
+  </section>
+
+</div>
+
+
+<!-- ═══ PAGE 2 ═══ -->
+<div id="p2" class="page">
+
+  <section class="dark-section" style="padding-top:3.5rem;padding-bottom:3rem">
+    <div class="results-card">
+      <div class="results-badge">🎯 Your Personalised AI Opportunity Report</div>
+      <h2 class="results-h2" id="p2-findings-head">Based on what you told us</h2>
+      <p class="results-sub" id="p2-findings-sub">Here's what we found.</p>
+      <div class="snapshot-chips" id="p2-snapshot"></div>
+      <div id="p2-leak-banner"></div>
+      <div class="findings-wrap" id="p2-findings"></div>
+    </div>
+  </section>
+
+  <section class="hero2" style="padding-top:1rem">
+    <div class="persona-badge" id="p2-badge">🛠️ Want Help Implementing This?</div>
+    <h1 id="p2-headline">Watch How We'd Help You <em>Put This Into Action.</em></h1>
+    <p class="sub" id="p2-sub">This quick walkthrough shows how the program works — or skip straight to a free call below and we'll talk it through directly.</p>
+    <div class="vid-wrap">
+      <div id="vidalytics_embed_u8IvGVOH3wFJKqgX" style="width:100%;position:relative;padding-top:56.25%;"></div>
+    </div>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.3);margin-top:1.2rem">For accounting, bookkeeping & tax firms · <span id="p2-sector-note">Personalised to your firm type</span></p>
+    <a href="#calendly-booking" class="book-scroll-btn" onclick="document.getElementById('calendly-booking').scrollIntoView({behavior:'smooth'});return false;">Book Your Free Call Below ↓</a>
+  </section>
+
+  <section class="dark-section" id="calendly-booking" style="padding-top:3rem">
+    <div class="sec-head">
+      <div class="sec-ey">Book Your Session</div>
+      <h2 class="sec-h2" id="p2-booking-head" style="color:white">Choose a time that works for you</h2>
+      <p class="sec-sub" id="p2-booking-sub" style="color:rgba(255,255,255,.5)">Pick a slot below. We'll send a short intake form to make the 30 to 60 minutes as useful as possible.</p>
+    </div>
+    <div class="calendly-wrap">
+      <div class="calendly-inline-widget" data-url="https://calendly.com/kylemicallef01/audit-analysis-call" style="min-width:320px;height:700px;"></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    </div>
+  </section>
+
+  <section class="dark-section" style="padding-top:2rem;padding-bottom:0.5rem">
+    <div class="sector-strip" id="p2-sector-strip" style="margin-bottom:0">
+      <div class="sector-strip-icon">🏢</div>
+      <div class="sector-strip-text" id="p2-sector-text">Loading your personalised overview…</div>
+    </div>
+  </section>
+
+  <section class="dark-section">
+    <div class="sec-head">
+      <div class="sec-ey">Real Outcomes</div>
+      <h2 class="sec-h2" id="p2-results-head" style="color:white">What firms typically see</h2>
+      <p class="sec-sub" style="color:rgba(255,255,255,.5)">After their top automations are live — illustrative figures, updated as we build out real case studies</p>
+    </div>
+    <div class="results-grid" id="p2-stats"></div>
+  </section>
+
+  <section class="dark-section">
+    <div class="sec-head">
+      <div class="sec-ey">The Program</div>
+      <h2 class="sec-h2" style="color:white">What happens during the engagement</h2>
+      <p class="sec-sub" style="color:rgba(255,255,255,.5)">Three phases. A defined finish line. A firm that runs on less manual work.</p>
+    </div>
+    <div class="what-box">
+      <div class="what-item"><div class="what-num">1</div><div><div class="what-t">Automation Audit + Quick Win (Weeks 1–2)</div><div class="what-b" id="p2-phase1">Map every place manual work is costing you real hours, using the same scoring this quiz just ran. Get your single highest-impact automation live first.</div></div></div>
+      <div class="what-item"><div class="what-num">2</div><div><div class="what-t">Build & Integrate (Weeks 3–6)</div><div class="what-b" id="p2-phase2">Implement your top automations, trained on your firm's actual workflow, tone, and client base — not a generic template.</div></div></div>
+      <div class="what-item"><div class="what-num">3</div><div><div class="what-t">Team Rollout & Guardrails (Weeks 7–8+)</div><div class="what-b" id="p2-phase3">Get the rest of the team using it consistently, plus a simple AI-use policy so confidentiality isn't a lingering worry.</div></div></div>
+    </div>
+  </section>
+
+  <section class="dark-section">
+    <div class="sec-head">
+      <div class="sec-ey">Common Questions</div>
+      <h2 class="sec-h2" style="color:white">Answered honestly</h2>
+    </div>
+    <div class="qa-list">
+      <div class="qa"><div class="qa-q">Is this right for my type of firm?</div><div class="qa-a">If you run a <strong>tax, bookkeeping, CPA, fractional CFO, or payroll practice</strong> and manual work is eating hours every week, yes. This isn't about replacing judgment — it's about removing the repetitive parts around it.</div></div>
+      <div class="qa"><div class="qa-q" id="qa-goal-q">What if I'm not sure AI is worth the risk yet?</div><div class="qa-a" id="qa-goal-a">That's exactly what the <strong>quiz and audit are for</strong>. We show you the specific number before you commit to anything — no pitch, no pressure, just the math.</div></div>
+      <div class="qa"><div class="qa-q">How much does it cost?</div><div class="qa-a">Placeholder pricing — starts around <strong>$2,500</strong> for the core engagement, with a fractional-team option for larger firms. The audit itself is free — that's where we start, and the price only comes up once you've seen your number.</div></div>
+      <div class="qa"><div class="qa-q">I've tried ChatGPT or Copilot before and it didn't really change anything.</div><div class="qa-a">Most firms that try AI on their own use it ad hoc — one person, one browser tab, no process behind it. The difference here is a <strong>specific workflow, trained on your firm</strong>, that your whole team can rely on the same way every time.</div></div>
+      <div class="qa"><div class="qa-q">What about client confidentiality?</div><div class="qa-a">This is the most common objection, and a fair one. Every recommendation here assumes <strong>paid-tier tools only</strong>, client names stripped before anything is processed, and a clear AI-use clause in your engagement letter — not "just paste it into whatever's free."</div></div>
+      <div class="qa"><div class="qa-q">What if I don't get results?</div><div class="qa-a">Attend every session and complete the Phase 1 actions in the first 30 days. If you don't walk away knowing exactly what to automate first <strong>I work with you free until you do</strong>. No loopholes.</div></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="footer-brand">KROW · AI ADOPTION AUDIT</div>
+  © 2026 Krow · Tampa, FL<br>
+  Built for accounting, bookkeeping, and tax firms figuring out where AI actually belongs in the practice.
+</footer>
+
+<script>
+let answers={aiUseFor:[],aiConcerns:[]};
+
+const stepProgress={step1:10,step2:16,stepRevenue:20,stepRateTeam:24,stepFork:28,
+  stepDocA:34,stepDocB:40,
+  stepDataA:46,stepDataB:52,
+  stepMemoA:60,stepMemoB:66,
+  stepSeasonA:74,stepAiComfort:82,
+  stepContact:99};
+
+function showStep(id){
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('progress').style.width=(stepProgress[id]||50)+'%';
+  document.querySelector('.form-card').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ---------- baseline ---------- */
+function selectGoal(btn,goal){
+  document.querySelectorAll('#step1 .goal-card').forEach(c=>c.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers.goal=goal;
+  document.getElementById('step1-next').disabled=false;
+}
+function checkStep2(){answers.firmType=document.getElementById('firmType').value;document.getElementById('step2-next').disabled=!answers.firmType;}
+function checkRevenue(){answers.revenue=document.getElementById('revenue').value;document.getElementById('revenue-next').disabled=!answers.revenue;}
+function checkRateTeam(){
+  const r=document.getElementById('billingRate').value;
+  answers.billingRate=parseFloat(r)||0;
+  answers.teamSize=document.getElementById('teamSize').value;
+  document.getElementById('rateTeam-next').disabled=!(r!==''&&answers.teamSize);
+}
+
+function chooseFull(){answers.path='full';showStep('stepDocA');}
+function chooseBasic(){answers.path='basic';showStep('stepContact');}
+
+/* ---------- generic helpers ---------- */
+function setChoice(field,value,btn){
+  answers[field]=value;
+  const row=btn.parentElement;
+  row.querySelectorAll('.yn-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+function toggleChip(arrField,value,btn){
+  if(!answers[arrField])answers[arrField]=[];
+  const arr=answers[arrField];
+  const i=arr.indexOf(value);
+  if(i>=0){arr.splice(i,1);btn.classList.remove('selected');}
+  else{arr.push(value);btn.classList.add('selected');}
+}
+
+/* ---------- documents ---------- */
+function checkDocA(){
+  const h=document.getElementById('docHoursWeek').value;
+  answers.docHoursWeek=parseFloat(h)||0;
+  answers.docMethod=document.getElementById('docMethod').value;
+  document.getElementById('docA-next').disabled=!(h!==''&&answers.docMethod);
+}
+function checkDocB(){
+  const c=document.getElementById('clientsPerMonth').value;
+  answers.clientsPerMonth=parseFloat(c)||0;
+  document.getElementById('docB-next').disabled=!(c!==''&&answers.missedDeadline!==undefined);
+}
+
+/* ---------- manual work ---------- */
+function checkDataA(){
+  const h=document.getElementById('dataEntryHoursWeek').value;
+  answers.dataEntryHoursWeek=parseFloat(h)||0;
+  document.getElementById('dataA-next').disabled=!(h!==''&&answers.hasAutomationTools!==undefined);
+}
+function toggleAiUseFor(show){document.getElementById('aiUseForWrap').style.display=show?'block':'none';}
+function checkDataB(){
+  document.getElementById('dataB-next').disabled=(answers.currentAiUse===undefined);
+}
+
+/* ---------- advisory ---------- */
+function checkMemoA(){
+  const h=document.getElementById('memoHoursWeek').value;
+  answers.memoHoursWeek=parseFloat(h)||0;
+  document.getElementById('memoA-next').disabled=!(h!==''&&answers.offersAdvisory!==undefined);
+}
+function checkMemoB(){
+  document.getElementById('memoB-next').disabled=(answers.memoFromScratch===undefined);
+}
+
+/* ---------- season / ai comfort ---------- */
+function checkSeasonA(){
+  const h=document.getElementById('seasonExtraHoursWeek').value;
+  answers.seasonExtraHoursWeek=parseFloat(h)||0;
+  document.getElementById('seasonA-next').disabled=(h==='');
+}
+function checkAiComfort(){
+  answers.aiConfidence=parseInt(document.getElementById('aiConfidence').value);
+  document.getElementById('aiComfort-next').disabled=false;
+}
+
+/* ---------- contact gate validation ---------- */
+const personalEmailDomains=new Set(['gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','yahoo.co.in','hotmail.com','hotmail.co.uk','outlook.com','live.com','msn.com','aol.com','icloud.com','me.com','mac.com','protonmail.com','proton.me','mail.com','gmx.com','yandex.com','zoho.com','rocketmail.com','ymail.com','comcast.net','verizon.net','att.net','sbcglobal.net','bellsouth.net','cox.net','charter.net','optusnet.com.au','bigpond.com']);
+
+function isValidEmailFormat(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);}
+function isBusinessEmail(v){
+  if(!isValidEmailFormat(v))return false;
+  const domain=v.split('@')[1].toLowerCase().trim();
+  return !personalEmailDomains.has(domain);
+}
+function isValidPhone(v){
+  const digits=v.replace(/\D/g,'');
+  return digits.length===10||(digits.length===11&&digits[0]==='1');
+}
+function isFullName(v){
+  const parts=v.trim().split(/\s+/).filter(Boolean);
+  return parts.length>=2&&parts.every(p=>p.length>=1);
+}
+function toggleFieldError(field,show){
+  document.getElementById(field+'-error').classList.toggle('show',show);
+  document.getElementById(field).classList.toggle('invalid',show);
+}
+function checkContact(){
+  const fullname=document.getElementById('fullname').value;
+  const bizname=document.getElementById('bizname').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+
+  const nameOk=isFullName(fullname);
+  const emailOk=isBusinessEmail(email);
+  const phoneOk=isValidPhone(phone);
+
+  toggleFieldError('fullname',fullname.trim()!==''&&!nameOk);
+  toggleFieldError('email',email!==''&&!emailOk);
+  toggleFieldError('phone',phone!==''&&!phoneOk);
+
+  document.getElementById('contact-submit').disabled=!(nameOk&&!!bizname&&emailOk&&phoneOk);
+}
+
+function scrollCases(dir){
+  const el=document.getElementById('casesScroll');
+  el.scrollBy({left:dir*360,behavior:'smooth'});
+}
+
+/* ============================================================
+   AUTOMATION RECOMMENDATION ENGINE — fully deterministic, no AI call.
+   Computes leak-math ($ = hours/week x billing rate x weeks) per
+   recommendation and ranks by dollar impact where applicable.
+   ============================================================ */
+function money(n){return '$'+Math.round(n).toLocaleString();}
+
+function computeRecommendations(a){
+  let pool=[];
+  const push=(id,name,headline,advice,impact,leak,polarity)=>pool.push({id,name,headline,advice,impact,leak,polarity: polarity||'fix'});
+  const rate=a.billingRate||0;
+
+  /* DOCUMENT CHASER */
+  if(a.docHoursWeek>0){
+    const leak=a.docHoursWeek*rate*50;
+    let advice=`You're spending about ${a.docHoursWeek} hour${a.docHoursWeek===1?'':'s'} a week chasing client documents${a.docMethod==='manual'?' by email and text':a.docMethod==='portal'?', even with a portal in place':''}. At your $${rate}/hr rate, that's roughly ${money(leak)} a year of billable capacity spent on follow-up, not the work itself. Document Chaser replaces the back-and-forth with one upload link, automatic reminders, and a hard deadline per client — so the chasing happens without you.`;
+    if(a.missedDeadline)advice+=` It also directly addresses the late-document risk you flagged — automated reminders are the most common fix for that.`;
+    push('DOC-1','Document Chaser','Stop chasing paper by hand',advice,leak/1000+(a.docMethod==='manual'?3:0)+(a.missedDeadline?2:0),leak);
+  }
+
+  /* ADVISORY MEMO GENERATOR */
+  if(a.memoHoursWeek>0){
+    const leak=a.memoHoursWeek*rate*50;
+    let advice=`Roughly ${a.memoHoursWeek} hour${a.memoHoursWeek===1?'':'s'} a week goes into writing client updates and advisory memos${a.memoFromScratch?' from scratch each time':''}. That's about ${money(leak)} a year in billing time spent on the writing itself, not the judgment behind it. This tool turns your notes and numbers into a client-ready first draft, so your time goes into review and the relationship, not the blank page.`;
+    if(a.offersAdvisory)advice+=` Since you already run a paid advisory retainer, this is usually the single highest-leverage fix — it's the exact deliverable clients are paying for.`;
+    push('MEMO-1','Advisory Memo Generator','Draft client memos in minutes, not hours',advice,leak/1000+(a.memoFromScratch?2:0)+(a.offersAdvisory?2:0),leak);
+  }
+
+  /* RECONCILIATION & CATEGORIZATION */
+  if(a.dataEntryHoursWeek>0&&a.hasAutomationTools===false){
+    const leak=a.dataEntryHoursWeek*rate*50;
+    const advice=`${a.dataEntryHoursWeek} hour${a.dataEntryHoursWeek===1?'':'s'} a week on manual entry and reconciliation, with no bank-feed or OCR automation in place yet, is around ${money(leak)} a year of billable time spent on data entry instead of judgment calls. This is usually the fastest automation to stand up, since it plugs into books you already keep.`;
+    push('RECON-1','Reconciliation & Categorization Assistant','Let software touch the data first',advice,leak/1000,leak);
+  }
+
+  /* DEADLINE RISK RADAR */
+  if(a.missedDeadline===true){
+    const advice=`You flagged a missed filing or deadline in the past year. That's rarely a knowledge gap — it's almost always a tracking gap. An automated tracker that flags at-risk deadlines a week out, not the day of, is the fix, and it's one of the cheapest things on this list to set up.`;
+    push('RISK-1','Deadline Risk Radar','Catch late documents before they become missed deadlines',advice,7,null);
+  }
+
+  /* TAX PLANNING DRAFT ASSISTANT */
+  if((a.firmType==='tax'||a.firmType==='cpa')&&a.seasonExtraHoursWeek>=10){
+    const leak=a.seasonExtraHoursWeek*rate*12;
+    const advice=`During the crunch, you're adding about ${a.seasonExtraHoursWeek} extra hours a week — over a roughly 12-week season that's close to ${money(leak)} in stretched capacity. A tool that turns a client's numbers into a first-draft, plain-English tax strategy memo for your review typically claws back several of those hours a week during the exact weeks you don't have them to spare.`;
+    push('TAX-1','Tax Planning Draft Assistant','Give the busiest weeks of the year some room back',advice,leak/1000+2,leak);
+  }
+
+  /* ENGAGEMENT LETTER / ONBOARDING */
+  if(a.teamSize==='solo'){
+    const advice=`Running the firm solo means every new client engagement letter, proposal, and onboarding email comes out of your own calendar. Firms this size typically save 2–4 hours per new client onboarded by starting from an editable first draft instead of a blank page.`;
+    push('ENG-1','Engagement Letter & Onboarding Drafts','Stop writing the same onboarding paperwork from scratch',advice,4,null);
+  }
+
+  /* CLIENT INBOX TRIAGE */
+  if((a.teamSize==='solo'||a.teamSize==='small')&&a.clientsPerMonth>=15){
+    const advice=`With ${a.clientsPerMonth} clients needing document collection most months and a small team, routine questions — "where's my refund," "what do you still need from me" — are almost certainly eating time between the actual work. A tool that drafts responses in your firm's tone and flags anything that needs a human touch usually clears this without adding headcount.`;
+    push('INBOX-1','Client Inbox Triage','Handle the routine questions automatically',advice,4,null);
+  }
+
+  /* AI CONFIDENTIALITY / COMPLIANCE GUARDRAILS */
+  if(a.aiConfidence<=4&&a.aiConcerns&&a.aiConcerns.includes('confidentiality')){
+    const advice=`Low confidence combined with a confidentiality concern is the most common reason firms stall on AI entirely — and it's fixable in an afternoon, not a quarter. A short internal policy (paid-tier tools only, client names stripped before anything gets pasted anywhere, an AI-use clause in your engagement letter) removes the actual risk instead of just the discomfort.`;
+    push('GUARD-1','AI Guardrails & Compliance Policy','Remove the risk instead of avoiding the tool',advice,6,null);
+  }
+
+  /* POSITIVE FINDINGS */
+  if(a.currentAiUse===true){
+    const advice=`Most firms haven't touched AI tools for real client work yet — you have. The next step isn't "start using AI," it's turning what you're doing ad hoc into something repeatable your whole team can rely on, instead of it living in your own browser tabs.`;
+    push('POS-1','Already Ahead of Most of the Profession','Ad hoc AI use is a head start, not a finish line',advice,3,null,'positive');
+  }
+  if(a.hasAutomationTools===true){
+    const advice=`Bank-feed and OCR automation already doing the heavy lifting on data entry puts you ahead of a lot of firms your size. Worth pointing whatever time that freed up toward document-chasing or advisory-writing, if either showed up in this report.`;
+    push('POS-2','Your Data Entry Is Already Ahead','Reconciliation automation is already working for you',advice,2,null,'positive');
+  }
+
+  /* goal-based weighting bonus */
+  const bonusIds={
+    time:['DOC-1','RECON-1','INBOX-1'],
+    revenue:['MEMO-1','TAX-1','ENG-1'],
+    errors:['RECON-1','RISK-1','GUARD-1'],
+    curious:[]
+  }[a.goal]||[];
+  pool.forEach(f=>{if(bonusIds.includes(f.id))f.impact+=2;});
+
+  pool.sort((x,y)=>y.impact-x.impact);
+  let selected=pool.slice(0,4);
+
+  /* positive-finding guarantee */
+  if(!selected.some(f=>f.polarity==='positive')){
+    const bestPositive=pool.find(f=>f.polarity==='positive');
+    if(bestPositive){
+      if(selected.length>=4){selected[selected.length-1]=bestPositive;}
+      else{selected.push(bestPositive);}
+      selected.sort((x,y)=>y.impact-x.impact);
+    }
+  }
+
+  /* empty-pool fallback */
+  if(selected.length===0){
+    const fallback={
+      time:{headline:'Start with a time audit',advice:"Nothing major stood out — track your own hours for one week across document chasing, data entry, and client writing. That number is usually the business case for the first automation."},
+      revenue:{headline:'Package one retainer offer',advice:"Fundamentals look solid. The highest-leverage next move is usually packaging what you already do into a recurring advisory retainer, with AI handling the first draft of each check-in."},
+      errors:{headline:'Document one process this month',advice:"Nothing major stood out — pick the one manual task most prone to mistakes and write down exactly how it should be done. That's the foundation for automating it later."},
+      curious:{headline:'Fundamentals look solid',advice:'Nothing major stood out in this check. Worth revisiting in 6 months as your firm and the tools both keep moving.'}
+    }[a.goal]||{headline:'Fundamentals look solid',advice:'Nothing major stood out. Worth revisiting in 6 months.'};
+    selected=[{id:'FALLBACK',name:fallback.headline,headline:fallback.headline,advice:fallback.advice,impact:1,leak:null,polarity:'positive'}];
+  }
+  return selected;
+}
+
+const basicAuditContent={
+  time:[
+    {headline:"Automate the Document Chase First",body:"Before touching anything else, stop personally chasing client documents. Replace the email/text back-and-forth with a single upload link per client, a hard deadline, and automatic reminders. This is almost always the single highest-hours fix available, and it requires no new software most firms don't already have access to in some form."},
+    {headline:"Let Software Touch the Data Before You Do",body:"If you're still manually entering or reconciling transactions, bank-feed and OCR automation should come before any AI writing tool — it's the more mechanical, lower-risk win, and it frees up hours that can go toward the higher-value client work only you can do."},
+    {headline:"Draft From a Template, Not From Zero",body:"Every client memo, update, or proposal that starts as a blank page is time you're not getting back. Build one solid template per document type, then use AI to fill in the specifics from your notes — review and personalize, don't write from scratch."},
+    {headline:"Write Down Your AI Ground Rules Before Scaling Usage",body:"Paid-tier tools only, client names and identifying details stripped before anything gets pasted anywhere, and a short AI-use clause in your engagement letter. That's the whole policy most firms need — and it's what actually unlocks confident, team-wide use."}
+  ],
+  revenue:[
+    {headline:"Package What You Already Do Into a Retainer",body:"If you're doing bookkeeping, check-ins, or ad hoc advice project-by-project, bundling it into a monthly advisory retainer — with AI drafting the first pass of each update — is usually the fastest way to grow revenue without adding headcount."},
+    {headline:"Free Up an Advisor's Capacity With Memo Drafting",body:"The ceiling on how many retainer clients one advisor can serve is usually memo-writing time, not judgment. Cutting drafting time from two hours to twenty minutes is often the difference between staying flat and taking on real growth."},
+    {headline:"Speed Up Onboarding to Take On More Clients",body:"Every new client engagement letter and proposal written from scratch is time not spent serving existing clients. A drafted-for-you onboarding flow typically saves 2–4 hours per new client, compounding fast as volume grows."},
+    {headline:"Use the Season You're Already Working to Grow",body:"If tax season already means 15+ extra hours a week, a first-draft planning assistant that claws back even a few of those hours per week can translate directly into taking on more returns in the exact weeks demand peaks."}
+  ],
+  errors:[
+    {headline:"Automate Reconciliation Before Anything Else",body:"Manual data entry is where most small errors originate. Bank-feed and OCR automation catches miscoded entries automatically and is usually the single highest-leverage fix for reducing rework, independent of any other automation on this list."},
+    {headline:"Build a Deadline Radar, Not Just a Calendar",body:"Missed deadlines are almost always a tracking gap, not a knowledge gap. A system that flags at-risk deadlines a week out — tied to whether documents have actually come in — catches problems while there's still time to fix them."},
+    {headline:"Write Your AI Ground Rules Before Scaling Usage",body:"Accuracy concerns are legitimate — AI drafts should always be reviewed, never sent unreviewed. A short policy defining what gets AI-drafted versus human-verified from the start prevents errors from slipping through as usage grows."},
+    {headline:"Standardize the Process Before You Automate It",body:"Automating an inconsistent process just produces inconsistent results faster. Document the correct version of your highest-error task first, then build the automation around that documented standard."}
+  ],
+  curious:[
+    {headline:"Start With a Time Audit, Not a Tool",body:"Before picking any AI tool, track your own hours for one week across document chasing, data entry, and client writing. Whichever bucket is biggest is where to start — the tool matters far less than starting in the right place."},
+    {headline:"Automate the Document Chase First",body:"If you're not sure where to begin, document collection is usually the safest, highest-hours starting point for most firms — low risk, high time-savings, and it doesn't touch anything sensitive about the actual numbers."},
+    {headline:"Write Your AI Ground Rules Early",body:"Even before adopting anything specific, deciding paid-tier tools only, client names stripped before anything gets pasted, and an AI-use clause in engagement letters means you're ready to move quickly once you do find the right fit."},
+    {headline:"Get One Real Number Before Deciding Anything",body:"Most owners are guessing at what manual work is actually costing them. Running your own hours through hours × billing rate × 50 weeks turns a vague sense of \"this takes a while\" into an actual number worth acting on."}
+  ]
+};
+
+const goalContent={
+  time:{badge:'🛠️ Want Help Implementing This?',headline:'Watch How We\'d Help You <em>Put This Into Action.</em>',sub:'This quick walkthrough shows how we\'d help you act on the time-saving fixes above — or skip straight to a free call and we\'ll talk it through directly.',resultsHead:'What firms see when the manual work disappears',stats:[{n:'10–15 hrs',l:'Weekly hours reclaimed within 90 days'},{n:'2–4 wks',l:'To your first automation live'},{n:'0',l:'New hires required'},{n:'$0',l:'Cost to find out where to start'}],phase1:'We map every place manual work is costing you hours — document chasing, data entry, memo writing — and score each by how much time and money it\'s actually leaking.',phase2:'We build and train the top 1–2 automations on your firm\'s real workflow, so the fix fits how you actually work, not a generic template.',phase3:'By the final phase, the manual version of these tasks is gone. You\'re reviewing, not doing — and your week looks different.',qaGoalQ:'What if I\'ve tried automating things before and it didn\'t stick?',qaGoalA:'The problem is almost never the tool — it\'s the <strong>absence of a trained workflow</strong> built around how your firm actually operates. That\'s what Phase 2 is built to fix.',bookingHead:'Book your free Time Audit',bookingSub:'We\'ll identify the top 1–2 things eating your week and what fixing them is actually worth.'},
+  revenue:{badge:'🛠️ Want Help Implementing This?',headline:'Watch How We\'d Help You <em>Put This Into Action.</em>',sub:'This quick walkthrough shows how we\'d help you act on the growth fixes above — or skip straight to a free call and we\'ll talk it through directly.',resultsHead:'What firms see when capacity opens up',stats:[{n:'+20–40%',l:'Client capacity without adding headcount'},{n:'2–4 wks',l:'To your first automation live'},{n:'−85%',l:'Typical memo drafting time, once automated'},{n:'$0',l:'Cost to find out where to start'}],phase1:'We map where capacity is actually capped — usually memo writing, onboarding, or document chasing — and quantify exactly what fixing it is worth in growth terms.',phase2:'We build the automations that free up an advisor\'s time specifically, so the freed capacity goes toward serving more clients, not just less overtime.',phase3:'By the final phase, you have a documented answer for "how many more clients could we take on" — because the ceiling has actually moved.',qaGoalQ:'Can this actually let us grow without hiring?',qaGoalA:'Usually, yes — for the specific tasks that automate well. It won\'t replace judgment or relationships, but it removes the <strong>repetitive work capping capacity</strong> around them.',bookingHead:'Book your free Growth Capacity Audit',bookingSub:'We\'ll map what\'s actually capping how many clients you can serve, and what removing it is worth.'},
+  errors:{badge:'🛠️ Want Help Implementing This?',headline:'Watch How We\'d Help You <em>Put This Into Action.</em>',sub:'This quick walkthrough shows how we\'d help you act on the accuracy fixes above — or skip straight to a free call and we\'ll talk it through directly.',resultsHead:'What firms see when manual entry disappears',stats:[{n:'Fewer',l:'Miscoded entries once reconciliation is automated'},{n:'1 wk',l:'Advance warning on at-risk deadlines'},{n:'2–4 wks',l:'To your first automation live'},{n:'$0',l:'Cost to find out where to start'}],phase1:'We identify where errors are actually originating — usually manual entry or missed tracking, not judgment calls — and score each by risk and frequency.',phase2:'We build the automation and the review checkpoint together, so speed never comes at the cost of a human catching what matters.',phase3:'By the final phase, the riskiest manual steps have a system watching them, and your team\'s time goes into review, not re-typing.',qaGoalQ:'Won\'t AI just introduce different kinds of errors?',qaGoalA:'It can, if it\'s used unreviewed. Every recommendation here is built as a <strong>draft-and-review</strong> process, never an auto-send — the human stays the final check.',bookingHead:'Book your free Accuracy Audit',bookingSub:'We\'ll map where errors are actually originating and what a review-based automation would catch.'},
+  curious:{badge:'🛠️ Want Help Implementing This?',headline:'Watch How We\'d Help You <em>Put This Into Action.</em>',sub:'This quick walkthrough shows how we\'d help you act on whichever of this matters most — or skip straight to a free call and we\'ll talk it through directly.',resultsHead:'What a typical automation audit finds',stats:[{n:'1–4',l:'Specific, fixable automation opportunities per firm on average'},{n:'15 min',l:'To get your own personalised read'},{n:'$0',l:'Cost to find out'},{n:'100%',l:'Yours to keep, whatever you decide to do'}],phase1:'We map every point where manual work is costing you time, and compare your numbers to what\'s typical at your firm size.',phase2:'We tell you, in plain terms, which 1–4 automations are actually worth building first — not a generic AI checklist.',phase3:'You decide what to do with it: grow, reclaim time, or just get more comfortable with AI at your own pace.',qaGoalQ:'I\'m not sure I even need this — is it still useful?',qaGoalA:'That\'s exactly who this is for. <strong>See the numbers first</strong>, decide what to act on after.',bookingHead:'Book your free Automation Audit',bookingSub:'We\'ll walk through your results and answer anything the report didn\'t cover.'}
+};
+
+const sectorContent={
+  tax:{strip:'<strong>For tax preparation practices:</strong> The most common leak is season-only revenue paired with document collection and first-draft planning eating hours you don\'t have to spare during the exact weeks that matter most. We map every dependency and build the automation around your actual season.',sectorNote:'Tailored for Tax Preparation practices'},
+  bookkeeping:{strip:'<strong>For bookkeeping firms:</strong> The most common issue is manual data entry and document chasing eating the majority of billable hours, on work that rarely requires real judgment. We build the reconciliation and document-collection automations first.',sectorNote:'Tailored for Bookkeeping firms'},
+  cpa:{strip:'<strong>For full-service CPA firms:</strong> Season-driven overtime, manual reconciliation, and from-scratch client memos usually compound across every service line. We prioritize whichever is costing you the most, then build outward.',sectorNote:'Tailored for Full-Service CPA firms'},
+  cfo:{strip:'<strong>For fractional CFO and advisory practices:</strong> The ceiling on growth is almost always memo and report writing time per advisor. We build the drafting automation that lets one advisor serve meaningfully more retainer clients.',sectorNote:'Tailored for Fractional CFO / Advisory practices'},
+  payroll:{strip:'<strong>For payroll service firms:</strong> Document collection, deadline tracking, and routine client questions are the highest-volume, most automatable parts of the work. We start with whichever is eating the most hours.',sectorNote:'Tailored for Payroll Services firms'},
+  other:{strip:'<strong>For accounting and finance service firms:</strong> The pattern is consistent: manual document collection, data entry, and from-scratch client writing are where the hours go. We map and fix whichever is costing you the most first.',sectorNote:'Tailored for your firm type'}
+};
+
+const revenueLabelMap={under250k:'Under $250K','250-500k':'$250K–$500K','500k-1m':'$500K–$1M','1m-2m':'$1M–$2M','2m-5m':'$2M–$5M','5mplus':'$5M+'};
+const firmTypeNameMap={tax:'Tax Preparation',bookkeeping:'Bookkeeping',cpa:'Full-Service CPA',cfo:'Fractional CFO / Advisory',payroll:'Payroll Services',other:'Accounting Services'};
+const goalNameMap={time:'Goal: Get Time Back',revenue:'Goal: Grow Capacity',errors:'Goal: Reduce Errors',curious:'Goal: Just Curious'};
+
+function renderSnapshotChips(){
+  const chips=[firmTypeNameMap[answers.firmType],revenueLabelMap[answers.revenue],answers.billingRate?('$'+answers.billingRate+'/hr'):null,goalNameMap[answers.goal]].filter(Boolean);
+  document.getElementById('p2-snapshot').innerHTML=chips.map(c=>`<span class="snapshot-chip">${c}</span>`).join('');
+}
+
+function buildPage2(){
+  renderSnapshotChips();
+  const g=goalContent[answers.goal]||goalContent.curious;
+  const s=sectorContent[answers.firmType]||sectorContent.other;
+  document.getElementById('p2-badge').textContent=g.badge;
+  document.getElementById('p2-headline').innerHTML=g.headline;
+  document.getElementById('p2-sub').textContent=g.sub;
+  document.getElementById('p2-sector-note').textContent=s.sectorNote;
+  document.getElementById('p2-sector-text').innerHTML=s.strip;
+  document.getElementById('p2-results-head').textContent=g.resultsHead;
+  document.getElementById('p2-stats').innerHTML=g.stats.map(st=>`<div class="rcard"><div class="rcard-n">${st.n}</div><div class="rcard-l">${st.l}</div></div>`).join('');
+  document.getElementById('p2-phase1').textContent=g.phase1;
+  document.getElementById('p2-phase2').textContent=g.phase2;
+  document.getElementById('p2-phase3').textContent=g.phase3;
+  document.getElementById('qa-goal-q').textContent=g.qaGoalQ;
+  document.getElementById('qa-goal-a').innerHTML=g.qaGoalA;
+  document.getElementById('p2-booking-head').textContent=g.bookingHead;
+  document.getElementById('p2-booking-sub').textContent=g.bookingSub;
+
+  const findingsContainer=document.getElementById('p2-findings');
+  const leakBanner=document.getElementById('p2-leak-banner');
+
+  if(answers.path==='full'){
+    const recs=computeRecommendations(answers);
+    document.getElementById('p2-findings-head').textContent="Your firm's AI opportunities, ranked";
+    document.getElementById('p2-findings-sub').textContent=`The ${recs.length} highest-impact automation${recs.length===1?'':'s'} to act on first.`;
+
+    const totalLeak=recs.reduce((sum,f)=>sum+(f.leak||0),0);
+    if(totalLeak>0){
+      leakBanner.innerHTML=`<div class="leak-banner">
+        <div class="leak-eyebrow">Estimated Annual Impact</div>
+        <div class="leak-number">${money(totalLeak)}/yr</div>
+        <div class="leak-note">Roughly what the automations below represent in freed-up billable capacity, based on the hours and rate you gave us. This is an estimate to guide priority, not a guarantee.</div>
+      </div>`;
+    }else{
+      leakBanner.innerHTML='';
+    }
+
+    findingsContainer.innerHTML=recs.map(f=>`
+      <div class="finding-card ${f.polarity==='positive'?'positive':''}">
+        <div class="finding-tag">${f.polarity==='positive'?'Working well':'Recommended'}</div>
+        <div class="finding-h"><span>${f.headline}</span>${f.leak?`<span class="finding-leak">~${money(f.leak)}/yr</span>`:''}</div>
+        <div class="finding-b"><strong>${f.name}.</strong> ${f.advice}</div>
+      </div>`).join('');
+  }else{
+    leakBanner.innerHTML='';
+    document.getElementById('p2-findings-head').textContent='Where to start';
+    document.getElementById('p2-findings-sub').textContent='General guidance based on your goal — go deeper with the full diagnosis any time.';
+    findingsContainer.innerHTML=(basicAuditContent[answers.goal]||basicAuditContent.curious).map((t,i)=>`
+      <div class="tip-card">
+        <div class="tip-num">${i+1}</div>
+        <div><div class="tip-h">${t.headline}</div><div class="tip-b">${t.body}</div></div>
+      </div>`).join('');
+  }
+}
+
+// Get your free access key at https://web3forms.com — takes 30 seconds, no account needed.
+// Reusing the same key as the main Krow site keeps leads in one inbox; swap if you want these tracked separately.
+const WEB3FORMS_ACCESS_KEY = "3f46aea5-82f3-4c90-b64c-dc6e244bb85f";
+
+function sendLeadNotification(payload){
+  if(WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY"){
+    console.warn("Web3Forms access key not set — lead was captured but NOT emailed. See comment above sendLeadNotification().");
+    return;
+  }
+  const allFields = {
+    access_key: WEB3FORMS_ACCESS_KEY,
+    subject: `New Accounting AI Quiz Lead — ${payload.name} (${payload.bizname})`,
+    from_name: 'Krow AI Adoption Quiz',
+    ...payload
+  };
+
+  const iframeName = 'w3f_iframe_' + Date.now();
+  const iframe = document.createElement('iframe');
+  iframe.name = iframeName;
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+
+  const form = document.createElement('form');
+  form.action = 'https://api.web3forms.com/submit';
+  form.method = 'POST';
+  form.target = iframeName;
+  form.style.display = 'none';
+
+  for(const [key, value] of Object.entries(allFields)){
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = value;
+    form.appendChild(input);
+  }
+  document.body.appendChild(form);
+  form.submit();
+
+  setTimeout(() => { form.remove(); iframe.remove(); }, 5000);
+}
+
+function submitForm(){
+  answers.fullname=document.getElementById('fullname').value.trim();
+  answers.bizname=document.getElementById('bizname').value.trim();
+  answers.email=document.getElementById('email').value.trim();
+  answers.phone=document.getElementById('phone').value.trim();
+
+  const topRecs = (answers.path === 'full')
+    ? computeRecommendations(answers).map(f => f.name).join(' | ')
+    : '(basic path — no recommendation engine run)';
+
+  sendLeadNotification({
+    name: answers.fullname,
+    bizname: answers.bizname,
+    email: answers.email,
+    phone: answers.phone,
+    path: answers.path,
+    goal: answers.goal,
+    firmType: answers.firmType,
+    revenue: answers.revenue,
+    billingRate: answers.billingRate,
+    top_recommendations: topRecs
+  });
+
+  buildPage2();
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p2').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  initVidalytics();
+}
+
+let vidalyticsLoaded = false;
+function initVidalytics(){
+  if(vidalyticsLoaded) return;
+  vidalyticsLoaded = true;
+  (function (v, i, d, a, l, y, t, c, s) {
+    y='_'+d.toLowerCase();c=d+'L';if(!v[d]){v[d]={};}if(!v[c]){v[c]={};}if(!v[y]){v[y]={};}var vl='Loader',vli=v[y][vl],vsl=v[c][vl + 'Script'],vlf=v[c][vl + 'Loaded'],ve='Embed';
+    if (!vsl){vsl=function(u,cb){
+        if(t){cb();return;}s=i.createElement("script");s.type="text/javascript";s.async=1;s.src=u;
+        if(s.readyState){s.onreadystatechange=function(){if(s.readyState==="loaded"||s.readyState=="complete"){s.onreadystatechange=null;vlf=1;cb();}};}else{s.onload=function(){vlf=1;cb();};}
+        i.getElementsByTagName("head")[0].appendChild(s);
+    };}
+    vsl(l+'loader.min.js',function(){if(!vli){var vlc=v[c][vl];vli=new vlc();}vli.loadScript(l+'player.min.js',function(){var vec=v[d][ve];t=new vec();t.run(a);});});
+  })(window, document, 'Vidalytics', 'vidalytics_embed_u8IvGVOH3wFJKqgX', 'https://fast.vidalytics.com/embeds/ivM5E6gg/u8IvGVOH3wFJKqgX/');
+}
+
+</script>
+</body>
+</html>

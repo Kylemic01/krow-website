@@ -215,7 +215,10 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
 .yn-btn.selected{border-color:var(--navy);background:var(--sky);box-shadow:0 0 0 3px rgba(13,43,85,.07)}
 .slider-wrap{margin-bottom:1.1rem}
 .slider-val{text-align:center;font-size:2.2rem;font-weight:900;color:var(--navy);margin-bottom:.15rem}
-.slider-val span{font-size:1rem;font-weight:700;color:var(--muted)}
+.slider-val .slider-val-num{font-size:3.2rem}
+.slider-val .slider-val-unit{font-size:1rem;font-weight:700;color:var(--muted);margin-left:.3rem}
+#stepQ5 .step-title{margin-bottom:.7rem}
+#stepQ5 .step-sub{margin-bottom:2rem}
 .slider-wrap input[type=range]{width:100%;accent-color:var(--cobalt2)}
 .slider-labels{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:.3rem}
 .slider-note{text-align:center;font-size:.76rem;color:var(--muted);margin-top:.6rem;margin-bottom:.3rem;background:var(--sky);border-radius:6px;padding:.5rem .7rem;line-height:1.5}
@@ -297,9 +300,9 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
           <div class="step-title">How many people work at your firm, including you?</div>
           <div class="step-sub">Drag to the number that matches — we'll use this to scale your results across the whole team.</div>
           <div class="slider-wrap">
-            <div class="slider-val"><span id="headcountVal">5</span></div>
-            <input type="range" min="1" max="50" value="5" id="headcount" oninput="updateHeadcount(this.value)"/>
-            <div class="slider-labels"><span>Just me</span><span>50+</span></div>
+            <div class="slider-val"><span id="headcountVal" class="slider-val-num">5</span></div>
+            <input type="range" min="1" max="25" value="5" id="headcount" oninput="updateHeadcount(this.value)"/>
+            <div class="slider-labels"><span>Just me</span><span>25+</span></div>
           </div>
           <button class="btn" onclick="showStep('stepQ2')">Continue →</button>
         </div>
@@ -323,11 +326,11 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
           <div class="step-title">About how many hours a week does EACH team member spend on repetitive tasks?</div>
           <div class="step-sub">Document chasing, data entry, drafting client emails — the manual stuff, not the judgment calls. We'll apply this across your whole team next.</div>
           <div class="slider-wrap">
-            <div class="slider-val"><span id="hoursVal">10</span> hrs/week</div>
-            <input type="range" min="0" max="40" value="10" id="hoursPerPerson" oninput="updateHours(this.value)"/>
+            <div class="slider-val"><span id="hoursVal" class="slider-val-num">14</span><span class="slider-val-unit">hrs/week</span></div>
+            <input type="range" min="0" max="40" value="14" id="hoursPerPerson" oninput="updateHours(this.value)"/>
             <div class="slider-labels"><span>0</span><span>40+</span></div>
           </div>
-          <div class="slider-note">10 hrs/week is what we typically see across firms like yours — adjust if yours is different.</div>
+          <div class="slider-note">14 hrs/week is what we typically see across firms like yours — adjust if yours is different.</div>
           <button class="btn" onclick="showStep('stepQ3b')" style="margin-top:.9rem">Continue →</button>
           <button class="btn-back" onclick="showStep('stepQ2')">← Back</button>
         </div>
@@ -338,6 +341,7 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
           <div class="step-sub">This decides which free tool we recommend on your results page.</div>
           <div class="goal-grid">
             <button class="goal-card" onclick="selectTimeSink(this,'docChasing')"><div class="goal-card-title">Chasing clients for documents</div></button>
+            <button class="goal-card" onclick="selectTimeSink(this,'returns')"><div class="goal-card-title">Drafting returns or financial statements</div></button>
             <button class="goal-card" onclick="selectTimeSink(this,'dataEntry')"><div class="goal-card-title">Manual data entry</div></button>
             <button class="goal-card" onclick="selectTimeSink(this,'emails')"><div class="goal-card-title">Drafting client emails & updates</div></button>
             <button class="goal-card" onclick="selectTimeSink(this,'mix')"><div class="goal-card-title">Honestly, a mix of all of it</div></button>
@@ -671,7 +675,7 @@ function showStep(id){
 /* ---------- Q1: headcount slider ---------- */
 function updateHeadcount(v){
   answers.headcount=parseInt(v);
-  document.getElementById('headcountVal').textContent=v>=50?'50+':v;
+  document.getElementById('headcountVal').textContent=v>=25?'25+':v;
 }
 updateHeadcount(5); // initialize default
 
@@ -688,7 +692,7 @@ function updateHours(v){
   answers.hoursPerPerson=parseInt(v);
   document.getElementById('hoursVal').textContent=v>=40?'40+':v;
 }
-updateHours(10); // initialize default
+updateHours(14); // initialize default
 
 /* ---------- Q3b: time sink (routes tool recommendation) ---------- */
 function selectTimeSink(btn,val){
@@ -833,6 +837,7 @@ function computeObservations(a){
 
 const toolRouting={
   docChasing:{name:'Document Chaser',desc:'Since chasing clients for documents is eating the most time on your team, this is the highest-leverage fix to start with: one upload link, automatic reminders, and a hard deadline per client instead of manual follow-up.'},
+  returns:{name:'Advisory Memo Generator',desc:'Since drafting returns and financial statements is eating the most time, this turns your source data into a client-ready first draft — so your time goes into review and sign-off, not building the document from scratch.'},
   dataEntry:{name:'Document Chaser',desc:'Since manual data entry is eating the most time, this usually traces back upstream to how documents arrive in the first place. One upload link, automatic reminders, and a hard deadline per client cuts the mess at the source.'},
   emails:{name:'Advisory Memo Generator',desc:'Since client emails and updates are eating the most time, this turns your notes and numbers into a client-ready first draft — so your time goes into review and the relationship, not the blank page.'},
   mix:{name:'Document Chaser',desc:'Since it\'s a mix of everything, we\'d usually start with document collection first — it tends to have the fastest payoff and the lowest lift to set up. The Advisory Memo Generator is typically the second fix once that\'s live.'}
@@ -858,11 +863,11 @@ function buildResults(){
       <div class="big-red-eyebrow">Estimated Annual Opportunity</div>
       <div class="big-red-number">Up to ${money(opportunity)}/yr</div>
       <div class="big-red-caption">Based on your answers, ${firmName} could be leaving this much a year on the table in recoverable capacity.</div>
-      <div class="big-red-assumption">Assumes a $${BILLABLE_RATE}/hr billable rate across your team, applied across ${answers.headcount>=50?'50+':answers.headcount} people at ${answers.hoursPerPerson>=40?'40+':answers.hoursPerPerson} hrs/week each, 50 weeks a year. An estimate to guide priority, not a guarantee.</div>
+      <div class="big-red-assumption">Assumes a $${BILLABLE_RATE}/hr billable rate across your team, applied across ${answers.headcount>=25?'25+':answers.headcount} people at ${answers.hoursPerPerson>=40?'40+':answers.hoursPerPerson} hrs/week each, 50 weeks a year. An estimate to guide priority, not a guarantee.</div>
     </div>`;
 
   const chips=[
-    (answers.headcount>=50?'50+':answers.headcount)+' team members',
+    (answers.headcount>=25?'25+':answers.headcount)+' team members',
     (answers.hoursPerPerson>=40?'40+':answers.hoursPerPerson)+' hrs/week manual work',
     '$'+BILLABLE_RATE+'/hr rate assumed'
   ];

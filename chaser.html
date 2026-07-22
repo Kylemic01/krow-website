@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Free Tool: Document Chaser for Accounting & Bookkeeping Firms</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0D2B55;--cobalt:#1A4A8A;--cobalt2:#2563B0;
+  --sky:#E8F4FD;--sky2:#BFDBF7;--sky3:#93C5FD;--skyAccent:#3B9FE8;
+  --dark:#071828;--text:#0D1F35;--muted:#4A6A8A;
+  --white:#FFFFFF;--border:#D1E4F5;--bg:#F0F7FF;--green:#1F9D6B;--greenBg:#F0FDF4;--greenBorder:#BBF7D0;
+  font-family:'Inter',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text)}
+
+nav{display:flex;align-items:center;justify-content:center;padding:1rem 5%;background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08)}
+.logo{font-size:1.15rem;font-weight:900;color:var(--white);letter-spacing:0.06em;text-decoration:none;text-transform:uppercase;line-height:1.1;text-align:center}
+.logo span{color:var(--sky3)}
+.logo-sub{font-size:.6rem;font-weight:500;color:rgba(255,255,255,.4);letter-spacing:.12em;text-transform:uppercase;display:block}
+
+.hero{background:linear-gradient(160deg,var(--navy) 0%,var(--cobalt) 55%,#1B5FA0 100%);padding:4.5rem 5% 5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-60px;width:500px;height:500px;background:radial-gradient(circle,rgba(59,159,232,0.12) 0%,transparent 65%);pointer-events:none}
+.eyebrow{display:inline-block;background:rgba(147,197,253,0.15);color:var(--sky3);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem 1rem;border-radius:20px;margin-bottom:1.2rem;border:1px solid rgba(147,197,253,.25)}
+.h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.1;letter-spacing:-0.035em;color:var(--white);max-width:720px;margin:0 auto 1rem}
+.h1-sub{font-size:1.05rem;color:rgba(255,255,255,.7);max-width:540px;margin:0 auto 2.4rem;line-height:1.75}
+
+.form-card-wrap{max-width:460px;margin:0 auto;position:relative;z-index:2}
+.form-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2rem 2rem 1.8rem;box-shadow:0 8px 40px rgba(13,43,85,.25);text-align:left}
+.form-card-header{text-align:center;margin-bottom:1.4rem;padding-bottom:1.1rem;border-bottom:1px solid var(--border)}
+.form-card-title{font-size:1.05rem;font-weight:800;color:var(--navy);margin-bottom:.25rem}
+.form-card-sub{font-size:.8rem;color:var(--muted);line-height:1.5}
+.field{width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:7px;font-size:.9rem;margin-bottom:.7rem;color:var(--text);background:var(--white);font-family:inherit;transition:border-color .2s}
+.field.invalid{border-color:#C0392B}
+.field-error{display:none;color:#C0392B;font-size:.78rem;margin:-.45rem 0 .75rem 2px;font-weight:600}
+.field-error.show{display:block}
+.field:focus{outline:none;border-color:var(--cobalt2);box-shadow:0 0 0 3px rgba(37,99,176,.1)}
+select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A6A8A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center;padding-right:2.2rem}
+.btn{width:100%;background:var(--navy);color:white;padding:.85rem;border:none;border-radius:7px;font-size:.95rem;font-weight:800;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn:hover{background:var(--cobalt2)}
+.btn:disabled{background:var(--sky2);color:var(--muted);cursor:not-allowed}
+.micro{font-size:.73rem;color:var(--muted);margin-top:.7rem;text-align:center;line-height:1.5}
+
+.download-step{display:none;text-align:center}
+.download-step.active{display:block}
+.form-step.hidden{display:none}
+.dl-icon{width:52px;height:52px;border-radius:50%;background:var(--greenBg);border:1.5px solid var(--greenBorder);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem}
+.dl-h{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:.5rem}
+.dl-b{font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:1.3rem}
+.btn-download{display:inline-block;width:100%;background:var(--green);color:white;padding:.85rem;border-radius:7px;font-size:.95rem;font-weight:800;text-decoration:none;text-align:center;transition:background .2s}
+.btn-download:hover{background:#178055}
+
+.section{padding:4rem 5%}
+.section-alt{background:var(--bg)}
+.sec-head{text-align:center;margin-bottom:2.5rem}
+.sec-ey{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--skyAccent);margin-bottom:.55rem}
+.sec-h2{font-size:clamp(1.4rem,3.5vw,2rem);font-weight:900;letter-spacing:-0.03em;color:var(--navy);max-width:600px;margin:0 auto;line-height:1.2}
+.whats-inside{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;max-width:900px;margin:0 auto}
+.wi-card{padding:1.5rem;background:var(--white);border:1.5px solid var(--border);border-radius:14px}
+.wi-num{width:32px;height:32px;border-radius:8px;background:var(--sky);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:900;color:var(--navy);margin-bottom:.8rem}
+.wi-t{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.4rem}
+.wi-b{font-size:.82rem;color:var(--muted);line-height:1.6}
+
+.tcard{max-width:560px;margin:0 auto;background:var(--sky);border:1px solid var(--border);border-radius:14px;padding:1.6rem;text-align:center}
+.stars{color:#F59E0B;font-size:.9rem;margin-bottom:.7rem}
+.ttext{font-size:.88rem;color:var(--text);line-height:1.7;margin-bottom:.9rem;font-style:italic}
+.tauthor{font-size:.78rem;font-weight:700;color:var(--navy)}
+.arole{font-size:.72rem;color:var(--muted);font-weight:500}
+
+footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:2rem 5%;font-size:.76rem;line-height:1.7}
+.footer-brand{font-weight:800;color:rgba(255,255,255,.5);letter-spacing:.1em;font-size:.8rem;margin-bottom:.3rem}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Krow<span>.</span><span class="logo-sub">Free Tool: Document Chaser</span></a>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow">Free Tool for Accounting & Bookkeeping Firms</div>
+  <h1 class="h1">Stop losing hours chasing client documents.</h1>
+  <p class="h1-sub">Document Chaser drafts the exact follow-up emails that actually get clients to send what you need — so the back-and-forth stops eating your week. Enter your details below and we'll send it straight to your inbox.</p>
+
+  <div class="form-card-wrap">
+    <div class="form-card">
+
+      <div class="form-step" id="leadForm">
+        <div class="form-card-header">
+          <div class="form-card-title">📥 Get Document Chaser — Free</div>
+          <div class="form-card-sub">Takes 30 seconds. Sent straight to your inbox.</div>
+        </div>
+        <input class="field" type="text" id="fullname" placeholder="Full name" oninput="checkForm()"/>
+        <div class="field-error" id="fullname-error">Please enter your first and last name</div>
+        <input class="field" type="email" id="email" placeholder="Firm email address" oninput="checkForm()"/>
+        <div class="field-error" id="email-error">Please use your firm email address, not a personal one</div>
+        <input class="field" type="text" id="bizname" placeholder="Firm name" oninput="checkForm()"/>
+        <select class="field" id="firmSize" onchange="checkForm()">
+          <option value="" disabled selected>How many people work at your firm, including you?</option>
+          <option value="solo">Just me</option>
+          <option value="2-5">2–5 people</option>
+          <option value="6-15">6–15 people</option>
+          <option value="16plus">16+ people</option>
+        </select>
+        <button class="btn" id="submit-btn" disabled onclick="submitForm()">Send Me Document Chaser →</button>
+        <p class="micro">Free. No spam. Unsubscribe anytime.</p>
+      </div>
+
+      <div class="download-step" id="downloadStep">
+        <div class="dl-icon">✓</div>
+        <div class="dl-h">You're in, <span id="dl-name">there</span>.</div>
+        <div class="dl-b">Document Chaser is ready — click below to download it now. We've also sent a copy to <strong id="dl-email"></strong>.</div>
+        <a class="btn-download" id="downloadBtn" href="#" target="_blank" rel="noopener">Download Document Chaser →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="sec-head">
+    <div class="sec-ey">What's Inside</div>
+    <h2 class="sec-h2">Three ready-to-use email drafts, built for the follow-up you're avoiding</h2>
+  </div>
+  <div class="whats-inside">
+    <div class="wi-card">
+      <div class="wi-num">1</div>
+      <div class="wi-t">The initial ask</div>
+      <div class="wi-b">A clear, specific request template that tells clients exactly what to send and by when — no vague "please send your documents" emails.</div>
+    </div>
+    <div class="wi-card">
+      <div class="wi-num">2</div>
+      <div class="wi-t">The reminder</div>
+      <div class="wi-b">A follow-up draft with the right tone for the second ask — firm, not naggy — for when the deadline's close and nothing's arrived.</div>
+    </div>
+    <div class="wi-card">
+      <div class="wi-num">3</div>
+      <div class="wi-t">The last call</div>
+      <div class="wi-b">A final-notice draft for documents that are now genuinely putting a deadline at risk, without burning the relationship.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="tcard">
+    <div class="stars">★★★★★</div>
+    <div class="ttext">"I was rewriting the same follow-up email from scratch every single time. Having three drafts ready to go, tone already right, saved me more time than I expected from something this simple."</div>
+    <div class="tauthor">Rachel B.</div>
+    <div class="arole">Bookkeeping Firm, 4 Staff</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">KROW</div>
+  © 2026 Krow · Tampa, FL<br>
+  Built for accounting, bookkeeping, and tax firms figuring out where AI actually belongs in the practice.
+</footer>
+
+<script>
+/* ============================================================
+   REPLACE THIS with the real download URL once the asset is ready.
+   Can be a same-origin file (e.g. "/assets/document-chaser.pdf" if
+   you drop the file in your repo) or an external share link
+   (Google Drive, Dropbox, etc).
+   ============================================================ */
+const DOWNLOAD_URL = "REPLACE_WITH_DOCUMENT_CHASER_ASSET_URL";
+
+const personalEmailDomains=new Set(['gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','yahoo.co.in','hotmail.com','hotmail.co.uk','outlook.com','live.com','msn.com','aol.com','icloud.com','me.com','mac.com','protonmail.com','proton.me','mail.com','gmx.com','yandex.com','zoho.com','rocketmail.com','ymail.com','comcast.net','verizon.net','att.net','sbcglobal.net','bellsouth.net','cox.net','charter.net','optusnet.com.au','bigpond.com']);
+
+function isValidEmailFormat(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);}
+function isBusinessEmail(v){
+  if(!isValidEmailFormat(v))return false;
+  const domain=v.split('@')[1].toLowerCase().trim();
+  return !personalEmailDomains.has(domain);
+}
+function isFullName(v){
+  const parts=v.trim().split(/\s+/).filter(Boolean);
+  return parts.length>=2&&parts.every(p=>p.length>=1);
+}
+function toggleFieldError(field,show){
+  document.getElementById(field+'-error').classList.toggle('show',show);
+  document.getElementById(field).classList.toggle('invalid',show);
+}
+function checkForm(){
+  const fullname=document.getElementById('fullname').value;
+  const email=document.getElementById('email').value.trim();
+  const bizname=document.getElementById('bizname').value.trim();
+  const firmSize=document.getElementById('firmSize').value;
+
+  const nameOk=isFullName(fullname);
+  const emailOk=isBusinessEmail(email);
+
+  toggleFieldError('fullname',fullname.trim()!==''&&!nameOk);
+  toggleFieldError('email',email!==''&&!emailOk);
+
+  document.getElementById('submit-btn').disabled=!(nameOk&&emailOk&&!!bizname&&!!firmSize);
+}
+
+const WEB3FORMS_ACCESS_KEY = "3f46aea5-82f3-4c90-b64c-dc6e244bb85f";
+
+function sendLeadNotification(payload){
+  if(WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY"){
+    console.warn("Web3Forms access key not set — lead was captured but NOT emailed.");
+    return;
+  }
+  const allFields = {
+    access_key: WEB3FORMS_ACCESS_KEY,
+    subject: `New Document Chaser Lead — ${payload.name} (${payload.bizname})`,
+    from_name: 'Krow — Document Chaser Download',
+    ...payload
+  };
+  const iframeName = 'w3f_iframe_' + Date.now();
+  const iframe = document.createElement('iframe');
+  iframe.name = iframeName;
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+
+  const form = document.createElement('form');
+  form.action = 'https://api.web3forms.com/submit';
+  form.method = 'POST';
+  form.target = iframeName;
+  form.style.display = 'none';
+  for(const [key, value] of Object.entries(allFields)){
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = value;
+    form.appendChild(input);
+  }
+  document.body.appendChild(form);
+  form.submit();
+  setTimeout(() => { form.remove(); iframe.remove(); }, 5000);
+}
+
+function submitForm(){
+  const fullname=document.getElementById('fullname').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const bizname=document.getElementById('bizname').value.trim();
+  const firmSize=document.getElementById('firmSize').value;
+
+  sendLeadNotification({name:fullname,email:email,bizname:bizname,firm_size:firmSize,resource:'Document Chaser'});
+
+  document.getElementById('dl-name').textContent=fullname.split(' ')[0]||'there';
+  document.getElementById('dl-email').textContent=email;
+  document.getElementById('downloadBtn').href=DOWNLOAD_URL;
+  if(DOWNLOAD_URL.startsWith('REPLACE_WITH')){
+    console.warn('DOWNLOAD_URL is still a placeholder — set it to the real asset link before going live.');
+  }
+
+  document.getElementById('leadForm').classList.add('hidden');
+  document.getElementById('downloadStep').classList.add('active');
+}
+</script>
+</body>
+</html>

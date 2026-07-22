@@ -6,7 +6,9 @@
     { "src": "hvac-valuation.html", "use": "@vercel/static" },
     { "src": "vsl.html", "use": "@vercel/static" },
     { "src": "accounting.html", "use": "@vercel/static" },
-    { "src": "ai-risk-calculator.html", "use": "@vercel/static" }
+    { "src": "ai-risk-calculator.html", "use": "@vercel/static" },
+    { "src": "chaser.html", "use": "@vercel/static" },
+    { "src": "memo.html", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/landscaping-valuation", "dest": "/landscaping-valuation.html" },
@@ -14,6 +16,8 @@
     { "src": "/vsl", "dest": "/vsl.html" },
     { "src": "/accounting", "dest": "/accounting.html" },
     { "src": "/ai-risk-calculator", "dest": "/ai-risk-calculator.html" },
+    { "src": "/chaser", "dest": "/chaser.html" },
+    { "src": "/memo", "dest": "/memo.html" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }

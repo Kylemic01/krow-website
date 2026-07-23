@@ -84,16 +84,16 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
 
 <section class="hero">
   <div class="eyebrow">Free Tool for Accounting & Bookkeeping Firms</div>
-  <h1 class="h1">Turn your financials into advisory conversations. Without the extra hours.</h1>
-  <p class="h1-sub">Advisory Memo Builder turns your notes and numbers into a client-ready first draft, so your time goes into the conversation, not the blank page. Enter your details below and we'll send it straight to your inbox.</p>
+  <h1 class="h1">Turn your financials into advisory conversations, without the extra hours.</h1>
+  <p class="h1-sub">Advisory Memo Builder turns your notes and numbers into a client-ready first draft, so your time goes into the conversation, not the blank page. Fill in your details below and download it instantly.</p>
 
   <div class="form-card-wrap">
     <div class="form-card">
 
       <div class="form-step" id="leadForm">
         <div class="form-card-header">
-          <div class="form-card-title">📥 Get Advisory Memo Builder — Free</div>
-          <div class="form-card-sub">Takes 30 seconds. Sent straight to your inbox.</div>
+          <div class="form-card-title">📥 Get Advisory Memo Builder (Free)</div>
+          <div class="form-card-sub">Takes 30 seconds. Instant download after you submit.</div>
         </div>
         <input class="field" type="text" id="fullname" placeholder="Full name" oninput="checkForm()"/>
         <div class="field-error" id="fullname-error">Please enter your first and last name</div>
@@ -107,15 +107,15 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
           <option value="6-15">6–15 people</option>
           <option value="16plus">16+ people</option>
         </select>
-        <button class="btn" id="submit-btn" disabled onclick="submitForm()">Send Me Advisory Memo Builder →</button>
+        <button class="btn" id="submit-btn" disabled onclick="submitForm()">Get Advisory Memo Builder →</button>
         <p class="micro">Free. No spam. Unsubscribe anytime.</p>
       </div>
 
       <div class="download-step" id="downloadStep">
         <div class="dl-icon">✓</div>
         <div class="dl-h">You're in, <span id="dl-name">there</span>.</div>
-        <div class="dl-b">Advisory Memo Builder is ready - click below to download it now.</div>
-        <a class="btn-download" id="downloadBtn" href="#" target="_blank" rel="noopener">Download Advisory Memo Builder →</a>
+        <div class="dl-b">Advisory Memo Builder is ready. Click below to download it now.</div>
+        <a class="btn-download" id="downloadBtn" href="#" download="Advisory-Memo-Builder.md" rel="noopener">Download Advisory Memo Builder →</a>
       </div>
 
     </div>
@@ -136,7 +136,7 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
     <div class="wi-card">
       <div class="wi-num">2</div>
       <div class="wi-t">The observations section</div>
-      <div class="wi-b">A prompt framework for pulling out what actually matters this period — the two or three things worth a client's attention.</div>
+      <div class="wi-b">A prompt framework for pulling out what actually matters this period: the two or three things worth a client's attention.</div>
     </div>
     <div class="wi-card">
       <div class="wi-num">3</div>
@@ -168,7 +168,7 @@ footer{background:#04101E;color:rgba(255,255,255,.22);text-align:center;padding:
    if you drop the file in your repo) or an external share link
    (Google Drive, Dropbox, etc).
    ============================================================ */
-const DOWNLOAD_URL = "REPLACE_WITH_ADVISORY_MEMO_ASSET_URL";
+const DOWNLOAD_URL = "/assets/advisory-memo-builder.md";
 
 const personalEmailDomains=new Set(['gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','yahoo.co.in','hotmail.com','hotmail.co.uk','outlook.com','live.com','msn.com','aol.com','icloud.com','me.com','mac.com','protonmail.com','proton.me','mail.com','gmx.com','yandex.com','zoho.com','rocketmail.com','ymail.com','comcast.net','verizon.net','att.net','sbcglobal.net','bellsouth.net','cox.net','charter.net','optusnet.com.au','bigpond.com']);
 
@@ -205,13 +205,13 @@ const WEB3FORMS_ACCESS_KEY = "3f46aea5-82f3-4c90-b64c-dc6e244bb85f";
 
 function sendLeadNotification(payload){
   if(WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY"){
-    console.warn("Web3Forms access key not set — lead was captured but NOT emailed.");
+    console.warn("Web3Forms access key not set. Lead was captured but NOT emailed.");
     return;
   }
   const allFields = {
     access_key: WEB3FORMS_ACCESS_KEY,
-    subject: `New Advisory Memo Builder Lead — ${payload.name} (${payload.bizname})`,
-    from_name: 'Krow — Advisory Memo Builder Download',
+    subject: `New Advisory Memo Builder Lead: ${payload.name} (${payload.bizname})`,
+    from_name: 'Krow Advisory Memo Builder Download',
     ...payload
   };
   const iframeName = 'w3f_iframe_' + Date.now();
@@ -246,11 +246,7 @@ function submitForm(){
   sendLeadNotification({name:fullname,email:email,bizname:bizname,firm_size:firmSize,resource:'Advisory Memo Builder'});
 
   document.getElementById('dl-name').textContent=fullname.split(' ')[0]||'there';
-  document.getElementById('dl-email').textContent=email;
   document.getElementById('downloadBtn').href=DOWNLOAD_URL;
-  if(DOWNLOAD_URL.startsWith('REPLACE_WITH')){
-    console.warn('DOWNLOAD_URL is still a placeholder — set it to the real asset link before going live.');
-  }
 
   document.getElementById('leadForm').classList.add('hidden');
   document.getElementById('downloadStep').classList.add('active');

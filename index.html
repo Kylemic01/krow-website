@@ -9,8 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#2E3733;
-    --ink-soft:#4A554E;
+    --ink:#173425;
+    --ink-soft:#365746;
     --cream:#EFEADD;
     --blush:#E8D7C7;
     --terracotta:#BA806A;
@@ -653,8 +653,10 @@
           <div class="help-options">
             <button type="button" class="help-opt" data-value="More booked consults">More booked consults</button>
             <button type="button" class="help-opt" data-value="Fewer no-shows">Fewer no-shows</button>
-            <button type="button" class="help-opt" data-value="Reactivating dormant patients">Reactivating dormant patients</button>
-            <button type="button" class="help-opt" data-value="Marketing that keeps performing">Marketing that keeps performing</button>
+            <button type="button" class="help-opt" data-value="More patients">More patients</button>
+            <button type="button" class="help-opt" data-value="Increase revenue">Increase revenue</button>
+            <button type="button" class="help-opt" data-value="Grow faster">Grow faster</button>
+            <button type="button" class="help-opt" data-value="Everything">Everything</button>
             <button type="button" class="help-opt" data-value="Not sure, just want to talk">Not sure, just want to talk</button>
           </div>
         </div>
@@ -665,6 +667,9 @@
           <div class="lead-fields">
             <label>Name
               <input type="text" id="leadName" placeholder="Your name" required>
+            </label>
+            <label>Email
+              <input type="email" id="leadEmail" placeholder="you@yourmedspa.com" required>
             </label>
             <label>Phone number
               <input type="tel" id="leadPhone" placeholder="(555) 555-5555" required>
@@ -683,7 +688,7 @@
             </label>
           </div>
           <p class="lead-error" id="leadError">Please fill in all fields.</p>
-          <button type="submit" class="btn btn-gold">Send my info</button>
+          <button type="submit" class="btn btn-gold">Get Help</button>
         </form>
 
         <div class="lead-success" id="leadSuccess">
@@ -835,11 +840,12 @@
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const name = document.getElementById('leadName').value.trim();
+      const email = document.getElementById('leadEmail').value.trim();
       const phone = document.getElementById('leadPhone').value.trim();
       const medspa = document.getElementById('leadMedspa').value.trim();
       const revenue = document.getElementById('leadRevenue').value;
 
-      if (!name || !phone || !medspa || !revenue) {
+      if (!name || !email || !phone || !medspa || !revenue) {
         errorMsg.classList.add('show');
         return;
       }
@@ -847,6 +853,7 @@
 
       sendLeadNotification({
         name: name,
+        email: email,
         phone: phone,
         medspa: medspa,
         revenue: revenue,

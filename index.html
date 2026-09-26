@@ -344,6 +344,94 @@
 
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
   .reveal.in{opacity:1;transform:none;}
+
+  /* ---------- CASE STUDY FLIP CARDS ---------- */
+  .csgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:960px){.csgrid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:580px){.csgrid{grid-template-columns:1fr;}}
+
+  .cscard{perspective:1200px;height:430px;cursor:pointer;}
+  .cscard-inner{
+    position:relative;width:100%;height:100%;
+    transition:transform .65s cubic-bezier(.4,0,.2,1);
+    transform-style:preserve-3d;
+  }
+  .cscard:hover .cscard-inner,
+  .cscard.flipped .cscard-inner{transform:rotateY(180deg);}
+
+  .cscard-face{
+    position:absolute;inset:0;
+    backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    border-radius:var(--radius);overflow:hidden;
+  }
+  .cscard-back-face{transform:rotateY(180deg);}
+
+  /* Front */
+  .cscard-img{
+    position:absolute;inset:0;
+    background:linear-gradient(135deg,var(--terracotta-deep) 0%,var(--ink) 100%);
+  }
+  .cscard-img img{width:100%;height:100%;object-fit:cover;display:block;}
+  .cscard-face:not(.cscard-back-face)::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(23,52,37,0.94) 0%,rgba(23,52,37,0.38) 52%,rgba(23,52,37,0.08) 100%);
+    pointer-events:none;
+  }
+  .cscard-fc{
+    position:absolute;inset:0;z-index:1;
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:18px 20px 22px;
+  }
+  .cs-badge{
+    align-self:flex-start;
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:rgba(239,234,221,0.68);
+    background:rgba(23,52,37,0.5);border:1px solid rgba(239,234,221,0.18);
+    border-radius:99px;padding:5px 11px;backdrop-filter:blur(4px);
+  }
+  .cs-pain{
+    font-family:var(--serif);font-size:17px;font-weight:500;
+    color:var(--cream);line-height:1.32;margin:0;
+  }
+  .cs-hint{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;
+    color:rgba(239,234,221,0.36);align-self:flex-end;
+  }
+
+  /* Back */
+  .cscard-back-face{
+    background:#fff;border:1px solid var(--line);
+    display:flex;flex-direction:column;
+    padding:22px 20px 20px;
+  }
+  .cs-badge-b{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--terracotta-deep);margin-bottom:12px;
+  }
+  .cs-stat{
+    font-family:var(--serif);font-size:23px;font-weight:600;
+    color:var(--ink);line-height:1.1;
+  }
+  .cs-stat small{font-size:.5em;color:var(--text-muted);font-family:var(--sans);font-weight:500;}
+  .cs-sub{
+    font-family:var(--mono);font-size:10.5px;text-transform:uppercase;
+    letter-spacing:.04em;color:var(--text-muted);margin-top:5px;line-height:1.4;
+  }
+  .cs-rule{height:1px;background:var(--line);margin:13px 0;}
+  .cs-fixes{flex:1;display:flex;flex-direction:column;gap:8px;}
+  .cs-fix{
+    display:flex;gap:9px;font-size:13px;
+    color:var(--ink-soft);line-height:1.4;
+  }
+  .cs-fix::before{
+    content:'';width:5px;height:5px;border-radius:50%;
+    background:var(--terracotta);flex:none;margin-top:6px;
+  }
+  .cs-time{
+    margin-top:14px;padding-top:12px;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:10.5px;text-transform:uppercase;
+    letter-spacing:.05em;color:var(--terracotta-deep);font-weight:700;
+  }
 </style>
 </head>
 <body>
@@ -470,6 +558,332 @@
           <div class="tl-desc">$100,000 in documented recovered or added revenue, tracked against baseline.</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDY FLIP CARDS -->
+  <section id="client-studies">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Client results</span>
+        <h2>What operators we work with have built.</h2>
+        <p>Every engagement is confidential. Numbers are verified against each client's own baseline. Hover any card to see the detail.</p>
+      </div>
+      <div class="csgrid reveal">
+
+        <!-- Card 1 -->
+        <div class="cscard">
+          <div class="cscard-inner">
+            <div class="cscard-face">
+              <div class="cscard-img"><img src="images/cs-1.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-fc">
+                <span class="cs-badge">Anonymized Client Study</span>
+                <p class="cs-pain">"Doing $68K a month. Working 57 hours a week just to hold it together."</p>
+                <span class="cs-hint">Hover to see results →</span>
+              </div>
+            </div>
+            <div class="cscard-face cscard-back-face">
+              <div class="cs-badge-b">Anonymized Client Study</div>
+              <div class="cs-stat">$68K → $195K<small>/mo</small></div>
+              <div class="cs-sub">Nearly 3× growth</div>
+              <div class="cs-rule"></div>
+              <div class="cs-fixes">
+                <div class="cs-fix">Owner hours cut 74% — from 245 to 48/month</div>
+                <div class="cs-fix">Rebooking rate: 52% → 74%</div>
+                <div class="cs-fix">Fixed: no systems, toxic partnership, broken membership, zero KPIs</div>
+              </div>
+              <div class="cs-time">Timeframe — 9 months</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="cscard">
+          <div class="cscard-inner">
+            <div class="cscard-face">
+              <div class="cscard-img"><img src="images/cs-2.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-fc">
+                <span class="cs-badge">Anonymized Client Study</span>
+                <p class="cs-pain">"Revenue looked fine on paper. The actual bottom line told a different story."</p>
+                <span class="cs-hint">Hover to see results →</span>
+              </div>
+            </div>
+            <div class="cscard-face cscard-back-face">
+              <div class="cs-badge-b">Anonymized Client Study</div>
+              <div class="cs-stat">$2.8M → $4.6M net profit</div>
+              <div class="cs-sub">+$1.8M added to the bottom line</div>
+              <div class="cs-rule"></div>
+              <div class="cs-fixes">
+                <div class="cs-fix">Retail: $14K → $29K/month (+107%)</div>
+                <div class="cs-fix">Rebooking rate: 58% → 87%</div>
+                <div class="cs-fix">Fixed: no KPI tracking, no consult process, no inventory control</div>
+              </div>
+              <div class="cs-time">Timeframe — 1 year</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="cscard">
+          <div class="cscard-inner">
+            <div class="cscard-face">
+              <div class="cscard-img"><img src="images/cs-3.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-fc">
+                <span class="cs-badge">Anonymized Client Study</span>
+                <p class="cs-pain">"Stuck at $38K a month for two years. Every month, the same number."</p>
+                <span class="cs-hint">Hover to see results →</span>
+              </div>
+            </div>
+            <div class="cscard-face cscard-back-face">
+              <div class="cs-badge-b">Anonymized Client Study</div>
+              <div class="cs-stat">$38K → $115K<small>/mo</small></div>
+              <div class="cs-sub">Tripled — after a 2-year plateau</div>
+              <div class="cs-rule"></div>
+              <div class="cs-fixes">
+                <div class="cs-fix">Revenue per hour: $210 → $420</div>
+                <div class="cs-fix">Retail contribution: 1% → 8% of revenue</div>
+                <div class="cs-fix">Fixed: no consultation structure, no team accountability, no event strategy</div>
+              </div>
+              <div class="cs-time">Timeframe — 90 days</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="cscard">
+          <div class="cscard-inner">
+            <div class="cscard-face">
+              <div class="cscard-img"><img src="images/cs-4.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-fc">
+                <span class="cs-badge">Anonymized Client Study</span>
+                <p class="cs-pain">"Under $70K a month. Inconsistent. No clear path to what came next."</p>
+                <span class="cs-hint">Hover to see results →</span>
+              </div>
+            </div>
+            <div class="cscard-face cscard-back-face">
+              <div class="cs-badge-b">Anonymized Client Study</div>
+              <div class="cs-stat">Sub-$70K → $145K OTE</div>
+              <div class="cs-sub">+107% — bought a laser platform with the cash flow</div>
+              <div class="cs-rule"></div>
+              <div class="cs-fixes">
+                <div class="cs-fix">Inconsistent revenue replaced with a predictable monthly baseline</div>
+                <div class="cs-fix">Tiered membership and structured sales framework introduced</div>
+                <div class="cs-fix">Fixed: no membership, no sales process, no funnel, no daily rhythms</div>
+              </div>
+              <div class="cs-time">Timeframe — 90 days</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="cscard">
+          <div class="cscard-inner">
+            <div class="cscard-face">
+              <div class="cscard-img"><img src="images/cs-5.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-fc">
+                <span class="cs-badge">Anonymized Client Study</span>
+                <p class="cs-pain">"12 years in business. 12 years of patient relationships sitting completely untouched."</p>
+                <span class="cs-hint">Hover to see results →</span>
+              </div>
+            </div>
+            <div class="cscard-face cscard-back-face">
+              <div class="cs-badge-b">Anonymized Client Study</div>
+              <div class="cs-stat">$44,000 in 24 hours</div>
+              <div class="cs-sub">From a single database reactivation campaign</div>
+              <div class="cs-rule"></div>
+              <div class="cs-fixes">
+                <div class="cs-fix">Database segmented by purchase history and clinical records</div>
+                <div class="cs-fix">Avg transaction value increased through trained upselling</div>
+                <div class="cs-fix">Fixed: 12 years of patients never reactivated, team not trained to upsell</div>
+              </div>
+              <div class="cs-time">Timeframe — 1 day to execute</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="cscard">
+          <div class="cscard-inner">
+            <div class="cscard-face">
+              <div class="cscard-img"><img src="images/cs-6.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-fc">
+                <span class="cs-badge">Anonymized Client Study</span>
+                <p class="cs-pain">"Single provider. 8 active members. No real infrastructure to grow."</p>
+                <span class="cs-hint">Hover to see results →</span>
+              </div>
+            </div>
+            <div class="cscard-face cscard-back-face">
+              <div class="cs-badge-b">Anonymized Client Study</div>
+              <div class="cs-stat">8 → 180 members</div>
+              <div class="cs-sub">In 45 days — plus $70K from their first-ever event</div>
+              <div class="cs-rule"></div>
+              <div class="cs-fixes">
+                <div class="cs-fix">Revenue: $85K → $115K+/month</div>
+                <div class="cs-fix">80 new qualified leads captured in the same window</div>
+                <div class="cs-fix">Fixed: no SOPs, broken membership tier, no provider recruitment plan</div>
+              </div>
+              <div class="cs-time">Timeframe — 90 days</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="cscard">
+          <div class="cscard-inner">
+            <div class="cscard-face">
+              <div class="cscard-img"><img src="images/cs-7.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-fc">
+                <span class="cs-badge">Anonymized Client Study</span>
+                <p class="cs-pain">"The owner was considering selling the business just to escape the burnout."</p>
+                <span class="cs-hint">Hover to see results →</span>
+              </div>
+            </div>
+            <div class="cscard-face cscard-back-face">
+              <div class="cs-badge-b">Anonymized Client Study</div>
+              <div class="cs-stat">$63K → $91.5K<small>/mo</small></div>
+              <div class="cs-sub">+45% — retail up 305% in the same 30 days</div>
+              <div class="cs-rule"></div>
+              <div class="cs-fixes">
+                <div class="cs-fix">Revenue per hour: $510 → $690</div>
+                <div class="cs-fix">Retail: $3,900 → $15,800/month</div>
+                <div class="cs-fix">Fixed: dead membership, underperforming staff, no policies or task management</div>
+              </div>
+              <div class="cs-time">Timeframe — 30 days</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="cscard">
+          <div class="cscard-inner">
+            <div class="cscard-face">
+              <div class="cscard-img"><img src="images/cs-8.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-fc">
+                <span class="cs-badge">Anonymized Client Study</span>
+                <p class="cs-pain">"$85K a month. No upsells happening. No structure in place to change it."</p>
+                <span class="cs-hint">Hover to see results →</span>
+              </div>
+            </div>
+            <div class="cscard-face cscard-back-face">
+              <div class="cs-badge-b">Anonymized Client Study</div>
+              <div class="cs-stat">$85K → $118K<small>/mo</small></div>
+              <div class="cs-sub">+38.8% — no new services, no capital invested</div>
+              <div class="cs-rule"></div>
+              <div class="cs-fixes">
+                <div class="cs-fix">Higher treatment conversions and package sales from day one</div>
+                <div class="cs-fix">Patient history reviewed before every single appointment</div>
+                <div class="cs-fix">Fixed: no pre-appointment protocol, no upsell training, no service pathways</div>
+              </div>
+              <div class="cs-time">Timeframe — 30 days</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 9 -->
+        <div class="cscard">
+          <div class="cscard-inner">
+            <div class="cscard-face">
+              <div class="cscard-img"><img src="images/cs-9.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-fc">
+                <span class="cs-badge">Anonymized Client Study</span>
+                <p class="cs-pain">"Patients were buying their skincare somewhere else. Nobody had fixed it."</p>
+                <span class="cs-hint">Hover to see results →</span>
+              </div>
+            </div>
+            <div class="cscard-face cscard-back-face">
+              <div class="cs-badge-b">Anonymized Client Study</div>
+              <div class="cs-stat">Retail 7% → 18% of revenue</div>
+              <div class="cs-sub">$38K in a single day at 75% conversion rate</div>
+              <div class="cs-rule"></div>
+              <div class="cs-fixes">
+                <div class="cs-fix">Retail: $7K → $16K/month (+128%)</div>
+                <div class="cs-fix">Monthly revenue stabilized above $100K</div>
+                <div class="cs-fix">Fixed: no retail bundling, no accountability rhythm, no structured events</div>
+              </div>
+              <div class="cs-time">Timeframe — 2 months</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="cscard">
+          <div class="cscard-inner">
+            <div class="cscard-face">
+              <div class="cscard-img"><img src="images/cs-10.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-fc">
+                <span class="cs-badge">Anonymized Client Study</span>
+                <p class="cs-pain">"The practice couldn't function without the owner present every single day."</p>
+                <span class="cs-hint">Hover to see results →</span>
+              </div>
+            </div>
+            <div class="cscard-face cscard-back-face">
+              <div class="cs-badge-b">Anonymized Client Study</div>
+              <div class="cs-stat">Team production +280%</div>
+              <div class="cs-sub">Owner took 2 weeks off internationally. Zero revenue drop.</div>
+              <div class="cs-rule"></div>
+              <div class="cs-fixes">
+                <div class="cs-fix">Full patient journey systematized end to end</div>
+                <div class="cs-fix">CRM automation handling all follow-ups and review requests</div>
+                <div class="cs-fix">Fixed: no SOPs, no automation, no defined role accountability</div>
+              </div>
+              <div class="cs-time">Timeframe — 90 days</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 11 -->
+        <div class="cscard">
+          <div class="cscard-inner">
+            <div class="cscard-face">
+              <div class="cscard-img"><img src="images/cs-11.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-fc">
+                <span class="cs-badge">Anonymized Client Study</span>
+                <p class="cs-pain">"Years of wellness patients. Zero crossover into aesthetics despite multiple attempts."</p>
+                <span class="cs-hint">Hover to see results →</span>
+              </div>
+            </div>
+            <div class="cscard-face cscard-back-face">
+              <div class="cs-badge-b">Anonymized Client Study</div>
+              <div class="cs-stat">$115,000 in one evening</div>
+              <div class="cs-sub">45 VIP spots sold in under 1 hour</div>
+              <div class="cs-rule"></div>
+              <div class="cs-fixes">
+                <div class="cs-fix">180+ qualified attendees from existing patient base</div>
+                <div class="cs-fix">12 days of provider capacity booked from a single event</div>
+                <div class="cs-fix">Fixed: no event strategy, no VIP model, no sales enablement for aesthetics</div>
+              </div>
+              <div class="cs-time">12 weeks to set up — 1 evening to execute</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 12 -->
+        <div class="cscard">
+          <div class="cscard-inner">
+            <div class="cscard-face">
+              <div class="cscard-img"><img src="images/cs-12.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-fc">
+                <span class="cs-badge">Anonymized Client Study</span>
+                <p class="cs-pain">"Years in business. Six Google reviews to show for all of it."</p>
+                <span class="cs-hint">Hover to see results →</span>
+              </div>
+            </div>
+            <div class="cscard-face cscard-back-face">
+              <div class="cs-badge-b">Anonymized Client Study</div>
+              <div class="cs-stat">$580K → $790K/yr</div>
+              <div class="cs-sub">+$210K — and 75 new memberships launched</div>
+              <div class="cs-rule"></div>
+              <div class="cs-fixes">
+                <div class="cs-fix">Google reviews: 6 → 45 (7× increase in 9 months)</div>
+                <div class="cs-fix">Revenue per clinical hour: +22%</div>
+                <div class="cs-fix">Fixed: no consultation framework, provider turnover, no review system</div>
+              </div>
+              <div class="cs-time">Timeframe — 9 months</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /csgrid -->
     </div>
   </section>
 
@@ -809,6 +1223,13 @@
     hiddenForm.submit();
 
     setTimeout(() => { hiddenForm.remove(); iframe.remove(); }, 5000);
+  }
+
+  // Tap-to-flip for touch screens (CSS :hover handles desktop)
+  if ('ontouchstart' in window) {
+    document.querySelectorAll('.cscard').forEach(card => {
+      card.addEventListener('click', () => card.classList.toggle('flipped'));
+    });
   }
 
   (function(){

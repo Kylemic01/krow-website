@@ -372,31 +372,7 @@
     background:linear-gradient(135deg,var(--terracotta-deep) 0%,var(--ink) 100%);
   }
   .cscard-img img{width:100%;height:100%;object-fit:cover;display:block;}
-  .cscard-face:not(.cscard-back-face)::after{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(to top,rgba(23,52,37,0.94) 0%,rgba(23,52,37,0.38) 52%,rgba(23,52,37,0.08) 100%);
-    pointer-events:none;
-  }
-  .cscard-fc{
-    position:absolute;inset:0;z-index:1;
-    display:flex;flex-direction:column;justify-content:space-between;
-    padding:18px 20px 22px;
-  }
-  .cs-badge{
-    align-self:flex-start;
-    font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;
-    color:rgba(239,234,221,0.68);
-    background:rgba(23,52,37,0.5);border:1px solid rgba(239,234,221,0.18);
-    border-radius:99px;padding:5px 11px;backdrop-filter:blur(4px);
-  }
-  .cs-pain{
-    font-family:var(--serif);font-size:17px;font-weight:500;
-    color:var(--cream);line-height:1.32;margin:0;
-  }
-  .cs-hint{
-    font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;
-    color:rgba(239,234,221,0.36);align-self:flex-end;
-  }
+  .cscard-fc{ display:none; }
 
   /* Back */
   .cscard-back-face{
@@ -575,7 +551,7 @@
         <div class="cscard">
           <div class="cscard-inner">
             <div class="cscard-face">
-              <div class="cscard-img"><img src="images/cs-1.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-img"><img src="images/cs-1.png" alt="" onerror="this.style.display='none'"></div>
               <div class="cscard-fc">
                 <span class="cs-badge">Anonymized Client Study</span>
                 <p class="cs-pain">"Doing $68K a month. Working 57 hours a week just to hold it together."</p>
@@ -601,7 +577,7 @@
         <div class="cscard">
           <div class="cscard-inner">
             <div class="cscard-face">
-              <div class="cscard-img"><img src="images/cs-2.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-img"><img src="images/cs-2.png" alt="" onerror="this.style.display='none'"></div>
               <div class="cscard-fc">
                 <span class="cs-badge">Anonymized Client Study</span>
                 <p class="cs-pain">"Revenue looked fine on paper. The actual bottom line told a different story."</p>
@@ -627,7 +603,7 @@
         <div class="cscard">
           <div class="cscard-inner">
             <div class="cscard-face">
-              <div class="cscard-img"><img src="images/cs-3.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-img"><img src="images/cs-3.png" alt="" onerror="this.style.display='none'"></div>
               <div class="cscard-fc">
                 <span class="cs-badge">Anonymized Client Study</span>
                 <p class="cs-pain">"Stuck at $38K a month for two years. Every month, the same number."</p>
@@ -653,7 +629,7 @@
         <div class="cscard">
           <div class="cscard-inner">
             <div class="cscard-face">
-              <div class="cscard-img"><img src="images/cs-4.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-img"><img src="images/cs-4.png" alt="" onerror="this.style.display='none'"></div>
               <div class="cscard-fc">
                 <span class="cs-badge">Anonymized Client Study</span>
                 <p class="cs-pain">"Under $70K a month. Inconsistent. No clear path to what came next."</p>
@@ -679,7 +655,7 @@
         <div class="cscard">
           <div class="cscard-inner">
             <div class="cscard-face">
-              <div class="cscard-img"><img src="images/cs-5.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-img"><img src="images/cs-5.png" alt="" onerror="this.style.display='none'"></div>
               <div class="cscard-fc">
                 <span class="cs-badge">Anonymized Client Study</span>
                 <p class="cs-pain">"12 years in business. 12 years of patient relationships sitting completely untouched."</p>
@@ -705,7 +681,7 @@
         <div class="cscard">
           <div class="cscard-inner">
             <div class="cscard-face">
-              <div class="cscard-img"><img src="images/cs-6.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-img"><img src="images/cs-6.png" alt="" onerror="this.style.display='none'"></div>
               <div class="cscard-fc">
                 <span class="cs-badge">Anonymized Client Study</span>
                 <p class="cs-pain">"Single provider. 8 active members. No real infrastructure to grow."</p>
@@ -731,7 +707,7 @@
         <div class="cscard">
           <div class="cscard-inner">
             <div class="cscard-face">
-              <div class="cscard-img"><img src="images/cs-7.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-img"><img src="images/cs-7.png" alt="" onerror="this.style.display='none'"></div>
               <div class="cscard-fc">
                 <span class="cs-badge">Anonymized Client Study</span>
                 <p class="cs-pain">"The owner was considering selling the business just to escape the burnout."</p>
@@ -757,7 +733,7 @@
         <div class="cscard">
           <div class="cscard-inner">
             <div class="cscard-face">
-              <div class="cscard-img"><img src="images/cs-8.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-img"><img src="images/cs-8.png" alt="" onerror="this.style.display='none'"></div>
               <div class="cscard-fc">
                 <span class="cs-badge">Anonymized Client Study</span>
                 <p class="cs-pain">"$85K a month. No upsells happening. No structure in place to change it."</p>
@@ -783,7 +759,7 @@
         <div class="cscard">
           <div class="cscard-inner">
             <div class="cscard-face">
-              <div class="cscard-img"><img src="images/cs-9.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-img"><img src="images/cs-9.png" alt="" onerror="this.style.display='none'"></div>
               <div class="cscard-fc">
                 <span class="cs-badge">Anonymized Client Study</span>
                 <p class="cs-pain">"Patients were buying their skincare somewhere else. Nobody had fixed it."</p>
@@ -809,7 +785,7 @@
         <div class="cscard">
           <div class="cscard-inner">
             <div class="cscard-face">
-              <div class="cscard-img"><img src="images/cs-10.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-img"><img src="images/cs-10.png" alt="" onerror="this.style.display='none'"></div>
               <div class="cscard-fc">
                 <span class="cs-badge">Anonymized Client Study</span>
                 <p class="cs-pain">"The practice couldn't function without the owner present every single day."</p>
@@ -835,7 +811,7 @@
         <div class="cscard">
           <div class="cscard-inner">
             <div class="cscard-face">
-              <div class="cscard-img"><img src="images/cs-11.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-img"><img src="images/cs-11.png" alt="" onerror="this.style.display='none'"></div>
               <div class="cscard-fc">
                 <span class="cs-badge">Anonymized Client Study</span>
                 <p class="cs-pain">"Years of wellness patients. Zero crossover into aesthetics despite multiple attempts."</p>
@@ -861,7 +837,7 @@
         <div class="cscard">
           <div class="cscard-inner">
             <div class="cscard-face">
-              <div class="cscard-img"><img src="images/cs-12.jpg" alt="" onerror="this.style.display='none'"></div>
+              <div class="cscard-img"><img src="images/cs-12.png" alt="" onerror="this.style.display='none'"></div>
               <div class="cscard-fc">
                 <span class="cs-badge">Anonymized Client Study</span>
                 <p class="cs-pain">"Years in business. Six Google reviews to show for all of it."</p>

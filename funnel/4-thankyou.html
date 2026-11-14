@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're In! Krow Med Spa Growth</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/config.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="inner" style="padding-bottom:0;">
+    <a href="1-landing.html" class="logo">K</a>
+  </div>
+
+  <div class="full-bleed-banner">You're registered! Check your inbox for the access link.</div>
+
+  <div class="center" style="padding:0 24px 16px;">
+    <div class="icon-lg">📅</div>
+    <h1 class="success" id="successHeadline">You're in! See you at the masterclass.</h1>
+    <div class="subhead">Check your email for your access link, calendar invite, and SMS reminders.</div>
+  </div>
+
+  <div class="inner" style="padding-top:0;">
+    <div style="position:relative;width:100%;padding-bottom:56.25%;background:#0d1a14;border-radius:8px;overflow:hidden;">
+      <video src="assets/krow-confirmation.mp4" autoplay muted controls playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+    </div>
+    <a href="#" class="cta-btn js-addtocal" style="margin-top:14px;">
+      <span class="cta-main">+ Add to Calendar</span>
+      <span class="cta-sub">Block 90 minutes  - <span class="js-datetime-full"></span></span>
+    </a>
+  </div>
+
+  <div class="gray-section">
+
+    <div class="eyebrow-purple center">What Happens Next</div>
+    <h2>Three things to do right now</h2>
+
+    <div style="height:24px;"></div>
+
+    <div class="step-row">
+      <div class="icon">✉️</div>
+      <div class="text">
+        <b>Check your email</b>
+        <span>Your access link and calendar invite are on their way. Check spam if you don't see it in 5 minutes.</span>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="icon">📅</div>
+      <div class="text">
+        <b>Save the date: <span class="js-datetime-full"></span></b>
+        <span>Block 90 minutes. No replays live only.</span>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="icon">📱</div>
+      <div class="text">
+        <b>Watch for SMS reminders</b>
+        <span>We'll text you 24 hours and 1 hour before the session so you don't miss it.</span>
+      </div>
+    </div>
+
+    <!-- TODO: Point this at your Calendly or community link -->
+    <a href="#" class="cta-btn" style="margin-top:8px;">
+      <span class="cta-main">Book a Profit Strategy Call</span>
+      <span class="cta-sub">Optional get a head start before the masterclass</span>
+    </a>
+
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.js-datetime-full').forEach(function(el) {
+    el.textContent = KROW.WEBINAR_DATETIME_FULL;
+  });
+
+  const name = localStorage.getItem('funnel_name');
+  if (name){
+    document.getElementById('successHeadline').textContent =
+      'You\u2019re in, ' + name + '! See you at the masterclass.';
+  }
+</script>
+</body>
+</html>

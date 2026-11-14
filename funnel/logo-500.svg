@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <rect width="500" height="500" fill="#012B1D"/>
+  <text x="250" y="295"
+        font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+        font-weight="900" font-size="130" text-anchor="middle"
+        textLength="370" lengthAdjust="spacingAndGlyphs"
+        fill="#ffffff">KROW</text>
+  <rect x="130" y="316" width="240" height="6" rx="3" fill="#FEB192"/>
+</svg>

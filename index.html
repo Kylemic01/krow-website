@@ -714,12 +714,13 @@
     display: flex !important;
     position: absolute !important; inset: 0;
     flex-direction: column; justify-content: flex-start;
-    padding: 20px 18px 0 !important;
-    z-index: 2; pointer-events: none; gap: 6px;
+    padding: 18px 18px 0 !important;
+    z-index: 2; pointer-events: none; gap: 0;
+    background: linear-gradient(to bottom, rgba(1,43,29,0.82) 0%, transparent 55%) !important;
   }
-  .cs-badge { font-size: 10px !important; letter-spacing: 0.10em; text-transform: uppercase; color: var(--t-muted) !important; }
-  .cs-pain  { font-size: 13.5px !important; line-height: 1.5; color: rgba(255,255,255,0.90) !important; max-width: 88%; }
-  .cs-hint  { font-size: 11px !important; color: var(--t-muted) !important; }
+  .cs-badge { display: none !important; }
+  .cs-pain  { font-size: 13.5px !important; line-height: 1.5; color: rgba(255,255,255,0.95) !important; max-width: 80%; margin: 0 !important; }
+  .cs-hint  { display: none !important; }
 
   .cscard-back-face {
     background: linear-gradient(150deg, var(--f-600) 0%, var(--f-800) 100%) !important;

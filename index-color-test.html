@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Color Test — Forest / Jungle / Pumpkin</title>
+</head>
+<body>
+<script>
+  /*
+   * Fetches index.html, injects color overrides, and renders it in-place.
+   * Open this file from the same folder as index.html (file:// or local server).
+   */
+  fetch('index.html')
+    .then(r => r.text())
+    .then(html => {
+      const overrideCSS = `
+<style id="color-test-override">
+  /* ══════════════════════════════════════════════════
+     COLOR TEST — Forest Green canvas, Pumpkin + Jungle accents
+     Forest Green   #012B1D → main background (dominant)
+     Pumpkin Orange #FEB192 → CTAs, key numbers, highlights
+     Jungle Green   #01B36C → secondary accent, icons, mono text
+  ══════════════════════════════════════════════════ */
+
+  :root {
+    --ink:              #ffffff;
+    --ink-soft:         rgba(255,255,255,0.72);
+    --cream:            #012B1D;
+    --blush:            rgba(255,255,255,0.06);
+    --terracotta:       #FEB192;
+    --terracotta-deep:  #f0956c;
+    --sage-dark:        #01B36C;
+    --sage-light:       rgba(1,179,108,0.18);
+    --text-muted:       rgba(255,255,255,0.48);
+    --line:             rgba(255,255,255,0.11);
+  }
+
+  /* ── Canvas ── */
+  html, body { background: #012B1D !important; color: #fff; }
+
+  /* ── Nav ── */
+  header.site {
+    background: rgba(1,43,29,0.94) !important;
+    backdrop-filter: blur(14px) !important;
+    border-bottom-color: rgba(255,255,255,0.09) !important;
+  }
+  header.site.scrolled { box-shadow: 0 6px 28px -16px rgba(0,0,0,0.6) !important; }
+
+  /* ── All buttons ── */
+  .btn-primary { background: #012B1D !important; color: var(--cream) !important; }
+  .btn-gold    { background: #FEB192 !important; color: #012B1D !important; font-weight: 700 !important; }
+  .btn-gold:hover { background: #f0956c !important; }
+  .btn-ghost   { background: transparent !important; color: #fff !important; border-color: rgba(255,255,255,0.28) !important; }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.65) !important; }
+
+  /* ── Stat strip ── */
+  .statstrip { border-color: rgba(255,255,255,0.11) !important; }
+  .stat { border-color: rgba(255,255,255,0.11) !important; }
+  .stat .num { color: #FEB192 !important; }
+  .stat .unit { color: rgba(255,255,255,0.45) !important; }
+  .stat .lbl  { color: rgba(255,255,255,0.48) !important; }
+
+  /* ── Dial card (hero) — forest green, not near-black ── */
+  .dial-card { background: #014530 !important; }
+  .dial-card::after { background: radial-gradient(120% 100% at 100% 0%, rgba(254,177,146,0.22), transparent 55%) !important; }
+  .rcs-num { color: #FEB192 !important; }
+
+  /* ── Result cards (#fff → dark) ── */
+  .result-card {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.10) !important;
+  }
+  .result-card:hover { box-shadow: 0 16px 32px -22px rgba(0,0,0,0.5) !important; }
+  .result-card .rfig  { color: #FEB192 !important; }
+  .result-card .rlabel { color: #fff !important; }
+  .result-card .rdesc  { color: rgba(255,255,255,0.55) !important; }
+
+  .dist-item {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.10) !important;
+  }
+  .dist-num { color: #FEB192 !important; }
+  .dist-lbl { color: rgba(255,255,255,0.50) !important; }
+
+  /* ── Timeline ── */
+  .tl-item { border-color: rgba(255,255,255,0.14) !important; }
+  .tl-item::before { background: #FEB192 !important; }
+  .tl-when { color: #FEB192 !important; }
+  .tl-what { color: #fff !important; }
+  .tl-desc  { color: rgba(255,255,255,0.55) !important; }
+
+  /* ── Leak cards ── */
+  .leak-card {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.10) !important;
+  }
+  .leak-card.bad {
+    background: rgba(254,177,146,0.07) !important;
+    border-color: rgba(254,177,146,0.25) !important;
+  }
+  .leak-card.good {
+    background: rgba(1,179,108,0.07) !important;
+    border-color: rgba(1,179,108,0.25) !important;
+  }
+  .leak-card .name { color: #fff !important; }
+  .leak-card li    { color: rgba(255,255,255,0.68) !important; }
+  .leak-card .outcome { border-top-color: rgba(255,255,255,0.11) !important; }
+  .leak-card.bad .tag     { color: #FEB192 !important; }
+  .leak-card.bad .outcome { color: #FEB192 !important; }
+  .leak-card.good .tag     { color: #01B36C !important; }
+  .leak-card.good .outcome { color: #01B36C !important; }
+
+  /* ── System rows ── */
+  .system-row { border-color: rgba(255,255,255,0.11) !important; }
+  .sys-index  { color: #FEB192 !important; }
+  .copy .msg  { color: rgba(255,255,255,0.68) !important; }
+  .copy li    { color: rgba(255,255,255,0.68) !important; }
+  .copy li::before { background: #FEB192 !important; }
+  .price-chip {
+    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(255,255,255,0.14) !important;
+    color: rgba(255,255,255,0.68) !important;
+  }
+
+  /* ── Before / after outcome pills ── */
+  .op.before {
+    background: rgba(254,177,146,0.10) !important;
+    color: rgba(255,255,255,0.75) !important;
+  }
+  .op.after {
+    background: rgba(1,179,108,0.10) !important;
+    color: rgba(255,255,255,0.75) !important;
+  }
+  .op.before .op-tag { color: #FEB192 !important; }
+  .op.after  .op-tag { color: #01B36C !important; }
+
+  /* ── Mocks (mini UI cards) ── */
+  .mock {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.11) !important;
+  }
+  .mock-head { color: rgba(255,255,255,0.45) !important; }
+  .cpl-legend { color: rgba(255,255,255,0.45) !important; }
+  .funnel-row .flabel { color: rgba(255,255,255,0.65) !important; }
+  .funnel-bar-track { background: rgba(255,255,255,0.08) !important; }
+  .resp-num { color: #FEB192 !important; }
+  .resp-sub { color: rgba(255,255,255,0.50) !important; }
+  .resp-bar-track { background: rgba(255,255,255,0.08) !important; }
+  .resp-marks { color: rgba(255,255,255,0.40) !important; }
+
+  /* ── Offers tab bar ── */
+  .tabbar { border-color: rgba(255,255,255,0.11) !important; }
+  .tabbtn { color: rgba(255,255,255,0.45) !important; }
+  .tabbtn .tprice { color: rgba(255,255,255,0.40) !important; }
+  .tabbtn.active { color: #fff !important; border-color: #FEB192 !important; }
+  .tabbtn.active .tprice { color: #FEB192 !important; }
+  .tabbtn:hover { color: #fff !important; }
+
+  /* ── Offer side card (#fff → dark) ── */
+  .offer-side {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.11) !important;
+  }
+  .offer-side .glabel { color: #FEB192 !important; }
+  .offer-side .gtext  { color: #fff !important; }
+  .offer-side .after  { border-top-color: rgba(255,255,255,0.11) !important; color: rgba(255,255,255,0.50) !important; }
+  .offer-side .after b { color: #fff !important; }
+  .offer-price    { color: #fff !important; }
+  .offer-duration { color: rgba(255,255,255,0.45) !important; }
+  .offer-msg  { color: rgba(255,255,255,0.72) !important; }
+  .offer-list li { color: rgba(255,255,255,0.72) !important; }
+
+  /* ── Compare table ── */
+  table.compare th, table.compare td { border-color: rgba(255,255,255,0.11) !important; }
+  table.compare th  { color: rgba(255,255,255,0.45) !important; }
+  table.compare td.feat { color: rgba(255,255,255,0.72) !important; }
+  table.compare td .yes { color: #01B36C !important; }
+  table.compare td .no  { color: rgba(255,255,255,0.30) !important; }
+  table.compare tr.price-row td { color: #FEB192 !important; }
+
+  /* ── Levers (#fff → dark) ── */
+  .lever {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.10) !important;
+  }
+  .lever .lnum { color: #FEB192 !important; }
+  .lever h4    { color: #fff !important; }
+  .lever p     { color: rgba(255,255,255,0.52) !important; }
+
+  /* ── Trust band ── */
+  .trust-band { background: #014530 !important; }
+  .trust-band .t1 { color: #fff !important; }
+  .trust-band .t1 em { color: #FEB192 !important; }
+
+  /* ── FAQ ── */
+  details { border-color: rgba(255,255,255,0.11) !important; }
+  summary { color: #fff !important; }
+  summary::after { color: #FEB192 !important; }
+  details p { color: rgba(255,255,255,0.65) !important; }
+
+  /* ── Case study cards — compact height ── */
+  .cscard { height: 265px !important; }
+
+  /* ── Case study cards — front face gradient fix ── */
+  .cscard-img {
+    background: linear-gradient(135deg, #014530 0%, #012B1D 100%) !important;
+  }
+  .cscard-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(80% 80% at 30% 30%, rgba(254,177,146,0.18), transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ── Case study cards — back face ── */
+  .cscard-back-face {
+    background: #013825 !important;
+    border-color: rgba(255,255,255,0.11) !important;
+  }
+  .cs-badge-b { color: #FEB192 !important; }
+  .cs-stat     { color: #fff !important; }
+  .cs-stat small { color: rgba(255,255,255,0.50) !important; }
+  .cs-sub  { color: rgba(255,255,255,0.45) !important; }
+  .cs-rule { background: rgba(255,255,255,0.11) !important; }
+
+  /* ── Guarantee badge ── */
+  .guarantee-badge {
+    background: rgba(254,177,146,0.09) !important;
+    border-color: rgba(254,177,146,0.28) !important;
+    color: rgba(255,255,255,0.72) !important;
+  }
+  .guarantee-badge strong { color: #fff !important; }
+
+  /* ── Eyebrow dot ── */
+  .eyebrow::before { background: #FEB192 !important; }
+
+  /* ── Hero italic ── */
+  .hero h1 em { color: #FEB192 !important; }
+  .hero .lede { color: rgba(255,255,255,0.68) !important; }
+  .hero-ctas .microlink {
+    border-color: #FEB192 !important;
+    color: rgba(255,255,255,0.68) !important;
+  }
+  .trust-line { color: rgba(255,255,255,0.45) !important; }
+
+  /* ── Lead capture form in final section ── */
+  .lead-fields input, .lead-fields select {
+    background: rgba(255,255,255,0.08) !important;
+    border-color: rgba(255,255,255,0.18) !important;
+    color: #fff !important;
+  }
+  .lead-fields input:focus, .lead-fields select:focus {
+    border-color: #01B36C !important;
+  }
+
+  /* ── Footer ── */
+  footer { border-top: 1px solid rgba(255,255,255,0.09); }
+  .foot-row { color: rgba(255,255,255,0.40) !important; }
+  .foot-row a { color: rgba(255,255,255,0.40) !important; }
+  .foot-row a:hover { color: #FEB192 !important; }
+
+  /* ── Section heading ── */
+  .section-head p { color: rgba(255,255,255,0.52) !important; }
+  .lede           { color: rgba(255,255,255,0.65) !important; }
+  .result-note    { color: rgba(255,255,255,0.40) !important; }
+
+  /* ── FINAL CTA section — was background:var(--ink) = now white ── */
+  section.final {
+    background: #011a10 !important;
+    color: #fff !important;
+  }
+  .final h2  { color: #fff !important; }
+  .final .lede { color: rgba(255,255,255,0.65) !important; }
+  .lead-card {
+    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(255,255,255,0.12) !important;
+  }
+  .lead-prompt { color: #fff !important; }
+  .help-opt {
+    color: rgba(255,255,255,0.80) !important;
+    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(255,255,255,0.18) !important;
+  }
+  .help-opt:hover  { border-color: #FEB192 !important; background: rgba(254,177,146,0.10) !important; }
+  .help-opt.selected { background: #FEB192 !important; border-color: #FEB192 !important; color: #012B1D !important; }
+  .lead-selected-tag { color: #FEB192 !important; background: rgba(254,177,146,0.12) !important; border-color: rgba(254,177,146,0.28) !important; }
+  .lead-back  { color: rgba(255,255,255,0.45) !important; }
+  .lead-back:hover { color: #fff !important; }
+  .lead-fields label { color: rgba(255,255,255,0.55) !important; }
+  .lead-error { color: #FEB192 !important; }
+  .lead-success h3 { color: #fff !important; }
+  .lead-success p  { color: rgba(255,255,255,0.65) !important; }
+  .lead-success a  { color: #FEB192 !important; }
+
+  /* ── TRUST section — inline style="background:var(--blush)" ── */
+  section#trust { background: #013825 !important; }
+
+  /* ── Hardcoded rgba(239,234,221,...) values that bypass variables ── */
+  .rcs-lbl        { color: rgba(255,255,255,0.58) !important; }
+  .revchart-note  { color: rgba(255,255,255,0.42) !important; }
+  .revchart-stats { border-top-color: rgba(255,255,255,0.12) !important; }
+  .dial-top       { color: rgba(255,255,255,0.45) !important; }
+  .pillar-tag     {
+    color: rgba(255,255,255,0.78) !important;
+    background: rgba(255,255,255,0.07) !important;
+    border-color: rgba(255,255,255,0.14) !important;
+  }
+  .honest-note  { color: rgba(255,255,255,0.62) !important; }
+  .guarantee-chip .gline { color: rgba(255,255,255,0.78) !important; }
+  .guarantee-chip { background: rgba(255,255,255,0.05) !important; border-color: rgba(255,255,255,0.14) !important; }
+
+  /* ── sage-light used in SVG fills — make it visible ── */
+  :root { --sage-light: rgba(1,179,108,0.70) !important; }
+
+  /* ── Funnel bar fill text (white already, fine) ── */
+  .funnel-bar-fill { color: #fff !important; }
+
+  /* ── Flip card backs — base shared styles ── */
+  .cscard-back-face {
+    background: linear-gradient(150deg, #014530 0%, #012B1D 100%) !important;
+    border-color: rgba(255,255,255,0.08) !important;
+    padding: 22px 20px 18px !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+  .cs-badge-b   { font-size: 9px !important; color: rgba(255,255,255,0.28) !important; margin-bottom: 10px !important; }
+  .cs-stat       { color: #fff !important; font-size: 22px !important; position: relative; z-index: 1; }
+  .cs-stat small { color: rgba(255,255,255,0.40) !important; }
+  .cs-sub        { color: rgba(255,255,255,0.52) !important; margin-top: 3px !important; position: relative; z-index: 1; }
+  .cs-rule       { background: rgba(255,255,255,0.08) !important; margin: 12px 0 !important; position: relative; z-index: 1; }
+  .cs-fixes      { position: relative; z-index: 1; }
+  .cs-fix        { color: rgba(255,255,255,0.62) !important; font-size: 12.5px !important; gap: 8px !important; }
+  .cs-fix::before { background: #01B36C !important; }
+  .cs-time       { color: #01B36C !important; border-top-color: rgba(255,255,255,0.08) !important; margin-top: 10px !important; position: relative; z-index: 1; }
+
+  /* ── Option label rows in the grid ── */
+  .option-label-row {
+    grid-column: 1 / -1;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: #FEB192;
+    padding: 36px 0 10px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .option-label-row::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* ── Show front face content — anchored to TOP so watermark is clear ── */
+  .cscard-fc {
+    display: flex !important;
+    position: absolute !important;
+    inset: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px 18px 0 !important;
+    z-index: 2;
+    pointer-events: none;
+    gap: 6px;
+  }
+  .cs-badge { font-size: 9px !important; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.38) !important; }
+  .cs-pain  { font-size: 13px !important; line-height: 1.5; color: rgba(255,255,255,0.82) !important; max-width: 88%; }
+  .cs-hint  { font-size: 11px !important; color: rgba(255,255,255,0.32) !important; }
+
+  /* ── Watermark — before (half size) stacked above after (full size) ── */
+  .cs-wm {
+    position: absolute !important;
+    right: -4px !important; bottom: -12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 0 !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    user-select: none !important;
+  }
+  .cs-wm-after {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 88px; font-weight: 700;
+    color: rgba(254,177,146,0.10);
+    line-height: 1; white-space: nowrap;
+  }
+  .cs-wm-before {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 44px; font-weight: 700;
+    color: rgba(254,177,146,0.07);
+    line-height: 1.1; white-space: nowrap;
+  }
+  .cs-wm-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(254,177,146,0.07);
+    margin-bottom: 2px;
+  }
+
+  /* ── Statstrip body text ── */
+  .stat .lbl { color: rgba(255,255,255,0.45) !important; }
+</style>`;
+
+      const injected = html.replace('</head>', overrideCSS + '\n</head>');
+      document.open();
+      document.write(injected);
+      document.close();
+
+      // DOM manipulation runs in this window context after document.write
+      setTimeout(function() {
+        var grid = document.querySelector('.csgrid');
+        if (!grid) return;
+        var cards = Array.from(grid.querySelectorAll('.cscard'));
+
+        // Inject before→after watermark into front face of every card
+        cards.forEach(function(card) {
+          var front = card.querySelector('.cscard-img');
+          var back  = card.querySelector('.cscard-back-face');
+          var stat  = back && back.querySelector('.cs-stat');
+          if (!front || !stat) return;
+          var raw = stat.textContent.trim();
+          var parts = raw.split('\u2192');
+          var wm = document.createElement('div');
+          wm.className = 'cs-wm';
+          if (parts.length >= 2) {
+            var beforeText = parts[0].replace(/\/mo|\/yr/g,'').trim();
+            var afterText  = parts[1].replace(/\/mo|\/yr/g,'').trim().split(' ')[0];
+            wm.innerHTML =
+              '<span class="cs-wm-before">' + beforeText + '</span>' +
+              '<span class="cs-wm-label">BEFORE</span>' +
+              '<span class="cs-wm-after">' + afterText + '</span>';
+          } else {
+            var afterText = raw.replace(/\/mo|\/yr/g,'').trim().split(' ')[0];
+            wm.innerHTML = '<span class="cs-wm-after">' + afterText + '</span>';
+          }
+          front.appendChild(wm);
+        });
+      }, 50);
+    })
+    .catch(() => {
+      document.body.innerHTML = '<p style="font-family:sans-serif;padding:40px;color:red;">Could not load index.html — make sure this file is in the same folder and you\'re running from a local server or the same file:// origin.</p>';
+    });
+</script>
+</body>
+</html>

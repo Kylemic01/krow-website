@@ -357,21 +357,22 @@
     background: rgba(255,255,255,0.08);
   }
 
-  /* ── Show front face content — anchored to TOP so watermark is clear ── */
+  /* ── Show front face content — quote only, bottom-anchored ── */
   .cscard-fc {
     display: flex !important;
     position: absolute !important;
     inset: 0;
     flex-direction: column;
-    justify-content: flex-start;
-    padding: 20px 18px 0 !important;
+    justify-content: flex-end;
+    padding: 0 18px 18px !important;
     z-index: 2;
     pointer-events: none;
-    gap: 6px;
+    gap: 0;
+    background: linear-gradient(to top, rgba(1,43,29,0.82) 0%, transparent 55%) !important;
   }
-  .cs-badge { font-size: 9px !important; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.38) !important; }
-  .cs-pain  { font-size: 13px !important; line-height: 1.5; color: rgba(255,255,255,0.82) !important; max-width: 88%; }
-  .cs-hint  { font-size: 11px !important; color: rgba(255,255,255,0.32) !important; }
+  .cs-badge { display: none !important; }
+  .cs-pain  { font-size: 13px !important; line-height: 1.5; color: rgba(255,255,255,0.95) !important; max-width: 100%; margin: 0 !important; }
+  .cs-hint  { display: none !important; }
 
   /* ── Watermark — before (half size) stacked above after (full size) ── */
   .cs-wm {

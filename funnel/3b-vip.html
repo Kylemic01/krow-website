@@ -137,8 +137,8 @@
   function getThankYouPage() {
     // If they came via VIP intent (skipped survey), default to qualified
     const qualified = localStorage.getItem('funnel_qualified');
-    if (vipIntent === 'yes') return '4-thankyou-qualified.html';
-    return qualified === 'yes' ? '4-thankyou-qualified.html' : '4-thankyou-unqualified.html';
+    if (vipIntent === 'yes') return '/confirmed';
+    return qualified === 'yes' ? '/confirmed' : '/registered';
   }
 
   function handlePurchase(e) {

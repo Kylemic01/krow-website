@@ -1,6 +1,14 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/survey", "destination": "/funnel/4b-survey.html" }
+    { "source": "/masterclass",  "destination": "/funnel/1-landing.html" },
+    { "source": "/quiz",         "destination": "/funnel/2-quiz.html" },
+    { "source": "/register",     "destination": "/funnel/2-optin.html" },
+    { "source": "/personalize",  "destination": "/funnel/3-survey.html" },
+    { "source": "/vip",          "destination": "/funnel/3b-vip.html" },
+    { "source": "/confirmed",    "destination": "/funnel/4-thankyou-qualified.html" },
+    { "source": "/registered",   "destination": "/funnel/4-thankyou-unqualified.html" },
+    { "source": "/survey",       "destination": "/funnel/4b-survey.html" },
+    { "source": "/apply",        "destination": "/funnel/5-sales.html" }
   ]
 }

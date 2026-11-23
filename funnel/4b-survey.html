@@ -108,7 +108,7 @@
       <div class="success-icon">&#10003;</div>
       <h2>Got it. We'll use this on Wednesday.</h2>
       <p>Your answers help us focus on what's most relevant to where your practice actually is. You'll see it reflected in the examples and benchmarks we use during the session.</p>
-      <a href="4-thankyou-qualified.html" class="btn-back-to-confirm" id="backToConfirm">&larr; Back to your confirmation</a>
+      <a href="/confirmed" class="btn-back-to-confirm" id="backToConfirm">&larr; Back to your confirmation</a>
     </div>
 
   </div>
@@ -132,7 +132,7 @@
   var backLink    = document.getElementById('backToConfirm');
   var isQualified = localStorage.getItem('funnel_qualified');
   if (backLink) {
-    backLink.href = (isQualified === 'no') ? '4-thankyou-unqualified.html' : '4-thankyou-qualified.html';
+    backLink.href = (isQualified === 'no') ? '/registered' : '/confirmed';
   }
 
   function selectOption(btn, qId, value) {

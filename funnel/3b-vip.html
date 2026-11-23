@@ -3,171 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>One More Thing Krow Med Spa Growth</title>
-<link rel="stylesheet" href="assets/style.css">
+<title>One More Thing — Krow Med Spa Growth</title>
+<link rel="stylesheet" href="assets/style-dark.css">
 <script src="assets/config.js"></script>
-<style>
-  /* VIP-page-only overrides */
-  .vip-hero {
-    background: var(--green);
-    color: var(--cream);
-    text-align: center;
-    padding: 36px 24px 32px;
-  }
-  .vip-hero .eyebrow {
-    display: inline-block;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 12px;
-  }
-  .vip-hero h1 {
-    font-family: var(--font-serif);
-    font-size: clamp(1.5rem, 4.5vw, 2rem);
-    font-weight: 700;
-    line-height: 1.25;
-    color: var(--cream);
-    max-width: 520px;
-    margin: 0 auto 12px;
-  }
-  .vip-hero p {
-    font-size: 0.9375rem;
-    color: rgba(242,237,229,0.78);
-    max-width: 440px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-
-  .price-block {
-    text-align: center;
-    padding: 24px 0 20px;
-  }
-  .price-was {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    text-decoration: line-through;
-    margin-bottom: 4px;
-  }
-  .price-now {
-    font-family: var(--font-serif);
-    font-size: 2.75rem;
-    font-weight: 700;
-    color: var(--terra);
-    line-height: 1;
-  }
-  .price-note {
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-    margin-top: 5px;
-  }
-
-  .kit-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .kit-item:last-child { border-bottom: none; }
-
-  .kit-check {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: var(--green);
-    color: var(--cream);
-    font-size: 0.75rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .kit-title {
-    font-weight: 600;
-    font-size: 0.9375rem;
-    color: var(--green);
-    margin-bottom: 2px;
-  }
-  .kit-desc {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    line-height: 1.55;
-  }
-
-  .skip-link {
-    display: block;
-    width: 100%;
-    text-align: center;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    margin-top: 12px;
-    cursor: pointer;
-    background: none;
-    border: 2px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-family: var(--font-sans);
-    padding: 14px 20px;
-    text-decoration: none;
-    transition: border-color 0.15s, color 0.15s;
-  }
-  .skip-link:hover { border-color: var(--text-muted); color: var(--black-text); }
-
-  .guarantee-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--cream-dark);
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    margin-top: 14px;
-  }
-  .guarantee-icon {
-    font-size: 1.375rem;
-    flex-shrink: 0;
-  }
-  .guarantee-text {
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-  }
-  .guarantee-text strong { color: var(--green); }
-</style>
 </head>
 <body>
-<div class="page">
+<div class="wrap">
 
-  <nav class="nav" style="justify-content:center;">
-    <span class="logo-text js-brand-short"></span>
-  </nav>
+  <div class="top-bar js-topbar">Free LIVE Masterclass &bull; Wednesday, Dec 2 &bull; 7 PM EST</div>
 
-  <!-- HERO text updated by JS based on whether they came from VIP checkbox -->
-  <div class="vip-hero">
-    <div class="eyebrow" id="vipHeroEyebrow">You're Registered One Quick Thing</div>
-    <h1 id="vipHeroHeadline">Get the exact systems before the masterclass starts</h1>
-    <p id="vipHeroSub">Most owners leave the session energized but unsure where to begin. This kit removes that gap entirely.</p>
+  <!-- HERO -->
+  <div class="glass" style="text-align:center;">
+    <div class="inner">
+      <div class="eyebrow" id="vipHeroEyebrow">You're Registered &bull; One Quick Thing</div>
+      <h1 id="vipHeroHeadline">Get the exact systems before the masterclass starts</h1>
+      <p class="sub-text" id="vipHeroSub">Most owners leave the session energized but unsure where to begin. This kit removes that gap entirely.</p>
+    </div>
   </div>
 
-  <div class="inner">
+  <!-- KIT OFFER CARD -->
+  <div class="glass">
+    <div class="card-hdr">The Krow Implementation Kit</div>
+    <div class="inner">
 
-    <!-- OFFER CARD -->
-    <div class="card" style="margin-top: 0; border-top: 3px solid var(--terra);">
-
-      <div class="eyebrow" style="margin-bottom:6px;">The Krow Implementation Kit</div>
       <h2 style="margin-bottom:6px;">Four done-for-you tools your team can run the same week</h2>
-      <p class="subhead" style="margin-bottom:20px;">Built around the exact frameworks we cover in the masterclass so you leave with assets, not just notes.</p>
+      <p class="sub-text">Built around the exact frameworks we cover in the masterclass so you leave with assets, not just notes.</p>
 
-      <!-- KIT CONTENTS -->
       <div class="kit-item">
         <div class="kit-check">&#10003;</div>
         <div>
           <div class="kit-title">Rebooking SOP + Front Desk Script</div>
-          <div class="kit-desc">Word-for-word script that books 60&ndash;70% of patients for their next treatment before they leave the building. Includes 4 objection handlers and a manager checklist.</div>
+          <div class="kit-desc">Word-for-word script + 4 objection handlers. Books 60&ndash;70% before they leave.</div>
         </div>
       </div>
 
@@ -175,7 +41,7 @@
         <div class="kit-check">&#10003;</div>
         <div>
           <div class="kit-title">Patient Reactivation Email Sequence</div>
-          <div class="kit-desc">5 done-for-you emails to win back dormant patients. Typically reactivates 12&ndash;18% of a cold list within 30 days. Copy-paste ready, editable in any platform.</div>
+          <div class="kit-desc">5 copy-paste emails. Reactivates 12&ndash;18% of a dormant list within 30 days.</div>
         </div>
       </div>
 
@@ -183,7 +49,7 @@
         <div class="kit-check">&#10003;</div>
         <div>
           <div class="kit-title">Membership Revenue Calculator</div>
-          <div class="kit-desc">Model exactly what a membership program adds to your monthly revenue before you build one. Pre-loaded with benchmarks from $1M&ndash;$5M med spas.</div>
+          <div class="kit-desc">See exactly what a membership adds to your revenue before you build one.</div>
         </div>
       </div>
 
@@ -191,27 +57,23 @@
         <div class="kit-check">&#10003;</div>
         <div>
           <div class="kit-title">90-Day Revenue Sprint Tracker</div>
-          <div class="kit-desc">Week-by-week milestones aligned to the masterclass framework. Keeps your team accountable and shows you exactly where you are at any point in the sprint.</div>
+          <div class="kit-desc">Week-by-week milestones for the 90-day sprint. Keeps your team accountable.</div>
         </div>
       </div>
 
-      <!-- PRICE -->
       <div class="price-block">
         <div class="price-was">Regular price: $197</div>
         <div class="price-now">$97</div>
-        <div class="price-note">One-time delivered to your inbox immediately</div>
+        <div class="price-note">One-time &bull; Delivered to your inbox immediately</div>
       </div>
 
-      <!-- CTA -->
-      <!-- Replace href="#" with your actual checkout/payment link before going live -->
-      <a href="#" class="btn-primary" id="vipCta" onclick="handlePurchase(event)">
+      <a href="#" class="cta-btn" id="vipCta" onclick="handlePurchase(event)">
         Add the Implementation Kit $97
-        <span class="btn-sub">Instant delivery &middot; Use it before the masterclass</span>
+        <span class="sub">Instant delivery &middot; Use it before the masterclass</span>
       </a>
 
-      <button class="skip-link" onclick="handleSkip()">No thanks  - take me to my confirmation &rarr;</button>
+      <button class="btn-secondary" onclick="handleSkip()">No thanks &mdash; take me to my confirmation &rarr;</button>
 
-      <!-- GUARANTEE -->
       <div class="guarantee-row">
         <div class="guarantee-icon">&#128737;</div>
         <div class="guarantee-text">
@@ -220,47 +82,49 @@
       </div>
 
     </div>
-
-    <!-- SOCIAL PROOF pattern-based, no fake names -->
-    <div style="margin-top: 8px; margin-bottom: 4px; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); text-align: center;">
-      Real results based on patterns across 50+ med spa audits
-    </div>
-
-    <div class="testimonial">
-      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <div class="quote">"Stuck at $38K/month for two years. We activated our lapsed patient list and had our first $115K month 90 days later — same patients, same team, different systems."</div>
-      <div class="author">
-        <div class="t-avatar" style="background: var(--green);">&#x1F3E5;</div>
-        <div>
-          <div class="t-name">Renew Med Spa</div>
-          <div class="t-role">Single location · Independent owner · 4 years in business</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="testimonial">
-      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <div class="quote">"We had 400 patients in our system we'd never reached out to. The reactivation sequence brought in $41,000 in 24 hours. I didn't know I was sitting on that."</div>
-      <div class="author">
-        <div class="t-avatar" style="background: var(--green);">&#x1F3E5;</div>
-        <div>
-          <div class="t-name">Radiance Med Spa</div>
-          <div class="t-role">15-year practice · Independent owner</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <div class="footer-links">
-        <a href="#">Terms of Use</a> &middot; <a href="#">Privacy Policy</a> &middot; <a href="#">Manage Cookies</a>
-      </div>
-    </div>
-
   </div>
+
+  <!-- SOCIAL PROOF EYEBROW -->
+  <p class="muted" style="margin: 14px 0 8px;">Real results based on patterns across 100+ med spa audits</p>
+
+  <!-- TESTIMONIAL 1 -->
+  <div class="glass">
+    <div class="inner">
+      <div style="color:#FFD700;font-size:0.875rem;margin-bottom:8px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p style="font-size:0.875rem;color:rgba(255,255,255,0.72);line-height:1.6;font-style:italic;margin-bottom:14px;">"Stuck at $38K/month for two years. We activated our lapsed patient list and had our first $115K month 90 days later &mdash; same patients, same team, different systems."</p>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:32px;height:32px;border-radius:50%;background:#1ED97E;color:#0a2018;font-size:0.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">MS</div>
+        <div>
+          <div style="font-weight:700;font-size:0.875rem;color:#fff;">Renew Med Spa</div>
+          <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);">Single location &middot; Independent owner &middot; 4 years in business</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIAL 2 -->
+  <div class="glass">
+    <div class="inner">
+      <div style="color:#FFD700;font-size:0.875rem;margin-bottom:8px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p style="font-size:0.875rem;color:rgba(255,255,255,0.72);line-height:1.6;font-style:italic;margin-bottom:14px;">"We had 400 patients in our system we'd never reached out to. The reactivation sequence brought in $41,000 in 24 hours. I didn't know I was sitting on that."</p>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:32px;height:32px;border-radius:50%;background:#1ED97E;color:#0a2018;font-size:0.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">MS</div>
+        <div>
+          <div style="font-weight:700;font-size:0.875rem;color:#fff;">Radiance Med Spa</div>
+          <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);">15-year practice &middot; Independent owner</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <a href="#">Terms of Use</a> &middot; <a href="#">Privacy Policy</a> &middot; <a href="#">Manage Cookies</a>
+  </div>
+
 </div>
 
 <script>
-  document.querySelector('.js-brand-short').textContent = KROW.BRAND_SHORT;
+  document.querySelectorAll('.js-topbar').forEach(function(el) { el.textContent = KROW.WEBINAR_TOPBAR; });
 
   // If they arrived via the VIP checkbox on the registration page, adjust the hero copy
   const vipIntent = localStorage.getItem('funnel_vip_intent');

@@ -13,11 +13,11 @@ window.KROW = {
   DOMAIN:      'heykrow.com',
 
   // ── WEBINAR DATE / TIME ───────────────────────────────────────────────────
-  // Format examples: 'Tuesday, November 18' / 'Tue, Nov 18'
-  WEBINAR_DATE_LONG:   'Tuesday, TBD',       // e.g. 'Tuesday, November 18'
-  WEBINAR_DATE_SHORT:  'Tue TBD',            // e.g. 'Tue, Nov 18'
+  // Format examples: 'Thursday, November 18' / 'Tue, Nov 18'
+  WEBINAR_DATE_LONG:   'Wednesday, December 2',  // e.g. 'Thursday, November 18'
+  WEBINAR_DATE_SHORT:  'Wed, Dec 2',             // e.g. 'Tue, Nov 18'
   WEBINAR_TIME:        '7:00 PM EST',
-  WEBINAR_DAY:         'Tuesday',            // plain day name for sentences
+  WEBINAR_DAY:         'Wednesday',              // plain day name for sentences
   WEBINAR_DURATION:    '90 minutes',
 
   // Full display used in CTAs: e.g. "Tue, Nov 18 · 7:00 PM EST"
@@ -25,9 +25,14 @@ window.KROW = {
     return this.WEBINAR_DATE_SHORT + ' \u00b7 ' + this.WEBINAR_TIME;
   },
 
-  // Full sentence: e.g. "Tuesday, November 18 at 7:00 PM EST"
+  // Full sentence: e.g. "Thursday, November 18 at 7:00 PM EST"
   get WEBINAR_DATETIME_FULL() {
     return this.WEBINAR_DATE_LONG + ' at ' + this.WEBINAR_TIME;
+  },
+
+  // Top-bar banner text: e.g. "Free LIVE Masterclass • Wed, Dec 2 • 7:00 PM EST"
+  get WEBINAR_TOPBAR() {
+    return 'Free LIVE Masterclass \u2022 ' + this.WEBINAR_DATE_SHORT + ' \u2022 ' + this.WEBINAR_TIME;
   },
 
   // ── LINKS (fill in before launch) ─────────────────────────────────────────
@@ -36,11 +41,11 @@ window.KROW = {
   ZOOM_JOIN_URL:    '#',  // TODO: Zoom webinar join link
 
   // ── PAYMENTS ──────────────────────────────────────────────────────────────
-  STRIPE_SPRINT_URL:           'https://buy.stripe.com/test_bJecN4gGs4uE01n5NudnW04',  // Strategy Sprint — $1,960 webinar price
-  STRIPE_SPRINT_STANDARD_URL:  'https://buy.stripe.com/test_3cI4gyduggdmg0l2BidnW05',  // Strategy Sprint — $2,800 standard
-  STRIPE_ANALYSIS_URL:         'https://buy.stripe.com/test_6oUaEWdugbX68xT2BidnW06',  // Med Spa Performance Analysis — $5,950 webinar price
-  STRIPE_ANALYSIS_STANDARD_URL:'https://buy.stripe.com/test_4gM9AS4XK9OY15ra3KdnW07',  // Med Spa Performance Analysis — $8,500 standard
-  STRIPE_ACCELERATOR_URL:      'https://buy.stripe.com/test_dRmcN41LybX601n6RydnW02',  // Scale Accelerator — $17,997
+  STRIPE_SPRINT_URL:           'https://buy.stripe.com/7sY00igNt4O25iq5QC53O05',  // Strategy Sprint — $1,960 webinar price
+  STRIPE_SPRINT_STANDARD_URL:  'https://buy.stripe.com/9B600i7cT4O2dOWdj453O02',  // Strategy Sprint — $2,800 standard
+  STRIPE_ANALYSIS_URL:         'https://buy.stripe.com/aFa9AS8gX3JYfX492O53O04',  // Med Spa Performance Analysis — $5,950 webinar price
+  STRIPE_ANALYSIS_STANDARD_URL:'https://buy.stripe.com/bJe28q0Ov4O29yG6UG53O00',  // Med Spa Performance Analysis — $8,500 standard
+  STRIPE_ACCELERATOR_URL:      'https://buy.stripe.com/5kQaEW1Sz94i5iqcf053O01',  // Scale Accelerator — $17,997
   STRIPE_VIP_KIT_URL:     'https://buy.stripe.com/28EfZggNt5S6eT092O53O03',
 
   // ── N8N WEBHOOK ───────────────────────────────────────────────────────────

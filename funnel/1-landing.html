@@ -3,148 +3,644 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Free Live Masterclass Krow Med Spa Growth</title>
-<link rel="stylesheet" href="assets/style.css">
+<title>Free Live Masterclass — Krow Med Spa Growth</title>
 <script src="assets/config.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── FIXED DARK SPA BACKGROUND ── */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 100% 55% at 20% 10%, rgba(40,110,70,0.55) 0%, transparent 65%),
+    radial-gradient(ellipse 80% 50% at 85% 5%,  rgba(100,70,100,0.3)  0%, transparent 60%),
+    radial-gradient(ellipse 90% 55% at 10% 90%, rgba(30,90,55,0.5)    0%, transparent 65%),
+    radial-gradient(ellipse 70% 50% at 90% 85%, rgba(140,110,130,0.2)  0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(20,70,100,0.35)   0%, transparent 70%),
+    linear-gradient(165deg, #1E3D4A 0%, #1A3D30 35%, #172E24 65%, #1A3028 100%);
+  background-attachment: fixed;
+}
+
+/* Dark vignette for depth */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 100% 40% at 50% 0%,   rgba(0,0,0,0.2)  0%, transparent 70%),
+    radial-gradient(ellipse 100% 40% at 50% 100%, rgba(0,0,0,0.35) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* SVG botanical silhouettes — fixed at base */
+.foliage {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 160px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── PAGE CONTENT ── */
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 24px 14px 80px;
+}
+
+/* ── GLASS CARD BASE ── */
+.glass {
+  background: rgba(255,255,255,0.09);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 22px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15);
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+/* ══ SECTION 1: HERO ══ */
+.hero {
+  padding: 32px 26px 28px;
+  text-align: center;
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 20px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.badge .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #1ED97E;
+  box-shadow: 0 0 0 0 rgba(30,217,126,0.6);
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0   rgba(30,217,126,0.6); }
+  70%  { box-shadow: 0 0 0 7px rgba(30,217,126,0); }
+  100% { box-shadow: 0 0 0 0   rgba(30,217,126,0); }
+}
+
+/* Qualifier */
+.qualifier {
+  font-size: 0.9375rem;
+  color: rgba(255,255,255,0.5);
+  font-style: italic;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+.qualifier strong {
+  font-style: normal;
+  font-weight: 900;
+  color: #1ED97E;
+}
+
+/* Headline */
+h1 {
+  font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.2);
+}
+.hl {
+  background: rgba(0,200,240,0.38);
+  padding: 1px 7px;
+  border-radius: 4px;
+}
+
+/* Proof line */
+.proof-line {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  font-style: italic;
+  margin: 20px 0 6px;
+  line-height: 1.5;
+}
+.proof-hl { color: #00C8F0; font-weight: 700; }
+
+/* Countdown */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 22px 0 14px;
+}
+.cd-unit {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  width: 68px;
+  padding: 11px 6px 9px;
+  text-align: center;
+}
+.cd-num {
+  display: block;
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.cd-label {
+  display: block;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-top: 5px;
+}
+
+.date-line {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 22px;
+  font-weight: 500;
+}
+
+/* CTA button — glass pill */
+.cta-btn {
+  display: block;
+  width: 100%;
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.28);
+  color: #fff;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 1.0625rem;
+  padding: 13px 24px;
+  border-radius: 100px;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.3;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.2);
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+.cta-btn:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.42); transform: translateY(-1px); }
+.cta-btn .sub {
+  display: block;
+  font-weight: 400;
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.55);
+  margin-top: 3px;
+}
+.below-cta {
+  text-align: center;
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.3);
+  margin-top: 10px;
+}
+/* Sub text moved below button on mobile */
+.cta-meta {
+  display: none;
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 7px;
+}
+
+/* ══ SECTION 2: LEARN ══ */
+.learn-section { padding: 26px 26px 28px; }
+
+.section-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin: 24px 0;
+}
+.learn-intro {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+.learn-intro u { text-decoration-color: rgba(0,200,240,0.4); }
+.learn-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0 0 26px;
+}
+.learn-list li {
+  font-size: 0.9375rem;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.55;
+  padding-left: 22px;
+  position: relative;
+}
+.learn-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #1ED97E;
+  font-size: 1.1rem;
+  top: 1px;
+}
+.learn-list li strong { color: #fff; }
+
+/* ══ SECTION 3: MATH ══ */
+.math-section { padding: 26px 26px 24px; }
+
+.math-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #00C8F0;
+  margin-bottom: 10px;
+}
+.math-h2 {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 20px;
+  line-height: 1.25;
+}
+.math-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  gap: 12px;
+}
+.math-row:last-child { border-bottom: none; }
+.math-label {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.4;
+  flex: 1;
+}
+.math-label strong {
+  color: rgba(255,255,255,0.9);
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.9375rem;
+}
+.math-desc { display: inline; }
+.math-num {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #00C8F0;
+  white-space: nowrap;
+  text-align: right;
+  flex-shrink: 0;
+}
+.math-total {
+  background: #1ED97E;
+  color: #0a2018;
+  padding: 16px 18px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+.math-total .tl { font-weight: 700; font-size: 0.9375rem; line-height: 1.35; }
+.math-total .tn { font-weight: 900; font-size: 1.5rem; white-space: nowrap; }
+.math-note {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 12px;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ══ SECTION 4: WALKAWAY ══ */
+.walkaway-section { padding: 26px 26px 24px; }
+
+.wa-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 20px;
+}
+.wa-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.wa-row:last-child { border-bottom: none; }
+.wa-check {
+  width: 26px; height: 26px;
+  background: #1ED97E;
+  color: #0a2018;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  box-shadow: 0 2px 8px rgba(30,217,126,0.3);
+}
+.wa-title { font-weight: 700; font-size: 0.9375rem; color: #fff; margin-bottom: 3px; }
+.wa-desc  { font-size: 0.875rem; color: rgba(255,255,255,0.55); line-height: 1.55; }
+
+/* ══ SECTION 5: BOTTOM CTA ══ */
+.bottom-cta { padding: 26px 26px 28px; text-align: center; }
+.bottom-note {
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.below-cta-dark {
+  text-align: center;
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 10px;
+}
+
+/* Footer */
+.pg-footer {
+  text-align: center;
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.25);
+  padding: 8px 0 20px;
+}
+.pg-footer a { color: rgba(255,255,255,0.25); margin: 0 6px; text-decoration: none; }
+.pg-footer a:hover { color: rgba(255,255,255,0.5); }
+
+/* ── Responsive ── */
+@media (max-width: 540px) {
+  .wrap { padding: 16px 12px 100px; }
+  .glass { margin-bottom: 12px; border-radius: 18px; }
+  .hero            { padding: 28px 20px 26px; }
+  .learn-section   { padding: 24px 20px 26px; }
+  .math-section    { padding: 24px 20px 22px; }
+  .walkaway-section{ padding: 24px 20px 22px; }
+  .bottom-cta      { padding: 24px 20px 26px; }
+  .badge { font-size: 0.6875rem; padding: 5px 12px; gap: 6px; }
+  h1 { font-size: clamp(1.4rem, 7vw, 1.75rem); letter-spacing: -0.02em; }
+  .proof-line { font-size: 0.875rem; margin: 16px 0 6px; }
+  .countdown { gap: 6px; margin: 18px 0 12px; }
+  .cd-unit   { width: 54px; padding: 10px 4px 8px; border-radius: 10px; }
+  .cd-num    { font-size: 1.25rem; }
+  .cd-label  { font-size: 0.5rem; margin-top: 4px; }
+  .date-line { font-size: 0.8125rem; margin-bottom: 18px; }
+  .cta-btn      { font-size: 0.9375rem; padding: 12px 20px; border-radius: 50px; }
+  .cta-btn .sub { display: none; }
+  .cta-meta     { display: block; }
+  .learn-intro { font-size: 1rem; }
+  .learn-list li { font-size: 0.875rem; }
+  .math-h2    { font-size: 1.125rem; }
+  .math-label { font-size: 0.8125rem; }
+  .math-label strong { font-size: 0.875rem; }
+  .math-num   { font-size: 1.0625rem; }
+  .math-desc  { display: none; }
+  .below-cta  { display: none; }
+  .math-total {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 14px 16px;
+    border-radius: 10px;
+  }
+  .math-total .tl { font-size: 0.875rem; }
+  .math-total .tn { font-size: 1.375rem; }
+  .wa-title { font-size: 0.9375rem; }
+  .wa-desc  { font-size: 0.8125rem; }
+  .wa-row   { gap: 12px; padding: 13px 0; }
+  .bottom-note { font-size: 0.75rem; }
+}
+
+/* ── STICKY MOBILE CTA BAR ── */
+.sticky-bar {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 999;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(12,26,20,0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.5);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.sticky-bar.visible { transform: translateY(0); }
+@media (max-width: 540px) {
+  .sticky-bar { display: block; }
+}
+.sticky-bar-btn {
+  display: block;
+  width: 100%;
+  background: rgba(255,255,255,0.16);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 13px 20px;
+  border-radius: 100px;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: -0.01em;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.sticky-bar-hint {
+  text-align: center;
+  font-size: 0.6875rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 5px;
+}
+</style>
 </head>
 <body>
-<div class="page">
-  <div class="inner">
 
-    <a href="1-landing.html" class="logo">K</a>
+<!-- Fixed botanical foliage at base -->
+<svg class="foliage" viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="70"   cy="160" rx="85"  ry="120" fill="rgba(40,90,55,0.4)"   transform="rotate(-8,70,160)"/>
+  <ellipse cx="30"   cy="160" rx="50"  ry="90"  fill="rgba(25,70,40,0.3)"   transform="rotate(6,30,160)"/>
+  <ellipse cx="155"  cy="160" rx="65"  ry="100" fill="rgba(50,100,65,0.3)"  transform="rotate(-14,155,160)"/>
+  <ellipse cx="210"  cy="160" rx="45"  ry="75"  fill="rgba(40,90,55,0.2)"   transform="rotate(10,210,160)"/>
+  <ellipse cx="1370" cy="160" rx="85"  ry="120" fill="rgba(40,90,55,0.4)"   transform="rotate(8,1370,160)"/>
+  <ellipse cx="1410" cy="160" rx="50"  ry="90"  fill="rgba(25,70,40,0.3)"   transform="rotate(-6,1410,160)"/>
+  <ellipse cx="1285" cy="160" rx="65"  ry="100" fill="rgba(50,100,65,0.3)"  transform="rotate(14,1285,160)"/>
+  <ellipse cx="1230" cy="160" rx="45"  ry="75"  fill="rgba(40,90,55,0.2)"   transform="rotate(-10,1230,160)"/>
+  <circle  cx="295"  cy="135" r="16"  fill="rgba(190,150,170,0.35)"/>
+  <circle  cx="330"  cy="148" r="10"  fill="rgba(210,170,185,0.3)"/>
+  <circle  cx="265"  cy="152" r="9"   fill="rgba(190,150,170,0.25)"/>
+  <circle  cx="1145" cy="135" r="16"  fill="rgba(190,150,170,0.35)"/>
+  <circle  cx="1110" cy="148" r="10"  fill="rgba(210,170,185,0.3)"/>
+  <circle  cx="1175" cy="152" r="9"   fill="rgba(190,150,170,0.25)"/>
+  <rect    x="0" y="150" width="1440" height="10" fill="rgba(30,70,40,0.25)" rx="3"/>
+</svg>
 
-    <div class="hero-media">
-      <img src="https://placehold.co/480x360/111/fff?text=Video+or+Image" alt="Krow Med Spa Masterclass">
-    </div>
+<div class="wrap">
 
-    <div class="card" style="border-top-left-radius:0; border-top-right-radius:0;">
-      <div class="eyebrow-purple">Free Live Webinar</div>
-      <h1>The Ultimate Med Spa Playbook: How to 2x Your Revenue in 90 Days</h1>
-      <div class="subhead">See exactly what hundreds of med spa owners discovered about the revenue that's already sitting inside their practice and how to recover it.</div>
-
+  <!-- ══ HERO ══ -->
+  <div class="glass">
+    <div class="hero">
+      <div class="badge"><span class="dot"></span>Free Live Masterclass &bull; Limited Spots</div>
+      <div class="qualifier">only for <strong>Med Spa owners doing $1&ndash;5M</strong></div>
+      <h1>5 Revenue Systems the <span class="hl">Top 5%</span> of Med Spas Are Doing</h1>
+      <p class="proof-line">
+        What the top 5% of med spas are doing,<br>
+        <span class="proof-hl">based on 100+ independent med spa audits</span>
+      </p>
+      <div class="countdown">
+        <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-label">Days</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-label">Hours</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-label">Min</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-label">Sec</span></div>
+      </div>
+      <div class="date-line">Wednesday, December 2 &middot; 7 PM Eastern &middot; 90 minutes</div>
       <a href="2-quiz.html" class="cta-btn">
-        <span class="cta-main">See the Live Med Spa Audit &amp; Fix</span>
-        <span class="cta-sub">Free live webinar &bull; <span class="js-datetime"></span></span>
+        I Want to Attend the Free Webinar
+        <span class="sub">Free &bull; <span class="js-datetime"></span></span>
       </a>
+      <div class="cta-meta">Free &bull; <span class="js-datetime"></span></div>
+      <div class="below-cta">Free to attend.</div>
     </div>
-
-    <div class="trapped-block">
-      <div class="trapped-header">Sound familiar?</div>
-      <ul class="trapped-list">
-        <li>You're working 60+ hours a week  - and the revenue number still hasn't moved.</li>
-        <li>Everything routes through you. The practice can't run without you in every decision.</li>
-        <li>You've tried ads, new services, more effort. The ceiling didn't move.</li>
-        <li>You've thought about selling  - not because it's failing, but because you can't step away from it.</li>
-      </ul>
-      <div class="trapped-close">That's not a you problem. It's a systems problem. This session is built for exactly this.</div>
-    </div>
-
-    <div class="section-gap"></div>
-
-    <div class="center">
-      <div class="eyebrow">Inside the 90-Minute Session</div>
-      <h2>Three systems. The math modelled live for your revenue level.</h2>
-      <div class="subhead">Not theory. Not case studies. Your numbers, on screen, showing you exactly where the revenue is.</div>
-    </div>
-
-    <ul class="session-list">
-      <li class="session-item">
-        <span class="session-check">&#10003;</span>
-        <div><strong>Why revenue feels stuck</strong>  - the 3 internal leaks draining most $1M–$5M practices. None of them are your marketing.</div>
-      </li>
-      <li class="session-item">
-        <span class="session-check">&#10003;</span>
-        <div><strong>The lapsed patient math</strong>  - how practices pull $28K–$44K from names already in their system. No new ads. No new patients.</div>
-      </li>
-      <li class="session-item">
-        <span class="session-check">&#10003;</span>
-        <div><strong>The rebooking fix</strong>  - what moves a practice from 45% to 74%+ retention and what that adds to monthly revenue in dollar terms.</div>
-      </li>
-    </ul>
-
-    <div class="stat-section-label">What practices see after applying the playbook</div>
-
-    <div class="stat-grid">
-      <div class="stat-tile">
-        <div class="stat-number">$35K–$80K</div>
-        <div class="stat-label">Average recoverable revenue found per practice before touching lead gen</div>
-      </div>
-      <div class="stat-tile">
-        <div class="stat-number">$28K–$44K</div>
-        <div class="stat-label">From the first lapsed patient campaign using names already in the system</div>
-      </div>
-      <div class="stat-tile">
-        <div class="stat-number">90 days</div>
-        <div class="stat-label">Average timeline for revenue to move once the right systems are in place</div>
-      </div>
-      <div class="stat-tile">
-        <div class="stat-number">74–90%</div>
-        <div class="stat-label">Target rebooking rate vs. 40–45% industry average  - the gap is $20K–$40K/month</div>
-      </div>
-    </div>
-
-    <div style="font-size:0.6875rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); text-align:center; margin-top:14px;">Based on patterns from 50+ independent med spa audits</div>
-
-    <div class="section-gap"></div>
-
-    <div class="card">
-      <div class="icon-circle">📡</div>
-      <h2>Join the Live Masterclass</h2>
-      <div class="subhead">90 minutes. No replays. Bring a notebook.</div>
-      <a href="2-quiz.html" class="cta-btn">
-        <span class="cta-main">See the Live Med Spa Audit &amp; Fix</span>
-        <span class="cta-sub">Free live webinar &bull; <span class="js-datetime"></span></span>
-      </a>
-    </div>
-
-    <div class="section-gap"></div>
-
-    <div class="center">
-      <h2>What's in it for you?</h2>
-      <div class="subhead">This is not a marketing webinar. It's an operational blueprint built from working with hundreds of med spa owners at every revenue level.</div>
-    </div>
-
-    <div class="benefit-grid">
-      <div class="benefit-block">
-        <div class="icon-circle">📊</div>
-        <h3>Why Revenue Feels Stuck And It's Not Your Marketing</h3>
-        <p>The structural reason most practices hover at the same number month after month. One change breaks the pattern.</p>
-      </div>
-      <div class="benefit-block">
-        <div class="icon-circle">⚙️</div>
-        <h3>The Delegation Blueprint So You're Not the Bottleneck</h3>
-        <p>Build the SOPs and management layer that lets your team handle it without you in every decision.</p>
-      </div>
-      <div class="benefit-block">
-        <div class="icon-circle">👥</div>
-        <h3>The Retention Gap Bleeding $10K–$30K Every Month</h3>
-        <p>Why a 50% rebooking rate silently kills profit and how to close it with a system your front desk already runs.</p>
-      </div>
-      <div class="benefit-block">
-        <div class="icon-circle">💰</div>
-        <h3>How to Add $20K–$50K/Month Without New Patients</h3>
-        <p>The membership and retail frameworks that create predictable recurring revenue from your existing patient base.</p>
-      </div>
-    </div>
-
-    <a href="2-quiz.html" class="cta-btn">
-      <span class="cta-main">See the Live Med Spa Audit &amp; Fix</span>
-      <span class="cta-sub">Free live webinar &bull; <span class="js-datetime"></span></span>
-    </a>
-
-    <div class="footer">
-      <div class="footer-links">
-        <a href="#">Terms of Use</a> · <a href="#">Privacy Policy</a> · <a href="#">Manage Cookies</a>
-      </div>
-    </div>
-
   </div>
+
+  <!-- ══ LEARN ══ -->
+  <div class="glass">
+    <div class="learn-section">
+      <div class="learn-intro">&raquo; In just 60 minutes, <u>you'll learn:</u></div>
+      <ul class="learn-list">
+        <li><strong>The 5 Revenue Systems:</strong> what the top 5% are doing to add $50K&ndash;$200K per month. Not more ads.</li>
+        <li><strong>$28K&ndash;$44K already in your database:</strong> we show you exactly how to pull it out in 30 days.</li>
+        <li><strong>20+ hours back per week:</strong> how owners step out of daily operations without revenue dropping.</li>
+      </ul>
+      <a href="2-quiz.html" class="cta-btn">
+        I Want to Attend the Free Webinar
+        <span class="sub">Free &bull; <span class="js-datetime"></span></span>
+      </a>
+      <div class="cta-meta">Free &bull; <span class="js-datetime"></span></div>
+      <div class="below-cta">Free to attend.</div>
+    </div>
+  </div>
+
+  <!-- ══ MATH ══ -->
+  <div class="glass">
+    <div class="math-section">
+      <div class="math-eyebrow">Average results, $1M&ndash;$5M practices</div>
+      <h2 class="math-h2">Three places revenue is sitting right now</h2>
+      <div class="math-row">
+        <div class="math-label"><strong>Patients who left, brought back</strong><span class="math-desc">Most practices have hundreds of past patients who went quiet. One targeted outreach typically adds:</span></div>
+        <div class="math-num">$28&ndash;44K</div>
+      </div>
+      <div class="math-row">
+        <div class="math-label"><strong>One-time visits turned into regulars</strong><span class="math-desc">The revenue difference between a 45% and 74%+ rebooking rate at your monthly volume.</span></div>
+        <div class="math-num">$12&ndash;22K/mo</div>
+      </div>
+      <div class="math-row">
+        <div class="math-label"><strong>Active patients moved to a monthly plan</strong><span class="math-desc">Converting 8&ndash;12% of current patients to a recurring monthly membership.</span></div>
+        <div class="math-num">$9&ndash;18K/mo</div>
+      </div>
+      <div class="math-total">
+        <span class="tl">Recoverable revenue<br>before touching ad spend</span>
+        <span class="tn">$35&ndash;$80K/mo</span>
+      </div>
+      <div class="math-note">Based on patterns across 100+ med spa practice audits. We'll model your numbers live.</div>
+    </div>
+  </div>
+
+  <!-- ══ WALKAWAY ══ -->
+  <div class="glass">
+    <div class="walkaway-section">
+      <div class="wa-eyebrow">What You'll Walk Away With</div>
+      <div class="wa-row"><div class="wa-check">&#10003;</div><div><div class="wa-title">The Exact Revenue Levers Inside Your Practice</div><div class="wa-desc">The lapsed patient math, the rebooking gap, and the membership multiplier, modelled live at your revenue level.</div></div></div>
+      <div class="wa-row"><div class="wa-check">&#10003;</div><div><div class="wa-title">A 90-Day Sprint Plan You Can Start Monday</div><div class="wa-desc">Week-by-week priorities based on the 3 systems that move practices fastest. Not theory. Sequenced actions.</div></div></div>
+      <div class="wa-row"><div class="wa-check">&#10003;</div><div><div class="wa-title">The Lead-to-Booking System</div><div class="wa-desc">Why two practices can spend the same on ads and one books 7 out of 10 leads while the other books 1 or 2 &mdash; and exactly how to fix it.</div></div></div>
+      <div class="wa-row"><div class="wa-check">&#10003;</div><div><div class="wa-title">The Free Profit Systems Playbook</div><div class="wa-desc">Every framework, benchmark, and formula from the session. Yours to keep regardless of what you decide at the end.</div></div></div>
+    </div>
+  </div>
+
+  <!-- ══ BOTTOM CTA ══ -->
+  <div class="glass">
+    <div class="bottom-cta">
+      <div class="bottom-note">Built for practices doing $80K+ per month. If you're just getting started, keep this for later.</div>
+      <a href="2-quiz.html" class="cta-btn">
+        I Want to Attend the Free Webinar
+        <span class="sub">Free live webinar &bull; <span class="js-datetime"></span></span>
+      </a>
+      <div class="cta-meta">Free live webinar &bull; <span class="js-datetime"></span></div>
+      <div class="below-cta-dark">Spots are limited.</div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <a href="#">Terms of Use</a> &middot; <a href="#">Privacy Policy</a> &middot; <a href="#">Manage Cookies</a>
+  </div>
+
+</div>
+
+<!-- Sticky mobile CTA — appears after scroll -->
+<div class="sticky-bar" id="stickyBar">
+  <a href="2-quiz.html" class="sticky-bar-btn">I Want to Attend the Free Webinar</a>
+  <div class="sticky-bar-hint">Free &bull; <span class="js-datetime"></span></div>
 </div>
 
 <script>
-  document.querySelectorAll('.js-datetime').forEach(function(el) {
-    el.textContent = KROW.WEBINAR_DATETIME;
-  });
+  // Countdown to webinar
+  var target = new Date('2026-12-02T19:00:00-05:00').getTime();
+  function tick() {
+    var diff = Math.max(0, target - Date.now());
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000)  / 60000);
+    var s = Math.floor((diff % 60000)    / 1000);
+    document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 1000);
+
+  // Config-driven datetime
+  if (typeof KROW !== 'undefined') {
+    document.querySelectorAll('.js-datetime').forEach(function(el) {
+      el.textContent = KROW.WEBINAR_DATETIME;
+    });
+  }
+
+  // Sticky bar — show after scrolling past hero
+  var stickyBar = document.getElementById('stickyBar');
+  window.addEventListener('scroll', function() {
+    stickyBar.classList.toggle('visible', window.scrollY > 300);
+  }, { passive: true });
 </script>
 </body>
 </html>

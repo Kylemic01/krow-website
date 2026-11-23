@@ -3,98 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Reserve Your Spot Krow Med Spa Growth</title>
-<link rel="stylesheet" href="assets/style.css">
+<title>Reserve Your Spot — Krow Med Spa Growth</title>
+<link rel="stylesheet" href="assets/style-dark.css">
 <script src="assets/config.js"></script>
 </head>
 <body>
-<div class="page">
+<div class="wrap">
 
-  <nav class="nav">
-    <a href="1-landing.html" class="logo-text">Krow</a>
-  </nav>
+  <div class="top-bar js-topbar">Free LIVE Masterclass &bull; Wednesday, Dec 2 &bull; 7 PM EST</div>
 
-  <div class="inner">
+  <div class="glass">
+    <div class="card-hdr">Step 2 of 2 &mdash; Claim Your Free Spot</div>
+    <div class="inner">
 
-    <div class="text-center" style="margin-bottom:24px;">
-      <div class="eyebrow">Free Live Masterclass</div>
-      <h1>Enter your details to claim your spot</h1>
-      <p class="subhead mt-8">We'll send your access link, calendar invite, and SMS reminders so you don't miss it.</p>
+      <h2 style="margin-bottom:6px;">Enter your details to reserve your seat</h2>
+      <p class="sub-text">We'll send your access link, calendar invite, and SMS reminders so you don't miss it.</p>
+
+      <div class="host-row">
+        <div class="host-avatar">K</div>
+        <div>
+          <div class="host-name js-brand-masterclass"></div>
+          <div class="host-meta js-host-datetime"></div>
+        </div>
+      </div>
+
+      <form id="optinForm" onsubmit="return handleSubmit(event)">
+        <div class="field">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="Your first and last name" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="The one you actually check" required autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="phone">Mobile Phone Number</label>
+          <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required autocomplete="tel">
+          <div class="field-note">We'll send you reminders via text so you don't miss the session.</div>
+        </div>
+
+        <div class="error-msg" id="errorMsg">Please fill in all fields above.</div>
+
+        <div class="consent-row">
+          <input type="checkbox" id="consent" required>
+          <label for="consent">I agree to the <a href="#">Privacy Policy</a> and consent to receive email and SMS reminders for this event. Message &amp; data rates may apply. Reply STOP to opt out.</label>
+        </div>
+
+        <div class="vip-frame">
+          <label for="vipCheck">
+            <input type="checkbox" id="vipCheck">
+            <div>
+              <span class="vip-frame-title">&#11088; Yes, make me a VIP attendee</span>
+              <span class="vip-frame-desc">Add the Krow Implementation Kit ($97) &mdash; done-for-you scripts, templates, and calculators delivered before the masterclass. Check this to see what&rsquo;s included on the next page.</span>
+            </div>
+          </label>
+        </div>
+
+        <button type="submit" class="cta-btn">
+          <span class="cta-main">Reserve My Spot &rarr;</span>
+          <span class="sub">Free &bull; No credit card needed</span>
+        </button>
+      </form>
+
+      <div class="trust-row">
+        &#128274;&nbsp; Your information is never sold or shared. &nbsp;&bull;&nbsp; Built from 100+ independent med spa practice audits.
+      </div>
+
     </div>
-
-    <!-- HOST REMINDER -->
-    <div class="host-block">
-      <div class="host-initial">K</div>
-      <div>
-        <div class="host-name js-brand-masterclass"></div>
-        <div class="host-title js-host-datetime"></div>
-      </div>
-    </div>
-
-    <!-- REGISTRATION FORM -->
-    <form id="optinForm" onsubmit="return handleSubmit(event)">
-      <div class="field">
-        <label for="fullName">Full Name</label>
-        <input type="text" id="fullName" placeholder="Your first and last name" required autocomplete="name">
-      </div>
-      <div class="field">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="The one you actually check" required autocomplete="email">
-      </div>
-      <div class="field">
-        <label for="phone">Mobile Phone Number</label>
-        <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required autocomplete="tel">
-        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">We'll send you reminders via text so you don't miss the session.</div>
-      </div>
-
-      <div class="error-msg" id="errorMsg">Please fill in all fields above.</div>
-
-      <div class="consent-row">
-        <input type="checkbox" id="consent" required>
-        <label for="consent">I agree to the <a href="#">Privacy Policy</a> and consent to receive email and SMS reminders for this event. Message &amp; data rates may apply. Reply STOP to opt out.</label>
-      </div>
-
-      <!-- VIP PRE-FRAME checked = skip survey, go straight to VIP checkout -->
-      <div class="vip-pre-frame">
-        <label class="vip-pre-frame-label" for="vipCheck">
-          <input type="checkbox" id="vipCheck">
-          <div>
-            <span class="vip-frame-title">&#11088; Yes make me a VIP attendee</span>
-            <span class="vip-frame-desc">Add the Krow Implementation Kit ($97) done-for-you scripts, templates, and calculators delivered before the masterclass. Check this to see what&rsquo;s included on the next page.</span>
-          </div>
-        </label>
-      </div>
-
-      <button type="submit" class="btn-primary">
-        Reserve My Spot &rarr;
-        <span class="btn-sub">Free &bull; No credit card needed</span>
-      </button>
-    </form>
-
-    <!-- TRUST -->
-    <div style="margin-top:24px; text-align:center;">
-      <div style="font-size:0.75rem; color:var(--text-muted);">
-        &#128274;&nbsp; Your information is never sold or shared. &nbsp;&bull;&nbsp; Built from 50+ independent med spa practice audits.
-      </div>
-    </div>
-
-    <div class="footer">
-      <div class="footer-links">
-        <a href="#">Terms of Use</a> &middot; <a href="#">Privacy Policy</a> &middot; <a href="#">Manage Cookies</a>
-      </div>
-    </div>
-
   </div>
+
+  <div class="pg-footer">
+    <a href="#">Terms of Use</a> &middot; <a href="#">Privacy Policy</a> &middot; <a href="#">Manage Cookies</a>
+  </div>
+
 </div>
 
 <script>
+  document.querySelectorAll('.js-topbar').forEach(function(el) { el.textContent = KROW.WEBINAR_TOPBAR; });
   document.querySelector('.js-brand-masterclass').textContent =
     'Live Masterclass with ' + KROW.BRAND_SHORT;
   document.querySelector('.js-host-datetime').textContent =
     KROW.WEBINAR_DATETIME + ' \u2022 90 minutes \u2022 Free';
 
-  // Webhook URL is set in assets/config.js → KROW.N8N_WEBHOOK_URL
-  // n8n flow: register in WebinarJam (add WJ API key in n8n) → tag in MailerLite → log to Google Sheet
   const N8N_WEBHOOK_URL = KROW.N8N_WEBHOOK_URL;
 
   async function handleSubmit(event) {
@@ -113,11 +103,10 @@
     }
     errEl.style.display = 'none';
     btn.disabled = true;
-    btn.textContent = 'Reserving your spot…';
+    btn.querySelector('.cta-main').textContent = 'Reserving your spot\u2026';
 
     const vipWanted = document.getElementById('vipCheck').checked;
 
-    // Save locally so survey/thank-you pages can read the name
     localStorage.setItem('funnel_name',       name);
     localStorage.setItem('funnel_email',      email);
     localStorage.setItem('funnel_phone',      phone);
@@ -134,18 +123,14 @@
           phone,
           vip_intent: vipWanted,
           quiz_goal:  localStorage.getItem('funnel_goal') || '',
-          // WebinarJam fields  - used by n8n to register contact (add WJ API key in n8n node)
           wj_first_name: name.split(' ')[0],
           wj_last_name:  name.split(' ').slice(1).join(' ') || '',
         })
       });
     } catch (err) {
-      // Don't block the user if the webhook fails log and continue
       console.error('Registration webhook error:', err);
     }
 
-    // VIP intent → go straight to VIP checkout (skip survey)
-    // No VIP intent → go to survey as normal
     window.location.href = vipWanted ? '3b-vip.html' : '3-survey.html';
     return false;
   }

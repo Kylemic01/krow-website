@@ -1,3 +1,6 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/survey", "destination": "/funnel/4b-survey.html" }
+  ]
 }

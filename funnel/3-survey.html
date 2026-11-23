@@ -3,122 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Almost There Krow Med Spa Growth</title>
-<link rel="stylesheet" href="assets/style.css">
+<title>Almost There — Krow Med Spa Growth</title>
+<link rel="stylesheet" href="assets/style-dark.css">
 <script src="assets/config.js"></script>
 </head>
 <body>
-<div class="page">
+<div class="wrap">
 
-  <nav class="nav">
-    <a href="1-landing.html" class="logo-text js-brand-short"></a>
-  </nav>
+  <div class="top-bar js-topbar">Free LIVE Masterclass &bull; Wednesday, Dec 2 &bull; 7 PM EST</div>
 
-  <div class="inner">
+  <div class="glass">
+    <div class="card-hdr">You're Almost Registered &mdash; 5 Quick Questions</div>
+    <div class="inner">
 
-    <!-- TRANSITION FRAMING reframes survey as a requirement, not optional -->
-    <div class="text-center" style="margin-bottom:28px;">
-      <div class="eyebrow">You're Almost Registered</div>
-      <h1 style="font-size:1.5rem;">Answer 5 quick questions to confirm your spot</h1>
-      <p class="subhead mt-8">This helps us personalize the session for where you are in your business. Takes about 60 seconds.</p>
+      <h2 style="margin-bottom:6px;">Help us personalize your session</h2>
+      <p class="sub-text">This takes about 60 seconds and helps us show you the most relevant strategies for where you are right now.</p>
+
+      <div class="prog-wrap">
+        <div class="prog-track">
+          <div class="prog-fill" id="progressFill" style="width:17%;"></div>
+        </div>
+        <div class="prog-label" id="progressLabel">Question 1 of 6</div>
+      </div>
+
+      <!-- Q0: Owner gatekeeper -->
+      <div class="q-block active" id="q0">
+        <div class="q-label">Are you the owner or primary decision-maker at your med spa?</div>
+        <div class="q-hint">This helps us make sure we show you the most relevant content.</div>
+        <div class="option-list">
+          <button class="option-btn" onclick="selectOption(this,'q0','yes-owner')">Yes &mdash; I own or run the practice</button>
+          <button class="option-btn" onclick="selectOption(this,'q0','no-owner')">No &mdash; I work for or with the practice</button>
+        </div>
+        <div class="survey-actions">
+          <button class="btn-next enabled" id="next0" onclick="goNext(0)">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Q1: Annual Revenue -->
+      <div class="q-block" id="q1">
+        <div class="q-label">What is your med spa's current annual revenue?</div>
+        <div class="q-hint">Your honest answer helps us show you the most relevant strategies.</div>
+        <div class="option-list">
+          <button class="option-btn" onclick="selectOption(this,'q1','under-500k')">Under $500K</button>
+          <button class="option-btn" onclick="selectOption(this,'q1','500k-1m')">$500K &ndash; $1M</button>
+          <button class="option-btn" onclick="selectOption(this,'q1','1m-2m')">$1M &ndash; $2M</button>
+          <button class="option-btn" onclick="selectOption(this,'q1','2m-5m')">$2M &ndash; $5M</button>
+          <button class="option-btn" onclick="selectOption(this,'q1','5m-plus')">$5M+</button>
+        </div>
+        <div class="survey-actions">
+          <button class="btn-next enabled" id="next1" onclick="goNext(1)">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Q2: Biggest Challenge -->
+      <div class="q-block" id="q2">
+        <div class="q-label">What's your biggest challenge right now?</div>
+        <div class="q-hint">Pick the one that's costing you the most.</div>
+        <div class="option-list">
+          <button class="option-btn" onclick="selectOption(this,'q2','more-leads')">Getting more new patients through the door</button>
+          <button class="option-btn" onclick="selectOption(this,'q2','converting')">Converting leads &mdash; they inquire but don't book</button>
+          <button class="option-btn" onclick="selectOption(this,'q2','retention')">Retention and no-shows &mdash; patients don't come back</button>
+          <button class="option-btn" onclick="selectOption(this,'q2','inconsistent-revenue')">Revenue is inconsistent &mdash; great months and terrible months</button>
+          <button class="option-btn" onclick="selectOption(this,'q2','scaling-without-staff')">Scaling without adding more staff or being in every decision myself</button>
+        </div>
+        <div class="survey-actions">
+          <button class="btn-back" onclick="goBack(2)">&larr; Back</button>
+          <button class="btn-next enabled" id="next2" onclick="goNext(2)">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Q3: Years in Business -->
+      <div class="q-block" id="q3">
+        <div class="q-label">How long have you been running your med spa?</div>
+        <div class="q-hint">We tailor the content to where you are in the journey.</div>
+        <div class="option-list">
+          <button class="option-btn" onclick="selectOption(this,'q3','under-1yr')">Less than 1 year</button>
+          <button class="option-btn" onclick="selectOption(this,'q3','1-3yr')">1 &ndash; 3 years</button>
+          <button class="option-btn" onclick="selectOption(this,'q3','3yr-plus')">3+ years</button>
+        </div>
+        <div class="survey-actions">
+          <button class="btn-back" onclick="goBack(3)">&larr; Back</button>
+          <button class="btn-next enabled" id="next3" onclick="goNext(3)">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Q4: Providers -->
+      <div class="q-block" id="q4">
+        <div class="q-label">How many providers work in your practice?</div>
+        <div class="q-hint">Include injectors, aestheticians, and any clinical staff who see patients.</div>
+        <div class="option-list">
+          <button class="option-btn" onclick="selectOption(this,'q4','solo')">Just me</button>
+          <button class="option-btn" onclick="selectOption(this,'q4','2-providers')">2 providers</button>
+          <button class="option-btn" onclick="selectOption(this,'q4','3-5-providers')">3&ndash;5 providers</button>
+          <button class="option-btn" onclick="selectOption(this,'q4','6-plus')">6 or more</button>
+        </div>
+        <div class="survey-actions">
+          <button class="btn-back" onclick="goBack(4)">&larr; Back</button>
+          <button class="btn-next enabled" id="next4" onclick="goNext(4)">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Q5: 12-Month Goal -->
+      <div class="q-block" id="q5">
+        <div class="q-label">What's your primary revenue goal for the next 12 months?</div>
+        <div class="q-hint">Be specific &mdash; this shapes which strategies we highlight.</div>
+        <div class="option-list">
+          <button class="option-btn" onclick="selectOption(this,'q5','hit-1m')">Hit $1M for the first time</button>
+          <button class="option-btn" onclick="selectOption(this,'q5','break-1m-3m')">Break through the $1M &ndash; $3M ceiling</button>
+          <button class="option-btn" onclick="selectOption(this,'q5','scale-3m-plus')">Scale past $3M and build a real enterprise</button>
+          <button class="option-btn" onclick="selectOption(this,'q5','improve-margins')">Revenue is fine &mdash; I need better margins and less chaos</button>
+        </div>
+        <div class="survey-actions">
+          <button class="btn-back" onclick="goBack(5)">&larr; Back</button>
+          <button class="btn-next enabled" id="next5" onclick="goNext(5)">Confirm My Spot &rarr;</button>
+        </div>
+      </div>
+
     </div>
-
-    <!-- PROGRESS -->
-    <div class="progress-wrap">
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill" style="width:20%;"></div>
-      </div>
-      <div class="progress-label" id="progressLabel">Question 1 of 5</div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Q1: Annual Revenue -->
-    <div class="question-block active" id="q1">
-      <div class="question-label">What is your med spa's current annual revenue?</div>
-      <div class="question-hint">Your honest answer helps us show you the most relevant strategies.</div>
-      <div class="option-list">
-        <button class="option-btn" onclick="selectOption(this,'q1','under-500k')">Under $500K</button>
-        <button class="option-btn" onclick="selectOption(this,'q1','500k-1m')">$500K &ndash; $1M</button>
-        <button class="option-btn" onclick="selectOption(this,'q1','1m-2m')">$1M &ndash; $2M</button>
-        <button class="option-btn" onclick="selectOption(this,'q1','2m-5m')">$2M &ndash; $5M</button>
-        <button class="option-btn" onclick="selectOption(this,'q1','5m-plus')">$5M+</button>
-      </div>
-      <div class="survey-actions">
-        <button class="btn-next" id="next1" onclick="goNext(1)">Continue &rarr;</button>
-      </div>
-    </div>
-
-    <!-- Q2: Biggest Challenge -->
-    <div class="question-block" id="q2">
-      <div class="question-label">What's your biggest challenge right now?</div>
-      <div class="question-hint">Pick the one that's costing you the most.</div>
-      <div class="option-list">
-        <button class="option-btn" onclick="selectOption(this,'q2','more-leads')">Getting more new patients through the door</button>
-        <button class="option-btn" onclick="selectOption(this,'q2','converting')">Converting leads they inquire but don't book</button>
-        <button class="option-btn" onclick="selectOption(this,'q2','retention')">Retention and no-shows patients don't come back</button>
-        <button class="option-btn" onclick="selectOption(this,'q2','inconsistent-revenue')">Revenue is inconsistent great months and terrible months</button>
-        <button class="option-btn" onclick="selectOption(this,'q2','scaling-without-staff')">Scaling without adding more staff or being in every decision myself</button>
-      </div>
-      <div class="survey-actions">
-        <button class="btn-back" onclick="goBack(2)">&larr; Back</button>
-        <button class="btn-next" id="next2" onclick="goNext(2)">Continue &rarr;</button>
-      </div>
-    </div>
-
-    <!-- Q3: Years in Business -->
-    <div class="question-block" id="q3">
-      <div class="question-label">How long have you been running your med spa?</div>
-      <div class="question-hint">We tailor the content to where you are in the journey.</div>
-      <div class="option-list">
-        <button class="option-btn" onclick="selectOption(this,'q3','under-1yr')">Less than 1 year</button>
-        <button class="option-btn" onclick="selectOption(this,'q3','1-3yr')">1 &ndash; 3 years</button>
-        <button class="option-btn" onclick="selectOption(this,'q3','3yr-plus')">3+ years</button>
-      </div>
-      <div class="survey-actions">
-        <button class="btn-back" onclick="goBack(3)">&larr; Back</button>
-        <button class="btn-next" id="next3" onclick="goNext(3)">Continue &rarr;</button>
-      </div>
-    </div>
-
-    <!-- Q4: Readiness (replaces "decision maker") -->
-    <div class="question-block" id="q4">
-      <div class="question-label">If you learned exactly what was holding your revenue back, how ready are you to take action on it?</div>
-      <div class="question-hint">Be honest there's no wrong answer here.</div>
-      <div class="option-list">
-        <button class="option-btn" onclick="selectOption(this,'q4','ready-now')">I'm ready to move now I just need the right direction</button>
-        <button class="option-btn" onclick="selectOption(this,'q4','open-to-it')">I'm open to it, but I need to see it working first</button>
-        <button class="option-btn" onclick="selectOption(this,'q4','researching')">I'm still researching my options</button>
-      </div>
-      <div class="survey-actions">
-        <button class="btn-back" onclick="goBack(4)">&larr; Back</button>
-        <button class="btn-next" id="next4" onclick="goNext(4)">Continue &rarr;</button>
-      </div>
-    </div>
-
-    <!-- Q5: 12-Month Goal -->
-    <div class="question-block" id="q5">
-      <div class="question-label">What's your primary revenue goal for the next 12 months?</div>
-      <div class="question-hint">Be specific this shapes which strategies we highlight.</div>
-      <div class="option-list">
-        <button class="option-btn" onclick="selectOption(this,'q5','hit-1m')">Hit $1M for the first time</button>
-        <button class="option-btn" onclick="selectOption(this,'q5','break-1m-3m')">Break through the $1M &ndash; $3M ceiling</button>
-        <button class="option-btn" onclick="selectOption(this,'q5','scale-3m-plus')">Scale past $3M and build a real enterprise</button>
-        <button class="option-btn" onclick="selectOption(this,'q5','improve-margins')">Revenue is fine I need better margins and less chaos</button>
-      </div>
-      <div class="survey-actions">
-        <button class="btn-back" onclick="goBack(5)">&larr; Back</button>
-        <!-- Last question: btn-next starts enabled since any answer qualifies -->
-        <button class="btn-next enabled" id="next5" onclick="goNext(5)">Confirm My Spot &rarr;</button>
-      </div>
-    </div>
-
   </div>
+
+  <div class="pg-footer">
+    <a href="#">Terms of Use</a> &middot; <a href="#">Privacy Policy</a> &middot; <a href="#">Manage Cookies</a>
+  </div>
+
 </div>
 
 <script>
-  document.querySelector('.js-brand-short').textContent = KROW.BRAND_SHORT;
+  document.querySelectorAll('.js-topbar').forEach(function(el) { el.textContent = KROW.WEBINAR_TOPBAR; });
 
+  // totalQuestions = last q-id used for the finish-survey trigger (q0–q5 = 6 questions, last id = 5)
   const totalQuestions = 5;
   const answers = {};
 
@@ -128,12 +141,15 @@
     btn.classList.add('selected');
     answers[qId] = value;
 
-    const qNum = parseInt(qId.replace('q', ''));
-    const nextBtn = document.getElementById('next' + qNum);
-    if (nextBtn) nextBtn.classList.add('enabled');
+    // Auto-advance for all questions except the final submit (q5)
+    var qNum = Number(qId.slice(1));
+    if (qNum < totalQuestions) {
+      setTimeout(function() { goNext(qNum); }, 220);
+    }
   }
 
   function goNext(currentQ) {
+    // require an answer for all questions except the final submit (q5 → finishSurvey)
     if (!answers['q' + currentQ] && currentQ < totalQuestions) return;
 
     document.getElementById('q' + currentQ).classList.remove('active');
@@ -153,31 +169,26 @@
   }
 
   function updateProgress(qNum) {
-    const pct = Math.round((qNum / totalQuestions) * 100);
+    // qNum is the q-id (0–5); display as 1-of-6 through 6-of-6
+    const displayNum = qNum + 1;
+    const pct = Math.round((displayNum / 6) * 100);
     document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('progressLabel').textContent = 'Question ' + qNum + ' of ' + totalQuestions;
+    document.getElementById('progressLabel').textContent = 'Question ' + displayNum + ' of 6';
   }
 
   function finishSurvey() {
-    // Persist all answers for thank-you page personalization and CRM tagging
     Object.keys(answers).forEach(k => {
       localStorage.setItem('funnel_' + k, answers[k]);
     });
 
-    // Qualified lead criteria:
-    //   Revenue: $1M–$2M or $2M–$5M
-    //   Years:   3+ years in business
-    //   Readiness: ready to act now
-    const qualifiedRevenue   = ['1m-2m', '2m-5m'].includes(answers['q1']);
-    const qualifiedYears     = answers['q3'] === '3yr-plus';
+    const isOwner          = answers['q0'] !== 'no-owner';
+    const qualifiedRevenue = ['1m-2m', '2m-5m'].includes(answers['q1']);
+    const qualifiedYears   = answers['q3'] === '3yr-plus';
+    const isQualified      = qualifiedRevenue && qualifiedYears;
 
-    // Readiness is stored for sales call context but does not affect qualification.
-    // Revenue + years in business are the only hard disqualifiers.
-    const isQualified = qualifiedRevenue && qualifiedYears;
+    localStorage.setItem('funnel_is_owner', isOwner ? 'yes' : 'no');
     localStorage.setItem('funnel_qualified', isQualified ? 'yes' : 'no');
 
-    // Send survey answers to n8n (linked to optin record by email)
-    // n8n uses these to tag the contact in MailerLite and log to Google Sheet
     const surveyWebhookUrl = KROW.N8N_WEBHOOK_URL;
     if (surveyWebhookUrl && surveyWebhookUrl !== '#') {
       fetch(surveyWebhookUrl, {
@@ -186,17 +197,17 @@
         body: JSON.stringify({
           source:       'survey-complete',
           email:        localStorage.getItem('funnel_email') || '',
+          is_owner:     isOwner ? 'yes' : 'no',
           revenue:      answers['q1'] || '',
           challenge:    answers['q2'] || '',
           years:        answers['q3'] || '',
-          readiness:    answers['q4'] || '',
+          providers:    answers['q4'] || '',
           revenue_goal: answers['q5'] || '',
           qualified:    isQualified ? 'yes' : 'no',
         })
-      }).catch(function() {}); // non-blocking  - don't delay redirect on failure
+      }).catch(function() {});
     }
 
-    // Always route through VIP page  - it handles the qualified/unqualified split on skip
     window.location.href = '3b-vip.html';
   }
 </script>

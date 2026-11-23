@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quick Question — Krow Med Spa Growth</title>
+<link rel="stylesheet" href="assets/style-dark.css">
+<script src="assets/config.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top-bar js-topbar">Free LIVE Masterclass &bull; Wednesday, Dec 2 &bull; 7 PM EST</div>
+
+  <div class="glass">
+    <div class="card-hdr" id="quiz-hdr">Step 1 of 2 &mdash; Personalize Your Session</div>
+    <div class="inner">
+
+      <div id="q1-block">
+        <h2 style="margin-bottom:6px;">What's your biggest challenge right now?</h2>
+        <p class="sub-text">We'll tailor the session to show you the most relevant strategies for where you are.</p>
+
+        <div class="quiz-grid">
+          <button class="qz-opt" onclick="chooseGoal('not-enough-patients')">
+            <span class="qz-icon">&#x1F4C8;</span>
+            <span class="qz-title">New Patient Acquisition</span>
+            <span class="qz-desc">Not enough new patients through the door</span>
+          </button>
+          <button class="qz-opt" onclick="chooseGoal('unpredictable-revenue')">
+            <span class="qz-icon">&#x1F4B8;</span>
+            <span class="qz-title">Revenue Stability</span>
+            <span class="qz-desc">Revenue is unpredictable month to month</span>
+          </button>
+          <button class="qz-opt" onclick="chooseGoal('poor-retention')">
+            <span class="qz-icon">&#x1F501;</span>
+            <span class="qz-title">Patient Retention</span>
+            <span class="qz-desc">Patients don't come back after their first visit</span>
+          </button>
+          <button class="qz-opt" onclick="chooseGoal('bottleneck')">
+            <span class="qz-icon">&#x2699;&#xFE0F;</span>
+            <span class="qz-title">Operational Scaling</span>
+            <span class="qz-desc">I'm the bottleneck &mdash; it can't run without me</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="q2-block" style="display:none;">
+        <h2 style="margin-bottom:6px;">What's your practice doing in annual revenue?</h2>
+        <p class="sub-text">This helps us show you the right benchmarks during the session.</p>
+        <div class="quiz-list">
+          <button class="qz-list-btn" onclick="chooseRevenue('under-500k')">Under $500K / year</button>
+          <button class="qz-list-btn" onclick="chooseRevenue('500k-1m')">$500K &ndash; $1M / year</button>
+          <button class="qz-list-btn" onclick="chooseRevenue('1m-2m')">$1M &ndash; $2M / year</button>
+          <button class="qz-list-btn" onclick="chooseRevenue('2m-5m')">$2M &ndash; $5M / year</button>
+          <button class="qz-list-btn" onclick="chooseRevenue('5m-plus')">Over $5M / year</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <a href="#">Terms of Use</a> &middot; <a href="#">Privacy Policy</a> &middot; <a href="#">Manage Cookies</a>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.js-topbar').forEach(function(el) { el.textContent = KROW.WEBINAR_TOPBAR; });
+
+  function chooseGoal(goalId) {
+    localStorage.setItem('funnel_goal', goalId);
+    document.getElementById('q1-block').style.display = 'none';
+    document.getElementById('q2-block').style.display = 'block';
+    document.getElementById('quiz-hdr').textContent = 'Step 2 of 2 - Personalize Your Session';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function chooseRevenue(revenueId) {
+    localStorage.setItem('funnel_q1', revenueId);
+    window.location.href = '2-optin.html';
+  }
+</script>
+</body>
+</html>

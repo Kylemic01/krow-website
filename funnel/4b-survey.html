@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tell Us About Your Practice — Krow Med Spa Growth</title>
+<link rel="stylesheet" href="assets/style-dark.css">
+<script src="assets/config.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top-bar js-topbar">Free LIVE Masterclass &bull; Wednesday, Dec 2 &bull; 7 PM EST</div>
+
+  <!-- HEADER -->
+  <div class="glass">
+    <div class="inner" style="text-align:center;padding-bottom:20px;">
+      <div class="eyebrow">2 minutes</div>
+      <h2 style="margin-bottom:6px;">Help us make the session more specific to your practice</h2>
+      <p class="sub-text" style="margin-bottom:0;">Five quick questions. We use your answers to shape what we focus on during the session.</p>
+    </div>
+  </div>
+
+  <!-- SURVEY CARD -->
+  <div class="glass">
+
+    <div class="progress-wrap">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width:20%;"></div>
+      </div>
+      <div class="progress-label" id="progressLabel">Question 1 of 5</div>
+    </div>
+
+    <!-- Q1 — The blocker (open text) -->
+    <div class="question-block active" id="q1">
+      <div class="question-label">What's the biggest thing holding your practice back from doubling revenue right now?</div>
+      <div class="question-hint">Be specific &mdash; the more honest you are, the more useful the session will be.</div>
+      <div class="text-input-wrap">
+        <textarea class="survey-textarea" id="text1" placeholder="e.g. We're fully booked but revenue is still flat. Or we lose leads after they enquire..." oninput="onTextInput(1)"></textarea>
+      </div>
+      <div class="survey-actions">
+        <button class="btn-next" id="next1" onclick="goNext(1)">Continue &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Q2 — Root cause framing (select) -->
+    <div class="question-block" id="q2">
+      <div class="question-label">Do you think that's mostly a marketing and leads problem, or something happening inside the practice?</div>
+      <div class="question-hint">Pick the one that feels most true right now.</div>
+      <div class="option-list">
+        <button class="option-btn" onclick="selectOption(this,'q2','marketing-leads')">Mostly marketing &mdash; we need more new patients coming in</button>
+        <button class="option-btn" onclick="selectOption(this,'q2','internal')">Mostly internal &mdash; we have patients, the systems just aren't working</button>
+        <button class="option-btn" onclick="selectOption(this,'q2','both')">Both &mdash; we need more leads and we need to fix what happens after</button>
+        <button class="option-btn" onclick="selectOption(this,'q2','unsure')">Honestly not sure &mdash; that's part of why I signed up</button>
+      </div>
+      <div class="survey-actions">
+        <button class="btn-back" onclick="goBack(2)">&larr; Back</button>
+        <button class="btn-next" id="next2" onclick="goNext(2)">Continue &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Q3 — What they've tried (open text) -->
+    <div class="question-block" id="q3">
+      <div class="question-label">What's the last thing you invested in to try and grow your practice, and did it actually work?</div>
+      <div class="question-hint">Could be ads, a coach, new staff, a new service &mdash; anything.</div>
+      <div class="text-input-wrap">
+        <textarea class="survey-textarea" id="text3" placeholder="e.g. Hired a marketing agency for 6 months. Got leads but they didn't convert well..." oninput="onTextInput(3)"></textarea>
+      </div>
+      <div class="survey-actions">
+        <button class="btn-back" onclick="goBack(3)">&larr; Back</button>
+        <button class="btn-next" id="next3" onclick="goNext(3)">Continue &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Q4 — Dream outcome (select) -->
+    <div class="question-block" id="q4">
+      <div class="question-label">If you fixed the main thing holding you back &mdash; what changes first for you personally?</div>
+      <div class="question-hint">Pick the one that matters most.</div>
+      <div class="option-list">
+        <button class="option-btn" onclick="selectOption(this,'q4','more-revenue')">More monthly revenue and profit</button>
+        <button class="option-btn" onclick="selectOption(this,'q4','more-time')">More time away from the practice</button>
+        <button class="option-btn" onclick="selectOption(this,'q4','less-reliance')">The practice running without relying on me for every decision</button>
+        <button class="option-btn" onclick="selectOption(this,'q4','all-three')">All three &mdash; that's the whole goal</button>
+      </div>
+      <div class="survey-actions">
+        <button class="btn-back" onclick="goBack(4)">&larr; Back</button>
+        <button class="btn-next" id="next4" onclick="goNext(4)">Continue &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Q5 — Readiness signal (select) -->
+    <div class="question-block" id="q5">
+      <div class="question-label">After the session &mdash; if the numbers make sense for your practice &mdash; are you in a position to move forward?</div>
+      <div class="question-hint">No wrong answer. Just helps us know where you're at.</div>
+      <div class="option-list">
+        <button class="option-btn" onclick="selectOption(this,'q5','ready-now')">Yes &mdash; I'm ready to invest if it's the right fit</button>
+        <button class="option-btn" onclick="selectOption(this,'q5','need-proof')">Maybe &mdash; I'd need to see results for my specific practice first</button>
+        <button class="option-btn" onclick="selectOption(this,'q5','researching')">Not right now &mdash; I'm still figuring out the right direction</button>
+      </div>
+      <div class="survey-actions">
+        <button class="btn-back" onclick="goBack(5)">&larr; Back</button>
+        <button class="btn-next enabled" id="next5" onclick="goNext(5)">Submit &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Success state -->
+    <div class="success-state" id="successState">
+      <div class="success-icon">&#10003;</div>
+      <h2>Got it. We'll use this on Wednesday.</h2>
+      <p>Your answers help us focus on what's most relevant to where your practice actually is. You'll see it reflected in the examples and benchmarks we use during the session.</p>
+      <a href="4-thankyou-qualified.html" class="btn-back-to-confirm" id="backToConfirm">&larr; Back to your confirmation</a>
+    </div>
+
+  </div>
+
+  <div class="pg-footer">
+    <a href="#">Privacy</a> &middot; <a href="#">Terms</a>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.js-topbar').forEach(function(el) { el.textContent = KROW.WEBINAR_TOPBAR; });
+  var totalQuestions = 5;
+  var textQuestions  = [1, 3];
+  var answers        = {};
+
+  var storedName  = localStorage.getItem('funnel_name')  || '';
+  var storedEmail = localStorage.getItem('funnel_email') || '';
+
+  // Point success back-link at the right thank-you page
+  var backLink    = document.getElementById('backToConfirm');
+  var isQualified = localStorage.getItem('funnel_qualified');
+  if (backLink) {
+    backLink.href = (isQualified === 'no') ? '4-thankyou-unqualified.html' : '4-thankyou-qualified.html';
+  }
+
+  function selectOption(btn, qId, value) {
+    var siblings = btn.closest('.option-list').querySelectorAll('.option-btn');
+    siblings.forEach(function(b) { b.classList.remove('selected'); });
+    btn.classList.add('selected');
+    answers[qId] = value;
+    var qNum = parseInt(qId.replace('q', ''));
+    var nextBtn = document.getElementById('next' + qNum);
+    if (nextBtn) nextBtn.classList.add('enabled');
+  }
+
+  function onTextInput(qNum) {
+    var ta  = document.getElementById('text' + qNum);
+    var val = ta ? ta.value.trim() : '';
+    answers['q' + qNum] = val;
+    var nextBtn = document.getElementById('next' + qNum);
+    if (nextBtn) {
+      if (val.length >= 5) {
+        nextBtn.classList.add('enabled');
+      } else {
+        nextBtn.classList.remove('enabled');
+      }
+    }
+  }
+
+  function goNext(currentQ) {
+    var answer = answers['q' + currentQ];
+    if (!answer || (textQuestions.indexOf(currentQ) !== -1 && answer.length < 5)) return;
+
+    document.getElementById('q' + currentQ).classList.remove('active');
+
+    if (currentQ < totalQuestions) {
+      document.getElementById('q' + (currentQ + 1)).classList.add('active');
+      updateProgress(currentQ + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      finishSurvey();
+    }
+  }
+
+  function goBack(currentQ) {
+    document.getElementById('q' + currentQ).classList.remove('active');
+    document.getElementById('q' + (currentQ - 1)).classList.add('active');
+    updateProgress(currentQ - 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateProgress(qNum) {
+    var pct = Math.round((qNum / totalQuestions) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = 'Question ' + qNum + ' of ' + totalQuestions;
+  }
+
+  function finishSurvey() {
+    localStorage.setItem('funnel_deeper_survey', 'complete');
+
+    var webhookUrl = KROW.N8N_WEBHOOK_URL;
+    if (webhookUrl && webhookUrl !== '#') {
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source:          'deeper-survey-complete',
+          name:            storedName,
+          email:           storedEmail,
+          blocker:         answers['q1'] || '',
+          root_cause:      answers['q2'] || '',
+          last_investment: answers['q3'] || '',
+          dream_outcome:   answers['q4'] || '',
+          readiness:       answers['q5'] || '',
+        })
+      }).catch(function() {});
+    }
+
+    // Hide all question blocks, show success
+    for (var i = 1; i <= totalQuestions; i++) {
+      var el = document.getElementById('q' + i);
+      if (el) el.classList.remove('active');
+    }
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('progressLabel').textContent = 'Done';
+    document.getElementById('successState').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

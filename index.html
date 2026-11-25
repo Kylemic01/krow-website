@@ -104,6 +104,67 @@
   .guarantee-badge-big{padding:20px 26px;border-radius:16px;border-width:2px;font-size:17px;box-shadow:0 12px 28px -18px rgba(186,128,106,0.5);}
   .guarantee-badge-big strong{font-size:18px;}
 
+  /* ---------- WEBINAR HERO ---------- */
+  .hero-webinar{min-height:100vh;display:flex;flex-direction:column;padding-top:0;padding-bottom:0;}
+  .hero-webinar-wrap{flex:1;display:flex;align-items:center;padding-top:88px;padding-bottom:72px;}
+  .webinar-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:center;width:100%;}
+  @media(max-width:940px){.webinar-grid{grid-template-columns:1fr;gap:44px;}}
+  .eyebrow-webinar{gap:10px;white-space:nowrap;}
+  @media(max-width:480px){.eyebrow-webinar{font-size:10px;letter-spacing:0.02em;gap:7px;}}
+  .wbn-live-dot{
+    display:inline-block;width:7px;height:7px;border-radius:50%;
+    background:#2DA05A;flex-shrink:0;
+    box-shadow:0 0 0 0 rgba(45,160,90,0.5);
+    animation:wbnPulse 2s infinite;
+  }
+  @keyframes wbnPulse{
+    0%  {box-shadow:0 0 0 0   rgba(45,160,90,0.5);}
+    70% {box-shadow:0 0 0 7px rgba(45,160,90,0);}
+    100%{box-shadow:0 0 0 0   rgba(45,160,90,0);}
+  }
+  .webinar-qualifier{font-size:15px;color:var(--text-muted);font-style:italic;margin:8px 0 22px;}
+  .webinar-lede{margin-top:20px;}
+  .btn-webinar-cta{margin-top:32px;padding:15px 32px;font-size:16px;}
+  .webinar-free-note{font-size:12.5px;color:var(--text-muted);font-family:var(--mono);margin-top:14px;letter-spacing:.01em;}
+  /* Event card */
+  .webinar-event-card{
+    background:var(--ink);border-radius:22px;padding:38px 34px;
+    color:var(--cream);position:relative;overflow:hidden;
+  }
+  .webinar-event-card::after{
+    content:'';position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(130% 90% at 100% 0%,rgba(186,128,106,0.22),transparent 55%);
+  }
+  .wec-label{
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--terracotta);font-weight:700;margin-bottom:18px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .wec-label::before{
+    content:'';width:6px;height:6px;border-radius:50%;
+    background:var(--terracotta);animation:wbnPulse 2s infinite;
+  }
+  .wec-date{font-family:var(--serif);font-size:23px;font-weight:600;color:var(--cream);line-height:1.2;margin-bottom:5px;}
+  .wec-time{font-family:var(--mono);font-size:12.5px;color:rgba(239,234,221,0.82);margin-bottom:26px;letter-spacing:.02em;}
+  .wec-countdown{display:flex;gap:10px;margin-bottom:28px;}
+  .wec-cd-unit{
+    flex:1;background:rgba(239,234,221,0.1);border:1px solid rgba(239,234,221,0.22);
+    border-radius:10px;padding:12px 6px 10px;text-align:center;
+  }
+  .wec-cd-num{display:block;font-family:var(--serif);font-size:26px;font-weight:600;color:#fff;line-height:1;}
+  .wec-cd-lbl{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(239,234,221,0.65);margin-top:5px;}
+  .wec-divider{border:none;border-top:1px solid rgba(239,234,221,0.15);margin:0 0 22px;}
+  .wec-learn-label{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(239,234,221,0.65);margin-bottom:14px;}
+  .wec-learn-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;}
+  .wec-learn-list li{display:flex;gap:10px;font-size:13.5px;color:rgba(239,234,221,0.92);line-height:1.5;}
+  .wec-learn-list li::before{content:'✓';font-family:var(--mono);font-size:11px;color:var(--terracotta);font-weight:700;flex-shrink:0;margin-top:1px;}
+  @media(max-width:640px){
+    .hero-webinar-wrap{padding-top:72px;padding-bottom:56px;}
+    .webinar-event-card{padding:28px 24px;}
+    .wec-date{font-size:20px;}
+    .wec-cd-num{font-size:22px;}
+  }
+
   /* Real client results card */
   .dial-card{
     background:var(--ink);border-radius:20px;padding:38px 34px;color:var(--cream);
@@ -842,53 +903,49 @@
 <main>
 
   <!-- HERO -->
-  <section class="hero" id="top">
-    <div class="wrap">
-      <div class="hero-grid">
+  <!-- WEBINAR MODE: replace hero with registration section. Revert to original hero when not running a webinar. -->
+  <section class="hero hero-webinar" id="top">
+    <div class="wrap hero-webinar-wrap">
+      <div class="webinar-grid">
+
+        <!-- Left: copy -->
         <div class="reveal in">
-          <span class="eyebrow">For independent med spas doing $1M–$5M/year</span>
-          <h1>Want to scale your Med Spa?</h1>
-          <p class="lede">Get more booked consults, fewer no-shows, dormant patients turned back into repeat business, and a real number to point to, month over month.</p>
-          <div class="hero-ctas">
-            <a href="#cta" class="btn btn-gold">Scale my Med Spa</a>
-            <a href="#results" class="microlink">See the kind of results ↓</a>
-          </div>
-          <div class="guarantee-badge guarantee-badge-big">
-            <svg width="26" height="26" viewBox="0 0 20 20" fill="none"><path d="M10 2l6.5 2.6v4.9c0 4.2-2.8 7.7-6.5 8.8-3.7-1.1-6.5-4.6-6.5-8.8V4.6L10 2z" stroke="var(--terracotta)" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.3 10.2l1.8 1.8 3.6-3.9" stroke="var(--terracotta)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Our guarantee: <strong>$100,000 in added revenue, or a full refund.</strong></span>
-          </div>
+          <span class="eyebrow eyebrow-webinar"><span class="wbn-live-dot"></span>Free Live Masterclass &middot; Limited Spots</span>
+          <p class="webinar-qualifier">Only for independent med spas doing $1M–$5M/year</p>
+          <h1>5 Revenue Systems the <em>Top 5%</em> of Med Spas Run</h1>
+          <p class="lede webinar-lede">What 100+ independent med spa audits reveal about where the money is hiding, and how to recover it without adding ad spend.</p>
+          <a href="#cta" class="btn btn-primary btn-webinar-cta">Reserve My Free Spot &rarr;</a>
+          <p class="webinar-free-note">Free to attend &middot; 90 minutes &middot; Wed, Dec 2 at 7PM EST</p>
         </div>
 
-        <div class="dial-card reveal in" id="dialCard">
-          <div class="dial-top"><span>Real Client Results</span><span>Before &amp; after</span></div>
-          <div class="revchart">
-            <svg viewBox="0 0 300 175" xmlns="http://www.w3.org/2000/svg">
-              <line x1="10" y1="150" x2="290" y2="150" stroke="rgba(239,234,221,0.25)" stroke-width="1.5"></line>
-              <text x="70" y="106" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="var(--terracotta-deep)">$55.3K/mo</text>
-              <g class="rev-bar" style="transform-origin:70px 150px;"><rect x="45" y="114" width="50" height="36" rx="3" fill="var(--terracotta-deep)"></rect></g>
-              <text x="70" y="166" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.05em" fill="rgba(239,234,221,0.6)">BEFORE</text>
-
-              <text x="220" y="20" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="var(--sage-light)">$104.7K/mo</text>
-              <g class="rev-bar rev-bar-2" style="transform-origin:220px 150px;"><rect x="195" y="30" width="50" height="120" rx="3" fill="var(--sage-dark)"></rect></g>
-              <text x="220" y="166" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.05em" fill="rgba(239,234,221,0.6)">AFTER</text>
-
-              <path d="M105 95 C150 60, 155 45, 185 40" stroke="var(--sage-light)" stroke-width="1.5" stroke-dasharray="3 4" fill="none"></path>
-              <path d="M181 35 l6 3 l-2 6" stroke="var(--sage-light)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
+        <!-- Right: event card -->
+        <div class="webinar-event-card reveal in">
+          <div class="wec-label">Live Webinar</div>
+          <div class="wec-date">Wednesday, December 2</div>
+          <div class="wec-time">7:00 PM Eastern &middot; 90 minutes</div>
+          <div class="wec-countdown">
+            <div class="wec-cd-unit"><span class="wec-cd-num" id="wcd-d">00</span><span class="wec-cd-lbl">Days</span></div>
+            <div class="wec-cd-unit"><span class="wec-cd-num" id="wcd-h">00</span><span class="wec-cd-lbl">Hrs</span></div>
+            <div class="wec-cd-unit"><span class="wec-cd-num" id="wcd-m">00</span><span class="wec-cd-lbl">Min</span></div>
+            <div class="wec-cd-unit"><span class="wec-cd-num" id="wcd-s">00</span><span class="wec-cd-lbl">Sec</span></div>
           </div>
-          <div class="revchart-stats">
-            <div><span class="rcs-num">2.1x</span><span class="rcs-lbl">Average revenue growth</span></div>
-            <div><span class="rcs-num">+$49.4K/mo</span><span class="rcs-lbl">Average dollar lift</span></div>
-          </div>
+          <hr class="wec-divider">
+          <div class="wec-learn-label">You'll walk away with</div>
+          <ul class="wec-learn-list">
+            <li>$28K-$44K already sitting in your database. How to pull it out in 30 days.</li>
+            <li>The 5 systems that separate top-5% practices from everyone else</li>
+            <li>A 90-day sprint plan you can start Monday</li>
+          </ul>
         </div>
+
       </div>
     </div>
 
     <div class="statstrip">
       <div class="wrap statgrid">
-        <div class="stat reveal"><div class="num">2.1x</div><div class="lbl">Average revenue growth across measured client engagements</div></div>
-        <div class="stat reveal"><div class="num" data-count="49400" data-prefix="$" data-suffix="/mo">$0</div><div class="lbl">Average dollar lift in monthly revenue</div></div>
-        <div class="stat reveal"><div class="num" data-count="100000" data-prefix="$">$0</div><div class="lbl">Revenue guarantee, or a full refund</div></div>
+        <div class="stat reveal"><div class="num">100<span class="unit">+</span></div><div class="lbl">Independent med spa audits — the data this session is built on</div></div>
+        <div class="stat reveal"><div class="num">90<span class="unit">min</span></div><div class="lbl">Focused session. No filler. Numbers modelled live at your revenue level.</div></div>
+        <div class="stat reveal"><div class="num">Free</div><div class="lbl">No cost to attend. Spots are limited — register to hold your seat.</div></div>
       </div>
     </div>
   </section>
@@ -1696,6 +1753,28 @@
       form.classList.remove('active');
       success.classList.add('active');
     });
+  })();
+
+  // Webinar hero countdown
+  (function(){
+    var target = new Date('2026-12-02T19:00:00-05:00').getTime();
+    function tick(){
+      var diff = Math.max(0, target - Date.now());
+      var d = Math.floor(diff / 86400000);
+      var h = Math.floor((diff % 86400000) / 3600000);
+      var m = Math.floor((diff % 3600000)  / 60000);
+      var s = Math.floor((diff % 60000)    / 1000);
+      var pad = function(n){ return String(n).padStart(2,'0'); };
+      var dEl = document.getElementById('wcd-d');
+      if(dEl){ dEl.textContent = pad(d); }
+      var hEl = document.getElementById('wcd-h');
+      if(hEl){ hEl.textContent = pad(h); }
+      var mEl = document.getElementById('wcd-m');
+      if(mEl){ mEl.textContent = pad(m); }
+      var sEl = document.getElementById('wcd-s');
+      if(sEl){ sEl.textContent = pad(s); }
+    }
+    tick(); setInterval(tick, 1000);
   })();
 </script>
 
